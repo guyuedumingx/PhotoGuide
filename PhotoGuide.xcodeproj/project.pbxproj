@@ -8,30 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		0849E9153AB7E25D72689E9F /* RecipeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; };
+		0D124FEC6DC8205DF376DC3F /* ActionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C25FF04CC4E73A6F0C93D7 /* ActionPresenter.swift */; };
 		0E2FB4DC13F34F67B68A4C5A /* GuidanceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D19A8417F7B99E74ED132039 /* GuidanceUI.framework */; };
 		110130D496506CFCE2074E3C /* RecipeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; };
 		12E518CC65457B4E6FBCED69 /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C39DB8EAE9C0248B33CC1B /* GuidanceCore */; };
+		16F0A034A56A988F629DD242 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82FEE3A8E16A3C64C2065E8B /* InfoPlist.strings */; };
 		2DA13D6738FF1261844995BE /* PerceptionRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; };
 		2F3CF64FFD76E40EE28BC85F /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = D68B4E076151B21E2E6FB2B9 /* GuidanceCore */; };
+		3509BD6C9E6F0EE95A1EB4A1 /* CameraPreviewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71AD3A89838D26A82ABF681B /* CameraPreviewRepresentable.swift */; };
 		3AF72B6B7C8936395F158E31 /* PerceptionRuntime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3C9871D7C1BFA19051B22DC1 /* CameraRuntime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4254E637EBC103A4BB152603 /* PhotoGuideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5147D916ECF2F3BBE203C61F /* PhotoGuideApp.swift */; };
+		51AACD85F0FBE3842ABAF53B /* CameraControlSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F53E8760E36E9D9E444A0 /* CameraControlSheet.swift */; };
 		53A9DBB800E199CE3C2EECD0 /* environment_portrait.recipe.json in Resources */ = {isa = PBXBuildFile; fileRef = D1CC51290CF222117F3E5B8D /* environment_portrait.recipe.json */; };
 		55FF43B9197C7A802DBF27D1 /* PhotoGuideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EC778D911F3B0C966944CD /* PhotoGuideUITests.swift */; };
 		6B4E9A29AA6475C29EAF4BD8 /* PerceptionRuntime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6E06DFE52D6775311053CBAA /* CameraRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */; };
+		74EC3B24B47E7358912622C4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 692D57932004EE832A7ED6F3 /* Localizable.strings */; };
 		76201A6F32DDB3EF1A277DA6 /* PerceptionRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F48E0CEE75FE9976673D51B /* PerceptionRuntime.swift */; };
+		76448207D48A4D7DD336402E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776F0F1B22516D63DFE3BB9 /* RootView.swift */; };
+		7E4383B05FDA352A8497945E /* GuidanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDA25B192EB38CFEE19504B /* GuidanceViewModel.swift */; };
+		7F98BDF598A05483A71734D3 /* CaptureReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11CC09AAD74FC50B7E1EA4A /* CaptureReviewView.swift */; };
 		81E9162F87168BAE3A19F36D /* PerceptionRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; };
-		835C83A4269B29CEFB648FE8 /* GuidanceUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E55472390EED774E008190C /* GuidanceUI.swift */; };
 		842475A0E6F032E71D871599 /* GuidanceUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D19A8417F7B99E74ED132039 /* GuidanceUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8B93106A04DCCD45FB7D380C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC11F8DF4FC761C3211CAC8 /* Theme.swift */; };
 		9268B07185D52D453F313192 /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = ADD3A48E2869E8A4616932BD /* GuidanceCore */; };
 		9A149A42C74444B88D336567 /* RecipeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A2DA266B8791D1EFC7B27B76 /* CameraRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */; };
+		A9445CCF3C3CAA446BE25CC6 /* CameraCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9CA20FF9A0417BBB424481 /* CameraCoachView.swift */; };
 		AC81D9FEF028E051AC23D92B /* RecipeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; };
 		ACCBB826AC0666800FA0D5C0 /* RecipeKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEF85BA39721786F2DE3FD /* RecipeKitTests.swift */; };
+		AD1FE30804F10B058DEF01C1 /* SessionCheckpointStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D0F90A9E8C3CF6AFBB9271 /* SessionCheckpointStore.swift */; };
 		BB095065BC6123C34188C893 /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = D4CB4AFCA61382C86A0BF28D /* GuidanceCore */; };
 		D18545E9E7555A289822EA96 /* PerceptionRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; };
 		D4EC7F351ED7F5B2EA26731D /* CameraRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FAB2C0236CAFDD2678E795 /* CameraRuntime.swift */; };
+		DD717A70035405E4D7970B8F /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46442D7DD5ED14AF5D616932 /* Localization.swift */; };
 		E53552F9CB20104C42BA4DAA /* RecipeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323CC9EADC54883B690073B /* RecipeKit.swift */; };
 		E7A7FAFA3A3DBC21FD29775A /* RecipeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC3B960E4698794161C8DBDE /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 064BA708DA4952BF2C6AABDE /* GuidanceCore */; };
@@ -152,22 +163,37 @@
 
 /* Begin PBXFileReference section */
 		08EEF85BA39721786F2DE3FD /* RecipeKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeKitTests.swift; sourceTree = "<group>"; };
+		0CDA25B192EB38CFEE19504B /* GuidanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidanceViewModel.swift; sourceTree = "<group>"; };
 		0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RecipeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F48E0CEE75FE9976673D51B /* PerceptionRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerceptionRuntime.swift; sourceTree = "<group>"; };
 		148A3A4A1EAB06553192D432 /* GuidanceCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GuidanceCore; path = Packages/GuidanceCore; sourceTree = SOURCE_ROOT; };
 		19FAB2C0236CAFDD2678E795 /* CameraRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRuntime.swift; sourceTree = "<group>"; };
 		1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PerceptionRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E9CA20FF9A0417BBB424481 /* CameraCoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoachView.swift; sourceTree = "<group>"; };
 		2323CC9EADC54883B690073B /* RecipeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeKit.swift; sourceTree = "<group>"; };
+		2776F0F1B22516D63DFE3BB9 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		46442D7DD5ED14AF5D616932 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		4A90E4158C43007493985B5F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		4D1FDF17ACA668DADFB2BA77 /* PerceptionRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerceptionRuntimeTests.swift; sourceTree = "<group>"; };
 		5147D916ECF2F3BBE203C61F /* PhotoGuideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGuideApp.swift; sourceTree = "<group>"; };
+		71AD3A89838D26A82ABF681B /* CameraPreviewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewRepresentable.swift; sourceTree = "<group>"; };
 		73EC778D911F3B0C966944CD /* PhotoGuideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGuideUITests.swift; sourceTree = "<group>"; };
 		7B025AE85F000CD1EF00AE60 /* PerceptionRuntimeTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PerceptionRuntimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8463E604F59D8351A27CABFE /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		86D0F90A9E8C3CF6AFBB9271 /* SessionCheckpointStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCheckpointStore.swift; sourceTree = "<group>"; };
 		8CD3484AF15B02140F3E39CD /* RecipeKitTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RecipeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E55472390EED774E008190C /* GuidanceUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidanceUI.swift; sourceTree = "<group>"; };
+		8DA948CB14D5D3AE4106B523 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B6BC03131F5190D68000410A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B73053F0D04F0A81F3E9C0AD /* PhotoGuideApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PhotoGuideApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBC11F8DF4FC761C3211CAC8 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		BD0F53E8760E36E9D9E444A0 /* CameraControlSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraControlSheet.swift; sourceTree = "<group>"; };
 		D19A8417F7B99E74ED132039 /* GuidanceUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GuidanceUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1CC51290CF222117F3E5B8D /* environment_portrait.recipe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = environment_portrait.recipe.json; sourceTree = "<group>"; };
 		D61114796610D2E2BE645E3E /* PhotoGuideUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoGuideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11CC09AAD74FC50B7E1EA4A /* CaptureReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureReviewView.swift; sourceTree = "<group>"; };
+		EE2C2C9AD5E0E05F735C1E97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE52BABA5BA623335B20F899 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		F2C25FF04CC4E73A6F0C93D7 /* ActionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPresenter.swift; sourceTree = "<group>"; };
 		FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CameraRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -234,9 +260,18 @@
 		18D852A7E3F3D100D9B7F893 /* PhotoGuideApp */ = {
 			isa = PBXGroup;
 			children = (
+				5AC8B6475DC9F377A7BA1BBF /* Resources */,
 				5147D916ECF2F3BBE203C61F /* PhotoGuideApp.swift */,
 			);
 			path = PhotoGuideApp;
+			sourceTree = "<group>";
+		};
+		1E559B9E0057AC044E648092 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				692D57932004EE832A7ED6F3 /* Localizable.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		1E71997E0EDADA3232440E1E /* RecipeKit */ = {
@@ -278,6 +313,14 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		5AC8B6475DC9F377A7BA1BBF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				82FEE3A8E16A3C64C2065E8B /* InfoPlist.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		6504FE5BC66F71CBC55F96FD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,7 +355,17 @@
 		9572C47C2B1159FAD5CA003F /* GuidanceUI */ = {
 			isa = PBXGroup;
 			children = (
-				9E55472390EED774E008190C /* GuidanceUI.swift */,
+				1E559B9E0057AC044E648092 /* Resources */,
+				F2C25FF04CC4E73A6F0C93D7 /* ActionPresenter.swift */,
+				1E9CA20FF9A0417BBB424481 /* CameraCoachView.swift */,
+				BD0F53E8760E36E9D9E444A0 /* CameraControlSheet.swift */,
+				71AD3A89838D26A82ABF681B /* CameraPreviewRepresentable.swift */,
+				E11CC09AAD74FC50B7E1EA4A /* CaptureReviewView.swift */,
+				0CDA25B192EB38CFEE19504B /* GuidanceViewModel.swift */,
+				46442D7DD5ED14AF5D616932 /* Localization.swift */,
+				2776F0F1B22516D63DFE3BB9 /* RootView.swift */,
+				86D0F90A9E8C3CF6AFBB9271 /* SessionCheckpointStore.swift */,
+				BBC11F8DF4FC761C3211CAC8 /* Theme.swift */,
 			);
 			path = GuidanceUI;
 			sourceTree = "<group>";
@@ -431,6 +484,7 @@
 			buildConfigurationList = E7D0A2CE160DAD2B2B5C71BE /* Build configuration list for PBXNativeTarget "GuidanceUI" */;
 			buildPhases = (
 				A78057AEB1D80C84F4C5D4CF /* Sources */,
+				77E7DB3CF67232F145734903 /* Resources */,
 				1CD95605F00154205CA72C69 /* Frameworks */,
 			);
 			buildRules = (
@@ -453,6 +507,7 @@
 			buildConfigurationList = 44CC4807DA18B7F34AAD9D71 /* Build configuration list for PBXNativeTarget "PhotoGuideApp" */;
 			buildPhases = (
 				C9493C4E24D35CBA5FCA6351 /* Sources */,
+				4D0EA55D3C4C7AB38E2614C4 /* Resources */,
 				8393FCC8ADD27765D36435A9 /* Frameworks */,
 				82797AAF7B0F628F58611286 /* Embed Frameworks */,
 			);
@@ -514,6 +569,8 @@
 			knownRegions = (
 				Base,
 				en,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = AF34D6EC2F01F027740DDBDF;
 			minimizedProjectReferenceProxies = 1;
@@ -538,11 +595,27 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D0EA55D3C4C7AB38E2614C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16F0A034A56A988F629DD242 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75C5477BE1C55F79E2D32EAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				53A9DBB800E199CE3C2EECD0 /* environment_portrait.recipe.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77E7DB3CF67232F145734903 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74EC3B24B47E7358912622C4 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +642,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				835C83A4269B29CEFB648FE8 /* GuidanceUI.swift in Sources */,
+				0D124FEC6DC8205DF376DC3F /* ActionPresenter.swift in Sources */,
+				A9445CCF3C3CAA446BE25CC6 /* CameraCoachView.swift in Sources */,
+				51AACD85F0FBE3842ABAF53B /* CameraControlSheet.swift in Sources */,
+				3509BD6C9E6F0EE95A1EB4A1 /* CameraPreviewRepresentable.swift in Sources */,
+				7F98BDF598A05483A71734D3 /* CaptureReviewView.swift in Sources */,
+				7E4383B05FDA352A8497945E /* GuidanceViewModel.swift in Sources */,
+				DD717A70035405E4D7970B8F /* Localization.swift in Sources */,
+				76448207D48A4D7DD336402E /* RootView.swift in Sources */,
+				AD1FE30804F10B058DEF01C1 /* SessionCheckpointStore.swift in Sources */,
+				8B93106A04DCCD45FB7D380C /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +749,29 @@
 			targetProxy = D5194877E6DEBC391CED6EFB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		692D57932004EE832A7ED6F3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE2C2C9AD5E0E05F735C1E97 /* en */,
+				8DA948CB14D5D3AE4106B523 /* zh-Hans */,
+				EE52BABA5BA623335B20F899 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		82FEE3A8E16A3C64C2065E8B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B6BC03131F5190D68000410A /* en */,
+				4A90E4158C43007493985B5F /* zh-Hans */,
+				8463E604F59D8351A27CABFE /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0F795580B3D2F7B2A543BC26 /* Release */ = {
@@ -834,19 +939,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 14;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDevelopmentRegion = en;
 				INFOPLIST_KEY_CFBundleDisplayName = PhotoGuide;
-				INFOPLIST_KEY_NSCameraUsageDescription = "PhotoGuide 需要使用相机在设备上分析取景并提供构图指导。";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PhotoGuide 需要将你拍摄并确认的照片保存到系统相册。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "PhotoGuide uses the camera for live framing analysis and real-time shooting guidance.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PhotoGuide needs permission to save captured photos to your Photo Library.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.app;
 				PRODUCT_NAME = PhotoGuide;
 				SDKROOT = iphoneos;
@@ -984,19 +1092,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 14;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDevelopmentRegion = en;
 				INFOPLIST_KEY_CFBundleDisplayName = PhotoGuide;
-				INFOPLIST_KEY_NSCameraUsageDescription = "PhotoGuide 需要使用相机在设备上分析取景并提供构图指导。";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PhotoGuide 需要将你拍摄并确认的照片保存到系统相册。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "PhotoGuide uses the camera for live framing analysis and real-time shooting guidance.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PhotoGuide needs permission to save captured photos to your Photo Library.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.app;
 				PRODUCT_NAME = PhotoGuide;
 				SDKROOT = iphoneos;

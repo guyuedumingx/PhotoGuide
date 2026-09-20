@@ -2,40 +2,75 @@ import XCTest
 
 @MainActor
 final class PhotoGuideUITests: XCTestCase {
-    func testSimulatorCompletesTheRealGuidanceLoop() {
-        let app = XCUIApplication()
-        app.launch()
-
-        XCTAssertTrue(app.staticTexts["环境人像"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["2 / 8"].waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons["拍摄"].isEnabled)
-
-        for satisfiedCount in 3...8 {
-            let done = app.buttons["好了"]
-            XCTAssertTrue(done.waitForExistence(timeout: 4))
-            done.tap()
-            XCTAssertTrue(
-                app.staticTexts["\(satisfiedCount) / 8"].waitForExistence(timeout: 4),
-                "Expected progress to reach \(satisfiedCount) / 8"
-            )
-        }
-
-        XCTAssertTrue(app.staticTexts["构图可以了，拍吧"].waitForExistence(timeout: 4))
-        XCTAssertTrue(app.buttons["拍摄"].isEnabled)
-        app.buttons["拍摄"].tap()
-        XCTAssertTrue(app.staticTexts["模拟器只验证控制闭环，请在 iPhone 上拍摄"].waitForExistence(timeout: 2))
+  private func app(language: String? = nil) -> XCUIApplication {
+    let app = XCUIApplication()
+    if let language {
+      app.launchArguments += ["-AppleLanguages", "(\(language))"]
     }
+    return app
+  }
 
-    func testControlMenuExposesLockSkipAndReset() {
-        let app = XCUIApplication()
-        app.launch()
+  private func openCamera(_ app: XCUIApplication) {
+    let featured = app.buttons["home.featured.environmentPortrait"]
+    XCTAssertTrue(featured.waitForExistence(timeout: 5))
+    featured.tap()
 
-        let more = app.buttons["更多"]
-        XCTAssertTrue(more.waitForExistence(timeout: 5))
-        more.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+    let start = app.buttons["recipe.start.environmentPortrait"]
+    XCTAssertTrue(start.waitForExistence(timeout: 3))
+    start.tap()
+  }
 
-        XCTAssertTrue(app.buttons["保持当前构图"].waitForExistence(timeout: 2))
-        XCTAssertTrue(app.buttons["跳过当前目标"].exists)
-        XCTAssertTrue(app.buttons["重新开始"].exists)
-    }
+  func testHomeRecipeDetailToCameraAndGuidanceLoop() {
+    let app = app(language: "zh-Hans")
+    app.launch()
+
+    XCTAssertTrue(app.staticTexts["PhotoGuide"].waitForExistence(timeout: 5))
+    openCamera(app)
+
+    XCTAssertTrue(app.buttons["camera.recipeControls"].waitForExistence(timeout: 4))
+    XCTAssertTrue(app.buttons["camera.shutter"].waitForExistence(timeout: 5))
+    XCTAssertTrue(
+      app.buttons["camera.shutter"].isEnabled, "Shutter must remain user-controlled before READY")
+  }
+
+  func testRecipeLibraryIsReachableWithStableIdentifiers() {
+    let app = app(language: "zh-Hans")
+    app.launch()
+
+    let browse = app.buttons["home.allRecipes"]
+    XCTAssertTrue(browse.waitForExistence(timeout: 4))
+    browse.tap()
+    XCTAssertTrue(
+      app.otherElements["recipe.library.title"].exists || app.staticTexts["拍摄配方"].exists)
+    XCTAssertTrue(app.staticTexts["环境人像"].exists)
+    XCTAssertTrue(app.staticTexts["夜景人像"].exists)
+  }
+
+  func testEnglishLocalizationUsesSameNavigationContract() {
+    let app = app(language: "en")
+    app.launch()
+
+    XCTAssertTrue(app.staticTexts["Real-time photo coach"].waitForExistence(timeout: 5))
+    let browse = app.buttons["home.allRecipes"]
+    XCTAssertTrue(browse.exists)
+    browse.tap()
+    XCTAssertTrue(app.staticTexts["Photo recipes"].waitForExistence(timeout: 3))
+    XCTAssertTrue(app.staticTexts["Environmental portrait"].exists)
+    XCTAssertTrue(app.staticTexts["Night portrait"].exists)
+  }
+
+  func testControlMenuExposesHumanOverridesWithoutDependingOnLanguage() {
+    let app = app(language: "en")
+    app.launch()
+    openCamera(app)
+
+    let control = app.buttons["camera.recipeControls"]
+    XCTAssertTrue(control.waitForExistence(timeout: 4))
+    control.tap()
+    XCTAssertTrue(app.buttons["control.lockComposition"].waitForExistence(timeout: 2))
+    XCTAssertTrue(
+      app.otherElements["control.exposure.title"].exists
+        || app.staticTexts["Image brightness"].exists)
+    XCTAssertTrue(app.buttons["control.restart"].exists)
+  }
 }

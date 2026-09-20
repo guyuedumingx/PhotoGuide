@@ -1,14 +1,11 @@
 .DS_Store
 .swiftpm/
 .build/
+**/.build/
 build/
 DerivedData/
 *.xcuserstate
 xcuserdata/
-*.xccheckout
-*.xcscmblueprint
 *.ipa
-*.dSYM.zip
 *.dSYM
-QA/*
-!QA/photoguide-v02.png
+*.dSYM.zip

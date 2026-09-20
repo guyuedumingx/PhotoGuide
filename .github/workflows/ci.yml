@@ -1,0 +1,28 @@
+name: PhotoGuide CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Core tests
+        run: swift test --package-path Packages/GuidanceCore
+      - name: Recipe tests
+        run: swift test --package-path Packages/RecipeKit
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate Xcode project
+        run: xcodegen generate
+      - name: Build iOS simulator app
+        run: |
+          xcodebuild \
+            -project PhotoGuide.xcodeproj \
+            -scheme PhotoGuideApp \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build

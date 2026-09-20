@@ -1,0 +1,2 @@
+"NSCameraUsageDescription" = "PhotoGuide 需要使用相机在设备上分析取景并提供实时拍摄指导。";
+"NSPhotoLibraryAddUsageDescription" = "PhotoGuide 需要将你拍摄的照片保存到系统相册。";

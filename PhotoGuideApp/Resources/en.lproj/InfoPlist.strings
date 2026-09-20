@@ -1,0 +1,2 @@
+"NSCameraUsageDescription" = "PhotoGuide uses the camera for live framing analysis and real-time shooting guidance.";
+"NSPhotoLibraryAddUsageDescription" = "PhotoGuide needs permission to save captured photos to your Photo Library.";

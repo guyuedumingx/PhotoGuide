@@ -3,7 +3,7 @@ import SwiftUI
 
 @main
 struct PhotoGuideApp: App {
-    var body: some Scene {
-        WindowGroup { GuidanceCameraView() }
-    }
+  var body: some Scene {
+    WindowGroup { PhotoGuideRootView() }
+  }
 }

@@ -5,9 +5,11 @@ options:
     iOS: "18.0"
   createIntermediateGroups: true
   groupSortPosition: top
+
 packages:
   GuidanceCore:
     path: Packages/GuidanceCore
+
 settings:
   base:
     SWIFT_VERSION: "6.0"
@@ -16,45 +18,58 @@ settings:
     TARGETED_DEVICE_FAMILY: "1"
     SUPPORTS_MACCATALYST: NO
     CLANG_ENABLE_MODULES: YES
+
+
 targets:
   CameraRuntime:
     type: framework
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Packages/CameraRuntime]
+    sources:
+      - Packages/CameraRuntime/CameraRuntime.swift
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.CameraRuntime
       PRODUCT_NAME: CameraRuntime
       GENERATE_INFOPLIST_FILE: YES
+
   PerceptionRuntime:
     type: framework
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Packages/PerceptionRuntime]
+    sources:
+      - Packages/PerceptionRuntime/PerceptionRuntime.swift
     dependencies:
       - package: GuidanceCore
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.PerceptionRuntime
       PRODUCT_NAME: PerceptionRuntime
       GENERATE_INFOPLIST_FILE: YES
+
   RecipeKit:
     type: framework
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Packages/RecipeKit]
-    resources:
+    sources:
+      - Packages/RecipeKit/RecipeKit.swift
       - path: Packages/RecipeKit/Resources
+        buildPhase: resources
     dependencies:
       - package: GuidanceCore
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.RecipeKit
       PRODUCT_NAME: RecipeKit
       GENERATE_INFOPLIST_FILE: YES
+
   GuidanceUI:
     type: framework
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Packages/GuidanceUI]
+    sources:
+      - path: Packages/GuidanceUI
+        excludes:
+          - Resources
+      - path: Packages/GuidanceUI/Resources
+        buildPhase: resources
     dependencies:
       - target: CameraRuntime
       - target: PerceptionRuntime
@@ -64,11 +79,17 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.GuidanceUI
       PRODUCT_NAME: GuidanceUI
       GENERATE_INFOPLIST_FILE: YES
+
   PhotoGuideApp:
     type: application
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [PhotoGuideApp]
+    sources:
+      - path: PhotoGuideApp
+        excludes:
+          - Resources
+      - path: PhotoGuideApp/Resources
+        buildPhase: resources
     dependencies:
       - target: GuidanceUI
         embed: true
@@ -82,21 +103,25 @@ targets:
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.app
       PRODUCT_NAME: PhotoGuide
-      MARKETING_VERSION: 0.2.0
-      CURRENT_PROJECT_VERSION: 2
+      MARKETING_VERSION: 0.4.4
+      CURRENT_PROJECT_VERSION: 14
       CODE_SIGN_STYLE: Automatic
+      GENERATE_INFOPLIST_FILE: YES
       INFOPLIST_KEY_CFBundleDisplayName: PhotoGuide
-      INFOPLIST_KEY_NSCameraUsageDescription: PhotoGuide 需要使用相机在设备上分析取景并提供构图指导。
-      INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: PhotoGuide 需要将你拍摄并确认的照片保存到系统相册。
+      INFOPLIST_KEY_CFBundleDevelopmentRegion: en
+      INFOPLIST_KEY_UILaunchScreen_Generation: YES
+      INFOPLIST_KEY_NSCameraUsageDescription: PhotoGuide uses the camera for live framing analysis and real-time shooting guidance.
+      INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: PhotoGuide needs permission to save captured photos to your Photo Library.
       INFOPLIST_KEY_UIRequiresFullScreen: YES
       INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
-      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-      GENERATE_INFOPLIST_FILE: YES
+      INFOPLIST_KEY_UIStatusBarStyle: UIStatusBarStyleLightContent
+
   RecipeKitTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Tests/RecipeKitTests.swift]
+    sources:
+      - Tests/RecipeKitTests.swift
     dependencies:
       - target: RecipeKit
       - package: GuidanceCore
@@ -104,22 +129,26 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.RecipeKitTests
       GENERATE_INFOPLIST_FILE: YES
       CODE_SIGNING_ALLOWED: NO
+
   PerceptionRuntimeTests:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Tests/PerceptionRuntimeTests.swift]
+    sources:
+      - Tests/PerceptionRuntimeTests.swift
     dependencies:
       - target: PerceptionRuntime
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.PerceptionRuntimeTests
       GENERATE_INFOPLIST_FILE: YES
       CODE_SIGNING_ALLOWED: NO
+
   PhotoGuideUITests:
     type: bundle.ui-testing
     platform: iOS
     deploymentTarget: "18.0"
-    sources: [Tests/PhotoGuideUITests.swift]
+    sources:
+      - Tests/PhotoGuideUITests.swift
     dependencies:
       - target: PhotoGuideApp
     settings:
@@ -127,6 +156,7 @@ targets:
       TEST_TARGET_NAME: PhotoGuideApp
       GENERATE_INFOPLIST_FILE: YES
       CODE_SIGNING_ALLOWED: NO
+
 schemes:
   PhotoGuideApp:
     build:
