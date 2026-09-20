@@ -1,0 +1,18 @@
+{
+  "kind": "Recipe", "id": "official.environment_portrait", "version": "0.1.0",
+  "nodes": [
+    {"id":"primary","type":"ENTITY","semantic_class":"person","role":"PRIMARY_SUBJECT","presence":"REQUIRED"},
+    {"id":"anchor","type":"REGION","semantic_class":"scenic_anchor","role":"SCENE_ANCHOR","presence":"REQUIRED"}
+  ],
+  "goals": [
+    {"id":"person_exists","dimension":"std.node.exists","bind":"primary","target":{"type":"BOOLEAN","value":true},"class":"HARD","importance":1.0},
+    {"id":"person_visibility","dimension":"std.node.visibility","bind":"primary","target":{"type":"BOOLEAN","value":true},"class":"HARD","importance":1.0},
+    {"id":"person_scale","dimension":"std.node.visual_scale","bind":"primary","target":{"type":"RANGE","ideal":[0.16,0.24],"acceptable":[0.12,0.30]},"class":"CORE","importance":0.90},
+    {"id":"person_x","dimension":"std.node.position_x","bind":"primary","target":{"type":"RANGE","ideal":[0.58,0.72],"acceptable":[0.52,0.78]},"class":"CORE","importance":0.80},
+    {"id":"person_y","dimension":"std.node.position_y","bind":"primary","target":{"type":"RANGE","ideal":[0.42,0.58],"acceptable":[0.34,0.66]},"class":"CORE","importance":0.72},
+    {"id":"body_orientation","dimension":"std.pose.body_orientation","bind":"primary","target":{"type":"ORDINAL","ideal":"MATCH"},"class":"CORE","importance":0.75},
+    {"id":"relative_scale","dimension":"std.relation.relative_scale","bind":"primary_anchor","target":{"type":"ORDINAL","ideal":"MATCH"},"class":"CORE","importance":0.92},
+    {"id":"anchor_balance","dimension":"std.relation.visual_balance","bind":"primary_anchor","target":{"type":"ORDINAL","ideal":"MATCH"},"class":"SOFT","importance":0.60}
+  ],
+  "author_policy": {"allow_goal_skip":true,"allow_goal_lock":true,"allow_variant_switch":true}
+}

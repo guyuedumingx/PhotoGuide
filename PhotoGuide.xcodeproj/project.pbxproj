@@ -1,0 +1,1276 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0849E9153AB7E25D72689E9F /* RecipeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; };
+		0E2FB4DC13F34F67B68A4C5A /* GuidanceUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D19A8417F7B99E74ED132039 /* GuidanceUI.framework */; };
+		110130D496506CFCE2074E3C /* RecipeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; };
+		12E518CC65457B4E6FBCED69 /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 32C39DB8EAE9C0248B33CC1B /* GuidanceCore */; };
+		2DA13D6738FF1261844995BE /* PerceptionRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; };
+		2F3CF64FFD76E40EE28BC85F /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = D68B4E076151B21E2E6FB2B9 /* GuidanceCore */; };
+		3AF72B6B7C8936395F158E31 /* PerceptionRuntime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3C9871D7C1BFA19051B22DC1 /* CameraRuntime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4254E637EBC103A4BB152603 /* PhotoGuideApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5147D916ECF2F3BBE203C61F /* PhotoGuideApp.swift */; };
+		53A9DBB800E199CE3C2EECD0 /* environment_portrait.recipe.json in Resources */ = {isa = PBXBuildFile; fileRef = D1CC51290CF222117F3E5B8D /* environment_portrait.recipe.json */; };
+		55FF43B9197C7A802DBF27D1 /* PhotoGuideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EC778D911F3B0C966944CD /* PhotoGuideUITests.swift */; };
+		6B4E9A29AA6475C29EAF4BD8 /* PerceptionRuntime.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6E06DFE52D6775311053CBAA /* CameraRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */; };
+		76201A6F32DDB3EF1A277DA6 /* PerceptionRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F48E0CEE75FE9976673D51B /* PerceptionRuntime.swift */; };
+		81E9162F87168BAE3A19F36D /* PerceptionRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; };
+		835C83A4269B29CEFB648FE8 /* GuidanceUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E55472390EED774E008190C /* GuidanceUI.swift */; };
+		842475A0E6F032E71D871599 /* GuidanceUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D19A8417F7B99E74ED132039 /* GuidanceUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9268B07185D52D453F313192 /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = ADD3A48E2869E8A4616932BD /* GuidanceCore */; };
+		9A149A42C74444B88D336567 /* RecipeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A2DA266B8791D1EFC7B27B76 /* CameraRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */; };
+		AC81D9FEF028E051AC23D92B /* RecipeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; };
+		ACCBB826AC0666800FA0D5C0 /* RecipeKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EEF85BA39721786F2DE3FD /* RecipeKitTests.swift */; };
+		BB095065BC6123C34188C893 /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = D4CB4AFCA61382C86A0BF28D /* GuidanceCore */; };
+		D18545E9E7555A289822EA96 /* PerceptionRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */; };
+		D4EC7F351ED7F5B2EA26731D /* CameraRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FAB2C0236CAFDD2678E795 /* CameraRuntime.swift */; };
+		E53552F9CB20104C42BA4DAA /* RecipeKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323CC9EADC54883B690073B /* RecipeKit.swift */; };
+		E7A7FAFA3A3DBC21FD29775A /* RecipeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EC3B960E4698794161C8DBDE /* GuidanceCore in Frameworks */ = {isa = PBXBuildFile; productRef = 064BA708DA4952BF2C6AABDE /* GuidanceCore */; };
+		FEDE85AF9E9DFFD1F25F926F /* PerceptionRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1FDF17ACA668DADFB2BA77 /* PerceptionRuntimeTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		006C362EDCA1AE430A8C8349 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A65D61319ADB5534DA509570;
+			remoteInfo = CameraRuntime;
+		};
+		3420C2CAAE1CF828FD28E667 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4DE6670681173CCC38039D7;
+			remoteInfo = PerceptionRuntime;
+		};
+		3B7688ECB931042E7619FB82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A65D61319ADB5534DA509570;
+			remoteInfo = CameraRuntime;
+		};
+		413340037E2F5D1B346C0813 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 328E924BC18B510AA8290263;
+			remoteInfo = RecipeKit;
+		};
+		836BC715FCD56FAC8C457BF9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4DE6670681173CCC38039D7;
+			remoteInfo = PerceptionRuntime;
+		};
+		C101E2A58F7220E7EB123085 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEF1309D1A051B9555FAE5E4;
+			remoteInfo = PhotoGuideApp;
+		};
+		C2F3EE5B06B764A8F889511E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 328E924BC18B510AA8290263;
+			remoteInfo = RecipeKit;
+		};
+		D5194877E6DEBC391CED6EFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4DE6670681173CCC38039D7;
+			remoteInfo = PerceptionRuntime;
+		};
+		D980F6FB8C835A2328826C83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 328E924BC18B510AA8290263;
+			remoteInfo = RecipeKit;
+		};
+		E4B1C20A6D14388602AA56F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4405D738271822FC05F4A3C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEBDBB4A574B719A8F3BA902;
+			remoteInfo = GuidanceUI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		82797AAF7B0F628F58611286 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				842475A0E6F032E71D871599 /* GuidanceUI.framework in Embed Frameworks */,
+				3C9871D7C1BFA19051B22DC1 /* CameraRuntime.framework in Embed Frameworks */,
+				6B4E9A29AA6475C29EAF4BD8 /* PerceptionRuntime.framework in Embed Frameworks */,
+				E7A7FAFA3A3DBC21FD29775A /* RecipeKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B71A1140E69A13866D27E023 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9A149A42C74444B88D336567 /* RecipeKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB21305C2A369385CE485986 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AF72B6B7C8936395F158E31 /* PerceptionRuntime.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08EEF85BA39721786F2DE3FD /* RecipeKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeKitTests.swift; sourceTree = "<group>"; };
+		0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RecipeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F48E0CEE75FE9976673D51B /* PerceptionRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerceptionRuntime.swift; sourceTree = "<group>"; };
+		148A3A4A1EAB06553192D432 /* GuidanceCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GuidanceCore; path = Packages/GuidanceCore; sourceTree = SOURCE_ROOT; };
+		19FAB2C0236CAFDD2678E795 /* CameraRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRuntime.swift; sourceTree = "<group>"; };
+		1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PerceptionRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2323CC9EADC54883B690073B /* RecipeKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeKit.swift; sourceTree = "<group>"; };
+		4D1FDF17ACA668DADFB2BA77 /* PerceptionRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerceptionRuntimeTests.swift; sourceTree = "<group>"; };
+		5147D916ECF2F3BBE203C61F /* PhotoGuideApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGuideApp.swift; sourceTree = "<group>"; };
+		73EC778D911F3B0C966944CD /* PhotoGuideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGuideUITests.swift; sourceTree = "<group>"; };
+		7B025AE85F000CD1EF00AE60 /* PerceptionRuntimeTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PerceptionRuntimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CD3484AF15B02140F3E39CD /* RecipeKitTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RecipeKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E55472390EED774E008190C /* GuidanceUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidanceUI.swift; sourceTree = "<group>"; };
+		B73053F0D04F0A81F3E9C0AD /* PhotoGuideApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PhotoGuideApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D19A8417F7B99E74ED132039 /* GuidanceUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GuidanceUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1CC51290CF222117F3E5B8D /* environment_portrait.recipe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = environment_portrait.recipe.json; sourceTree = "<group>"; };
+		D61114796610D2E2BE645E3E /* PhotoGuideUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PhotoGuideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CameraRuntime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01A488825F3E73102F9E19DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DA13D6738FF1261844995BE /* PerceptionRuntime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1CD95605F00154205CA72C69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E06DFE52D6775311053CBAA /* CameraRuntime.framework in Frameworks */,
+				D18545E9E7555A289822EA96 /* PerceptionRuntime.framework in Frameworks */,
+				0849E9153AB7E25D72689E9F /* RecipeKit.framework in Frameworks */,
+				BB095065BC6123C34188C893 /* GuidanceCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		823D3A2A1F96971CCD00DB1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				110130D496506CFCE2074E3C /* RecipeKit.framework in Frameworks */,
+				2F3CF64FFD76E40EE28BC85F /* GuidanceCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8393FCC8ADD27765D36435A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E2FB4DC13F34F67B68A4C5A /* GuidanceUI.framework in Frameworks */,
+				A2DA266B8791D1EFC7B27B76 /* CameraRuntime.framework in Frameworks */,
+				81E9162F87168BAE3A19F36D /* PerceptionRuntime.framework in Frameworks */,
+				AC81D9FEF028E051AC23D92B /* RecipeKit.framework in Frameworks */,
+				9268B07185D52D453F313192 /* GuidanceCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3611EA67AED9C8D613A882F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC3B960E4698794161C8DBDE /* GuidanceCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F22402E415EEB278D9355FA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E518CC65457B4E6FBCED69 /* GuidanceCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18D852A7E3F3D100D9B7F893 /* PhotoGuideApp */ = {
+			isa = PBXGroup;
+			children = (
+				5147D916ECF2F3BBE203C61F /* PhotoGuideApp.swift */,
+			);
+			path = PhotoGuideApp;
+			sourceTree = "<group>";
+		};
+		1E71997E0EDADA3232440E1E /* RecipeKit */ = {
+			isa = PBXGroup;
+			children = (
+				3195BE16144F0C843C011F77 /* Resources */,
+				2323CC9EADC54883B690073B /* RecipeKit.swift */,
+			);
+			path = RecipeKit;
+			sourceTree = "<group>";
+		};
+		23BC55C744A91494873A955C /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4D1FDF17ACA668DADFB2BA77 /* PerceptionRuntimeTests.swift */,
+				73EC778D911F3B0C966944CD /* PhotoGuideUITests.swift */,
+				08EEF85BA39721786F2DE3FD /* RecipeKitTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		3195BE16144F0C843C011F77 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D1CC51290CF222117F3E5B8D /* environment_portrait.recipe.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		53C798B49D2AE2DCD3996982 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				766C0E73F42F4ED5C3D10788 /* CameraRuntime */,
+				9572C47C2B1159FAD5CA003F /* GuidanceUI */,
+				94CE4C889E0DB1E2B60E3D37 /* PerceptionRuntime */,
+				1E71997E0EDADA3232440E1E /* RecipeKit */,
+				148A3A4A1EAB06553192D432 /* GuidanceCore */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		6504FE5BC66F71CBC55F96FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */,
+				D19A8417F7B99E74ED132039 /* GuidanceUI.framework */,
+				1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */,
+				7B025AE85F000CD1EF00AE60 /* PerceptionRuntimeTests.xctest */,
+				B73053F0D04F0A81F3E9C0AD /* PhotoGuideApp.app */,
+				D61114796610D2E2BE645E3E /* PhotoGuideUITests.xctest */,
+				0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */,
+				8CD3484AF15B02140F3E39CD /* RecipeKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		766C0E73F42F4ED5C3D10788 /* CameraRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				19FAB2C0236CAFDD2678E795 /* CameraRuntime.swift */,
+			);
+			path = CameraRuntime;
+			sourceTree = "<group>";
+		};
+		94CE4C889E0DB1E2B60E3D37 /* PerceptionRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				0F48E0CEE75FE9976673D51B /* PerceptionRuntime.swift */,
+			);
+			path = PerceptionRuntime;
+			sourceTree = "<group>";
+		};
+		9572C47C2B1159FAD5CA003F /* GuidanceUI */ = {
+			isa = PBXGroup;
+			children = (
+				9E55472390EED774E008190C /* GuidanceUI.swift */,
+			);
+			path = GuidanceUI;
+			sourceTree = "<group>";
+		};
+		AF34D6EC2F01F027740DDBDF = {
+			isa = PBXGroup;
+			children = (
+				53C798B49D2AE2DCD3996982 /* Packages */,
+				18D852A7E3F3D100D9B7F893 /* PhotoGuideApp */,
+				23BC55C744A91494873A955C /* Tests */,
+				6504FE5BC66F71CBC55F96FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		328E924BC18B510AA8290263 /* RecipeKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B36C6E4F406FDAFA5924FD3 /* Build configuration list for PBXNativeTarget "RecipeKit" */;
+			buildPhases = (
+				E133E614344650EE622A5B00 /* Sources */,
+				75C5477BE1C55F79E2D32EAF /* Resources */,
+				C3611EA67AED9C8D613A882F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RecipeKit;
+			packageProductDependencies = (
+				064BA708DA4952BF2C6AABDE /* GuidanceCore */,
+			);
+			productName = RecipeKit;
+			productReference = 0E0E0BCDED67A1384CE675D3 /* RecipeKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		512572C059B89578BD055C99 /* PhotoGuideUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91FC1733C88EF3CE9F32A4CD /* Build configuration list for PBXNativeTarget "PhotoGuideUITests" */;
+			buildPhases = (
+				A5B0D79CBADFF4F72DBE67F6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A52962ADDBEE08C744DD0009 /* PBXTargetDependency */,
+			);
+			name = PhotoGuideUITests;
+			packageProductDependencies = (
+			);
+			productName = PhotoGuideUITests;
+			productReference = D61114796610D2E2BE645E3E /* PhotoGuideUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		9973E978C45F1257FBD81CDC /* RecipeKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73B2B202FDBAAA0BCEE708E1 /* Build configuration list for PBXNativeTarget "RecipeKitTests" */;
+			buildPhases = (
+				E2330AE472BBDF3D78A4A4EE /* Sources */,
+				823D3A2A1F96971CCD00DB1B /* Frameworks */,
+				B71A1140E69A13866D27E023 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C95806FCB7B110E296433AB7 /* PBXTargetDependency */,
+			);
+			name = RecipeKitTests;
+			packageProductDependencies = (
+				D68B4E076151B21E2E6FB2B9 /* GuidanceCore */,
+			);
+			productName = RecipeKitTests;
+			productReference = 8CD3484AF15B02140F3E39CD /* RecipeKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A65D61319ADB5534DA509570 /* CameraRuntime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8182E3849F682F4F3F21AF1D /* Build configuration list for PBXNativeTarget "CameraRuntime" */;
+			buildPhases = (
+				B3BBB691FD570ED82D0F8626 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CameraRuntime;
+			packageProductDependencies = (
+			);
+			productName = CameraRuntime;
+			productReference = FB6B244FCB25398BEEDEB71C /* CameraRuntime.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C816BF038E8352650CB5D082 /* PerceptionRuntimeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9AA8A01DFAECE6B6D6D6844 /* Build configuration list for PBXNativeTarget "PerceptionRuntimeTests" */;
+			buildPhases = (
+				B0489AC33AC08EF40346A8B5 /* Sources */,
+				01A488825F3E73102F9E19DB /* Frameworks */,
+				DB21305C2A369385CE485986 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E12E047705944D454FB88786 /* PBXTargetDependency */,
+			);
+			name = PerceptionRuntimeTests;
+			packageProductDependencies = (
+			);
+			productName = PerceptionRuntimeTests;
+			productReference = 7B025AE85F000CD1EF00AE60 /* PerceptionRuntimeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CEBDBB4A574B719A8F3BA902 /* GuidanceUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7D0A2CE160DAD2B2B5C71BE /* Build configuration list for PBXNativeTarget "GuidanceUI" */;
+			buildPhases = (
+				A78057AEB1D80C84F4C5D4CF /* Sources */,
+				1CD95605F00154205CA72C69 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				984742CDFAFC665A90DB73FD /* PBXTargetDependency */,
+				A127BEF313D8B3CE262580F7 /* PBXTargetDependency */,
+				58C8D55DB090DF29A9038717 /* PBXTargetDependency */,
+			);
+			name = GuidanceUI;
+			packageProductDependencies = (
+				D4CB4AFCA61382C86A0BF28D /* GuidanceCore */,
+			);
+			productName = GuidanceUI;
+			productReference = D19A8417F7B99E74ED132039 /* GuidanceUI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CEF1309D1A051B9555FAE5E4 /* PhotoGuideApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44CC4807DA18B7F34AAD9D71 /* Build configuration list for PBXNativeTarget "PhotoGuideApp" */;
+			buildPhases = (
+				C9493C4E24D35CBA5FCA6351 /* Sources */,
+				8393FCC8ADD27765D36435A9 /* Frameworks */,
+				82797AAF7B0F628F58611286 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B559F2AAB65DC305B7CD1FD /* PBXTargetDependency */,
+				DB07626F9C8D880A6660B436 /* PBXTargetDependency */,
+				1E1BA683D5D6118BBF45CB2D /* PBXTargetDependency */,
+				862C9433B0DA2AD9500B1FA1 /* PBXTargetDependency */,
+			);
+			name = PhotoGuideApp;
+			packageProductDependencies = (
+				ADD3A48E2869E8A4616932BD /* GuidanceCore */,
+			);
+			productName = PhotoGuideApp;
+			productReference = B73053F0D04F0A81F3E9C0AD /* PhotoGuideApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D4DE6670681173CCC38039D7 /* PerceptionRuntime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2045C16B1410300145139FD1 /* Build configuration list for PBXNativeTarget "PerceptionRuntime" */;
+			buildPhases = (
+				86A99A095048BF9D55FE4676 /* Sources */,
+				F22402E415EEB278D9355FA4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PerceptionRuntime;
+			packageProductDependencies = (
+				32C39DB8EAE9C0248B33CC1B /* GuidanceCore */,
+			);
+			productName = PerceptionRuntime;
+			productReference = 1C002ADBBE3A15601B4AA47D /* PerceptionRuntime.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4405D738271822FC05F4A3C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					512572C059B89578BD055C99 = {
+						TestTargetID = CEF1309D1A051B9555FAE5E4;
+					};
+					CEF1309D1A051B9555FAE5E4 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 73F6F3B2B20BD1B3A90838AC /* Build configuration list for PBXProject "PhotoGuide" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AF34D6EC2F01F027740DDBDF;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				61CA1F3A7D3C3F094A69C658 /* XCLocalSwiftPackageReference "Packages/GuidanceCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6504FE5BC66F71CBC55F96FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A65D61319ADB5534DA509570 /* CameraRuntime */,
+				CEBDBB4A574B719A8F3BA902 /* GuidanceUI */,
+				D4DE6670681173CCC38039D7 /* PerceptionRuntime */,
+				C816BF038E8352650CB5D082 /* PerceptionRuntimeTests */,
+				CEF1309D1A051B9555FAE5E4 /* PhotoGuideApp */,
+				512572C059B89578BD055C99 /* PhotoGuideUITests */,
+				328E924BC18B510AA8290263 /* RecipeKit */,
+				9973E978C45F1257FBD81CDC /* RecipeKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75C5477BE1C55F79E2D32EAF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53A9DBB800E199CE3C2EECD0 /* environment_portrait.recipe.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		86A99A095048BF9D55FE4676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76201A6F32DDB3EF1A277DA6 /* PerceptionRuntime.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5B0D79CBADFF4F72DBE67F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55FF43B9197C7A802DBF27D1 /* PhotoGuideUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A78057AEB1D80C84F4C5D4CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				835C83A4269B29CEFB648FE8 /* GuidanceUI.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0489AC33AC08EF40346A8B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEDE85AF9E9DFFD1F25F926F /* PerceptionRuntimeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3BBB691FD570ED82D0F8626 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4EC7F351ED7F5B2EA26731D /* CameraRuntime.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9493C4E24D35CBA5FCA6351 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4254E637EBC103A4BB152603 /* PhotoGuideApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E133E614344650EE622A5B00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53552F9CB20104C42BA4DAA /* RecipeKit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2330AE472BBDF3D78A4A4EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACCBB826AC0666800FA0D5C0 /* RecipeKitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E1BA683D5D6118BBF45CB2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4DE6670681173CCC38039D7 /* PerceptionRuntime */;
+			targetProxy = 3420C2CAAE1CF828FD28E667 /* PBXContainerItemProxy */;
+		};
+		58C8D55DB090DF29A9038717 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 328E924BC18B510AA8290263 /* RecipeKit */;
+			targetProxy = D980F6FB8C835A2328826C83 /* PBXContainerItemProxy */;
+		};
+		862C9433B0DA2AD9500B1FA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 328E924BC18B510AA8290263 /* RecipeKit */;
+			targetProxy = 413340037E2F5D1B346C0813 /* PBXContainerItemProxy */;
+		};
+		984742CDFAFC665A90DB73FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A65D61319ADB5534DA509570 /* CameraRuntime */;
+			targetProxy = 3B7688ECB931042E7619FB82 /* PBXContainerItemProxy */;
+		};
+		9B559F2AAB65DC305B7CD1FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEBDBB4A574B719A8F3BA902 /* GuidanceUI */;
+			targetProxy = E4B1C20A6D14388602AA56F2 /* PBXContainerItemProxy */;
+		};
+		A127BEF313D8B3CE262580F7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4DE6670681173CCC38039D7 /* PerceptionRuntime */;
+			targetProxy = 836BC715FCD56FAC8C457BF9 /* PBXContainerItemProxy */;
+		};
+		A52962ADDBEE08C744DD0009 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEF1309D1A051B9555FAE5E4 /* PhotoGuideApp */;
+			targetProxy = C101E2A58F7220E7EB123085 /* PBXContainerItemProxy */;
+		};
+		C95806FCB7B110E296433AB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 328E924BC18B510AA8290263 /* RecipeKit */;
+			targetProxy = C2F3EE5B06B764A8F889511E /* PBXContainerItemProxy */;
+		};
+		DB07626F9C8D880A6660B436 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A65D61319ADB5534DA509570 /* CameraRuntime */;
+			targetProxy = 006C362EDCA1AE430A8C8349 /* PBXContainerItemProxy */;
+		};
+		E12E047705944D454FB88786 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4DE6670681173CCC38039D7 /* PerceptionRuntime */;
+			targetProxy = D5194877E6DEBC391CED6EFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F795580B3D2F7B2A543BC26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.PerceptionRuntime;
+				PRODUCT_NAME = PerceptionRuntime;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		1BE8150FA7224C70999163A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.CameraRuntime;
+				PRODUCT_NAME = CameraRuntime;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		2CCA3748413FF765C48FC1D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.PerceptionRuntimeTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2DA2F4E4C46974C8B45ECE5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		3556233CBF9DAAE9C639E665 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.GuidanceUI;
+				PRODUCT_NAME = GuidanceUI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		386F59BE591E6F28CA09EE9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PhotoGuide;
+				INFOPLIST_KEY_NSCameraUsageDescription = "PhotoGuide 需要使用相机在设备上分析取景并提供构图指导。";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PhotoGuide 需要将你拍摄并确认的照片保存到系统相册。";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.app;
+				PRODUCT_NAME = PhotoGuide;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		630D9F0DA0625585A109A98A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.PhotoGuideUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PhotoGuideApp;
+			};
+			name = Debug;
+		};
+		73E9CBB77E2EACE2E27720E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.CameraRuntime;
+				PRODUCT_NAME = CameraRuntime;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		784BC205DCCC8FF18259BF12 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.PerceptionRuntimeTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8374CC8CA2C29AA036927FFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.RecipeKit;
+				PRODUCT_NAME = RecipeKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		878C9C46280286BEA8947ED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.RecipeKitTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9C6A32CDC2C8434E357D5726 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.PhotoGuideUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PhotoGuideApp;
+			};
+			name = Release;
+		};
+		9F7A679FD26FBDE370C8AA75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PhotoGuide;
+				INFOPLIST_KEY_NSCameraUsageDescription = "PhotoGuide 需要使用相机在设备上分析取景并提供构图指导。";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "PhotoGuide 需要将你拍摄并确认的照片保存到系统相册。";
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.app;
+				PRODUCT_NAME = PhotoGuide;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC267EE67D5602F5CA9215E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.RecipeKit;
+				PRODUCT_NAME = RecipeKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		C019FC890E5FD626315FA8B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.RecipeKitTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C995C32D3C9BE6ABAD26D8A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.PerceptionRuntime;
+				PRODUCT_NAME = PerceptionRuntime;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		CFE726F0E8C26E679B14011F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		FC37B6E09B1E83D07CF94EA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.photoguide.GuidanceUI;
+				PRODUCT_NAME = GuidanceUI;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2045C16B1410300145139FD1 /* Build configuration list for PBXNativeTarget "PerceptionRuntime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C995C32D3C9BE6ABAD26D8A1 /* Debug */,
+				0F795580B3D2F7B2A543BC26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2B36C6E4F406FDAFA5924FD3 /* Build configuration list for PBXNativeTarget "RecipeKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8374CC8CA2C29AA036927FFC /* Debug */,
+				BC267EE67D5602F5CA9215E8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		44CC4807DA18B7F34AAD9D71 /* Build configuration list for PBXNativeTarget "PhotoGuideApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F7A679FD26FBDE370C8AA75 /* Debug */,
+				386F59BE591E6F28CA09EE9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		73B2B202FDBAAA0BCEE708E1 /* Build configuration list for PBXNativeTarget "RecipeKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C019FC890E5FD626315FA8B9 /* Debug */,
+				878C9C46280286BEA8947ED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		73F6F3B2B20BD1B3A90838AC /* Build configuration list for PBXProject "PhotoGuide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DA2F4E4C46974C8B45ECE5F /* Debug */,
+				CFE726F0E8C26E679B14011F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8182E3849F682F4F3F21AF1D /* Build configuration list for PBXNativeTarget "CameraRuntime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BE8150FA7224C70999163A6 /* Debug */,
+				73E9CBB77E2EACE2E27720E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		91FC1733C88EF3CE9F32A4CD /* Build configuration list for PBXNativeTarget "PhotoGuideUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				630D9F0DA0625585A109A98A /* Debug */,
+				9C6A32CDC2C8434E357D5726 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A9AA8A01DFAECE6B6D6D6844 /* Build configuration list for PBXNativeTarget "PerceptionRuntimeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				784BC205DCCC8FF18259BF12 /* Debug */,
+				2CCA3748413FF765C48FC1D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E7D0A2CE160DAD2B2B5C71BE /* Build configuration list for PBXNativeTarget "GuidanceUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC37B6E09B1E83D07CF94EA8 /* Debug */,
+				3556233CBF9DAAE9C639E665 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		61CA1F3A7D3C3F094A69C658 /* XCLocalSwiftPackageReference "Packages/GuidanceCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/GuidanceCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		064BA708DA4952BF2C6AABDE /* GuidanceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GuidanceCore;
+		};
+		32C39DB8EAE9C0248B33CC1B /* GuidanceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GuidanceCore;
+		};
+		ADD3A48E2869E8A4616932BD /* GuidanceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GuidanceCore;
+		};
+		D4CB4AFCA61382C86A0BF28D /* GuidanceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GuidanceCore;
+		};
+		D68B4E076151B21E2E6FB2B9 /* GuidanceCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GuidanceCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 4405D738271822FC05F4A3C4 /* Project object */;
+}
