@@ -16,12 +16,15 @@ struct CaptureReviewView: View {
     ZStack {
       Color.black.ignoresSafeArea()
 
-      Image(uiImage: image)
-        .resizable()
-        .scaledToFill()
-        .ignoresSafeArea()
-        .clipped()
-        .scaleEffect(photoSettled || reduceMotion ? 1 : 1.018)
+      GeometryReader { geometry in
+        Image(uiImage: image)
+          .resizable()
+          .scaledToFill()
+          .frame(width: geometry.size.width, height: geometry.size.height)
+          .clipped()
+          .scaleEffect(photoSettled || reduceMotion ? 1 : 1.018)
+      }
+      .ignoresSafeArea()
 
       LinearGradient(
         colors: [.black.opacity(0.24), .clear, .black.opacity(0.90)],
@@ -74,57 +77,16 @@ struct CaptureReviewView: View {
 
   private var resultCard: some View {
     VStack(alignment: .leading, spacing: 18) {
-      HStack(alignment: .top, spacing: 14) {
-        VStack(alignment: .leading, spacing: 6) {
-          Text(headline)
-            .font(.system(size: 29, weight: .bold, design: .rounded))
-            .tracking(-0.5)
-          Text(subheadline)
-            .font(.system(size: 14))
-            .foregroundStyle(PGTheme.secondaryText)
-        }
-
-        Spacer()
-
-        Image(systemName: statusIcon)
-          .font(.system(size: 22, weight: .semibold))
-          .foregroundStyle(statusColor)
-          .frame(width: 42, height: 42)
-          .background(.white.opacity(0.055), in: Circle())
-      }
+      resultHeader
 
       HStack(spacing: 8) {
-        ReviewChip(icon: "viewfinder", title: L("构图"), value: conformanceText)
-        ReviewChip(
-          icon: saved ? "checkmark" : "camera", title: L("照片"), value: saved ? L("已保存") : L("已拍摄"))
+        conformanceChip
+        saveStatusChip
       }
 
-      HStack(spacing: 10) {
-        Button(action: onContinue) {
-          HStack {
-            Text(L("继续拍"))
-              .font(.system(size: 16, weight: .semibold))
-            Spacer()
-            Image(systemName: "camera.fill")
-              .font(.system(size: 14, weight: .semibold))
-          }
-          .foregroundStyle(.black)
-          .padding(.horizontal, 18)
-          .frame(maxWidth: .infinity)
-          .frame(height: 52)
-          .background(PGTheme.accent, in: Capsule())
-        }
-        .buttonStyle(PGPressButtonStyle())
-
-        Button(action: onDone) {
-          Text(L("完成"))
-            .font(.system(size: 16, weight: .semibold))
-            .foregroundStyle(.white.opacity(0.90))
-            .frame(width: 92, height: 52)
-            .background(.white.opacity(0.07), in: Capsule())
-            .overlay(Capsule().stroke(PGTheme.hairline, lineWidth: 0.7))
-        }
-        .buttonStyle(PGPressButtonStyle())
+      VStack(spacing: 10) {
+        continueButton
+        doneButton
       }
     }
     .padding(20)
@@ -169,12 +131,86 @@ struct CaptureReviewView: View {
   private var statusColor: Color {
     conformance == .full || conformance == .high ? PGTheme.accent : .white.opacity(0.76)
   }
+
+  private var resultHeader: some View {
+    VStack(alignment: .leading, spacing: 10) {
+      statusBadge
+      resultCopy
+    }
+  }
+
+  private var resultCopy: some View {
+    VStack(alignment: .leading, spacing: 6) {
+      Text(headline)
+        .font(.system(.title, design: .rounded, weight: .bold))
+        .tracking(-0.5)
+        .fixedSize(horizontal: false, vertical: true)
+      Text(subheadline)
+        .font(.subheadline)
+        .foregroundStyle(PGTheme.secondaryText)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+  }
+
+  private var statusBadge: some View {
+    Image(systemName: statusIcon)
+      .font(.system(size: 22, weight: .semibold))
+      .foregroundStyle(statusColor)
+      .frame(width: 42, height: 42)
+      .background(.white.opacity(0.055), in: Circle())
+  }
+
+  private var continueButton: some View {
+    Button(action: onContinue) {
+      HStack {
+        Text(L("继续拍"))
+          .font(.headline)
+        Spacer()
+        Image(systemName: "camera.fill")
+          .font(.subheadline.weight(.semibold))
+      }
+      .foregroundStyle(.black)
+      .padding(.horizontal, 18)
+      .frame(maxWidth: .infinity)
+      .frame(minHeight: 52)
+      .background(PGTheme.accent, in: Capsule())
+    }
+    .buttonStyle(PGPressButtonStyle())
+    .accessibilityIdentifier("capture.review.continue")
+  }
+
+  private var doneButton: some View {
+    Button(action: onDone) {
+      Text(L("完成"))
+        .font(.headline)
+        .foregroundStyle(.white.opacity(0.90))
+        .frame(maxWidth: .infinity, minHeight: 52)
+        .padding(.horizontal, 18)
+        .background(.white.opacity(0.07), in: Capsule())
+        .overlay(Capsule().stroke(PGTheme.hairline, lineWidth: 0.7))
+    }
+    .buttonStyle(PGPressButtonStyle())
+    .accessibilityIdentifier("capture.review.done")
+  }
+
+  private var conformanceChip: some View {
+    ReviewChip(icon: "viewfinder", title: L("构图"), value: conformanceText)
+  }
+
+  private var saveStatusChip: some View {
+    ReviewChip(
+      icon: saved ? "checkmark" : "camera",
+      title: L("照片"),
+      value: saved ? L("已保存") : L("已拍摄"),
+      accessibilityIdentifier: "capture.review.saveStatus")
+  }
 }
 
 private struct ReviewChip: View {
   let icon: String
   let title: String
   let value: String
+  var accessibilityIdentifier = "capture.review.conformance"
 
   var body: some View {
     HStack(spacing: 6) {
@@ -185,10 +221,13 @@ private struct ReviewChip: View {
       Text(value)
         .foregroundStyle(.white.opacity(0.88))
     }
-    .font(.system(size: 12, weight: .semibold))
+    .font(.caption.weight(.semibold))
     .padding(.horizontal, 11)
-    .frame(height: 31)
+    .padding(.vertical, 7)
+    .frame(minHeight: 31)
     .background(.white.opacity(0.07), in: Capsule())
     .overlay(Capsule().stroke(.white.opacity(0.06), lineWidth: 0.7))
+    .accessibilityElement(children: .combine)
+    .accessibilityIdentifier(accessibilityIdentifier)
   }
 }

@@ -196,17 +196,30 @@ public struct GuidanceCameraView: View {
   private var topBar: some View {
     ZStack {
       HStack {
-        glassCircle("xmark", size: 44) { dismiss() }
+        glassCircle(
+          "xmark",
+          size: 44,
+          accessibilityLabel: L("关闭拍摄"),
+          accessibilityIdentifier: "camera.close"
+        ) { dismiss() }
         Spacer()
         HStack(spacing: 9) {
           glassCircle(
             flashIcon,
             size: 44,
-            disabled: model.isDemoMode || model.cameraPosition == .front
+            disabled: model.isDemoMode || model.cameraPosition == .front,
+            accessibilityLabel: L("闪光灯"),
+            accessibilityIdentifier: "camera.flash"
           ) {
             model.cycleFlash()
           }
-          glassCircle(gridEnabled ? "square.grid.3x3" : "square", size: 44) {
+          glassCircle(
+            gridEnabled ? "square.grid.3x3" : "square",
+            size: 44,
+            selected: gridEnabled,
+            accessibilityLabel: L("构图辅助线"),
+            accessibilityIdentifier: "camera.grid"
+          ) {
             if reduceMotion {
               gridEnabled.toggle()
             } else {
@@ -223,12 +236,14 @@ public struct GuidanceCameraView: View {
           Text(model.title)
             .font(.system(size: 14, weight: .semibold))
             .lineLimit(1)
+            .minimumScaleFactor(0.82)
           Image(systemName: "chevron.down")
             .font(.system(size: 8, weight: .bold))
             .foregroundStyle(.white.opacity(0.48))
         }
         .padding(.horizontal, 15)
         .frame(height: 36)
+        .frame(maxWidth: 132)
         .background(.ultraThinMaterial, in: Capsule())
         .background(.black.opacity(0.18), in: Capsule())
         .overlay(Capsule().stroke(PGTheme.hairline, lineWidth: 0.7))
@@ -303,6 +318,9 @@ public struct GuidanceCameraView: View {
           .font(.system(size: 12, weight: .semibold))
           .foregroundStyle(PGTheme.secondaryText)
           .lineLimit(1)
+          .padding(.horizontal, 9)
+          .frame(height: 27)
+          .background(.white.opacity(0.055), in: Capsule())
       }
 
       Text(model.instructionDetail)
@@ -403,29 +421,33 @@ public struct GuidanceCameraView: View {
       .frame(height: 32)
     } else if model.currentAction != nil {
       HStack(spacing: 0) {
-        Button(action: model.performPrimaryAction) {
-          HStack(spacing: 7) {
-            if model.isApplyingAutomaticAction {
-              ProgressView().tint(.black).controlSize(.small)
-            }
-            Text(model.primaryActionTitle)
-          }
-          .font(.system(size: 15, weight: .semibold))
-          .foregroundStyle(.black)
-          .padding(.horizontal, 18)
-          .frame(minWidth: 122, minHeight: 46)
-          .background(PGTheme.accent, in: Capsule())
-        }
-        .buttonStyle(PGPressButtonStyle())
-        .disabled(model.isApplyingAutomaticAction)
-        .accessibilityLabel(model.primaryActionTitle)
-
-        Spacer()
+        primaryCoachAction
+        Spacer(minLength: 16)
         textAction(L("换一个"), model.handleAnotherWay)
         Spacer().frame(width: 24)
         textAction(L("做不到"), model.handleImpossible)
       }
     }
+  }
+
+  private var primaryCoachAction: some View {
+    Button(action: model.performPrimaryAction) {
+      HStack(spacing: 7) {
+        if model.isApplyingAutomaticAction {
+          ProgressView().tint(.black).controlSize(.small)
+        }
+        Text(model.primaryActionTitle)
+          .lineLimit(1)
+      }
+      .font(.system(size: 15, weight: .semibold))
+      .foregroundStyle(.black)
+      .padding(.horizontal, 18)
+      .frame(minWidth: 122, minHeight: 46)
+      .background(PGTheme.accent, in: Capsule())
+    }
+    .buttonStyle(PGPressButtonStyle())
+    .disabled(model.isApplyingAutomaticAction)
+    .accessibilityLabel(model.primaryActionTitle)
   }
 
   private var coachStateLabel: String {
@@ -613,23 +635,35 @@ public struct GuidanceCameraView: View {
     _ symbol: String,
     size: CGFloat,
     disabled: Bool = false,
+    selected: Bool = false,
+    accessibilityLabel: String,
+    accessibilityIdentifier: String,
     action: @escaping () -> Void
   ) -> some View {
     Button(action: action) {
       Image(systemName: symbol)
         .font(.system(size: 16, weight: .semibold))
+        .foregroundStyle(selected ? PGTheme.accent : .white)
         .frame(width: size, height: size)
         .background(.ultraThinMaterial, in: Circle())
         .background(.black.opacity(0.16), in: Circle())
+        .background(selected ? PGTheme.accent.opacity(0.12) : .clear, in: Circle())
         .overlay(Circle().stroke(PGTheme.hairline, lineWidth: 0.7))
     }
     .buttonStyle(PGPressButtonStyle())
     .disabled(disabled)
     .opacity(disabled ? 0.35 : 1)
+    .accessibilityLabel(accessibilityLabel)
+    .accessibilityIdentifier(accessibilityIdentifier)
+    .accessibilityAddTraits(selected ? .isSelected : [])
   }
 
   private func textAction(_ title: String, _ action: @escaping () -> Void) -> some View {
-    Button(title, action: action)
+    Button(action: action) {
+      Text(title)
+        .lineLimit(1)
+        .minimumScaleFactor(0.82)
+    }
       .buttonStyle(PGPressButtonStyle())
       .font(.system(size: 14.5, weight: .medium))
       .foregroundStyle(.white.opacity(0.82))

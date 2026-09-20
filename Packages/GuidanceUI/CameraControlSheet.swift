@@ -9,7 +9,7 @@ struct CameraControlSheet: View {
 
   var body: some View {
     NavigationStack {
-      ScrollView(showsIndicators: false) {
+      ScrollView {
         VStack(spacing: 18) {
           sessionSection.pgReveal(delay: 0.02, distance: 8)
           cameraSection.pgReveal(delay: 0.07, distance: 8)
@@ -19,6 +19,7 @@ struct CameraControlSheet: View {
         .padding(.top, 10)
         .padding(.bottom, 28)
       }
+      .scrollIndicators(.hidden)
       .background(PGTheme.canvas.ignoresSafeArea())
       .navigationTitle(L("拍摄控制"))
       .navigationBarTitleDisplayMode(.inline)

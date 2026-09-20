@@ -20,6 +20,13 @@ final class PhotoGuideUITests: XCTestCase {
     start.tap()
   }
 
+  private func attachScreenshot(_ app: XCUIApplication, name: String) {
+    let attachment = XCTAttachment(screenshot: app.screenshot())
+    attachment.name = name
+    attachment.lifetime = .keepAlways
+    add(attachment)
+  }
+
   func testHomeRecipeDetailToCameraAndGuidanceLoop() {
     let app = app(language: "zh-Hans")
     app.launch()
@@ -31,6 +38,27 @@ final class PhotoGuideUITests: XCTestCase {
     XCTAssertTrue(app.buttons["camera.shutter"].waitForExistence(timeout: 5))
     XCTAssertTrue(
       app.buttons["camera.shutter"].isEnabled, "Shutter must remain user-controlled before READY")
+    attachScreenshot(app, name: "camera-guidance")
+  }
+
+  func testRealCapturePresentsReviewAndReturnsToCamera() throws {
+    let app = app(language: "zh-Hans")
+    app.launch()
+    openCamera(app)
+
+    let shutter = app.buttons["camera.shutter"]
+    XCTAssertTrue(shutter.waitForExistence(timeout: 5))
+    guard app.buttons["camera.switch"].isEnabled else {
+      throw XCTSkip("Real camera capture is only available on a physical iPhone")
+    }
+    shutter.tap()
+
+    let continueButton = app.buttons["capture.review.continue"]
+    XCTAssertTrue(continueButton.waitForExistence(timeout: 12))
+    XCTAssertTrue(app.descendants(matching: .any)["capture.review.saveStatus"].exists)
+    attachScreenshot(app, name: "capture-review")
+    continueButton.tap()
+    XCTAssertTrue(shutter.waitForExistence(timeout: 5))
   }
 
   func testRecipeLibraryIsReachableWithStableIdentifiers() {

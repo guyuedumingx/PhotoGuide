@@ -18,7 +18,7 @@ private struct HomeView: View {
       PGTheme.canvas.ignoresSafeArea()
       AmbientGlow().allowsHitTesting(false)
 
-      ScrollView(showsIndicators: false) {
+      ScrollView {
         VStack(spacing: 30) {
           header.pgReveal(delay: 0.02, distance: 8)
           hero.pgReveal(delay: 0.07)
@@ -31,6 +31,7 @@ private struct HomeView: View {
         .padding(.top, 12)
         .padding(.bottom, 40)
       }
+      .scrollIndicators(.hidden)
     }
   }
 
@@ -146,7 +147,7 @@ struct RecipeLibraryView: View {
       PGTheme.canvas.ignoresSafeArea()
       AmbientGlow().allowsHitTesting(false)
 
-      ScrollView(showsIndicators: false) {
+      ScrollView {
         VStack(spacing: 24) {
           header.pgReveal(delay: 0.02, distance: 8)
           categoryStrip.pgReveal(delay: 0.07, distance: 8)
@@ -156,6 +157,7 @@ struct RecipeLibraryView: View {
         .padding(.top, 12)
         .padding(.bottom, 36)
       }
+      .scrollIndicators(.hidden)
     }
   }
 
@@ -196,7 +198,7 @@ struct RecipeLibraryView: View {
   }
 
   private var categoryStrip: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
+    ScrollView(.horizontal) {
       HStack(spacing: 8) {
         ForEach(RecipeCategory.allCases, id: \.self) { category in
           Button {
@@ -229,6 +231,7 @@ struct RecipeLibraryView: View {
         }
       }
     }
+    .scrollIndicators(.hidden)
   }
 
   private var recipeList: some View {
@@ -264,7 +267,7 @@ struct RecipeDetailView: View {
   var body: some View {
     ZStack {
       PGTheme.canvas.ignoresSafeArea()
-      ScrollView(showsIndicators: false) {
+      ScrollView {
         VStack(spacing: 24) {
           hero.pgReveal(delay: 0.02, distance: 10)
           goalSummary.pgReveal(delay: 0.08, distance: 10)
@@ -275,6 +278,7 @@ struct RecipeDetailView: View {
         .padding(.top, 10)
         .padding(.bottom, 32)
       }
+      .scrollIndicators(.hidden)
     }
   }
 
