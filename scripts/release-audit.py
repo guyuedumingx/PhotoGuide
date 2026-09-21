@@ -214,12 +214,10 @@ if question_slice_match:
 camera_view = text("Packages/GuidanceUI/CameraCoachView.swift")
 for token in [
     'accessibilityIdentifier("camera.skipQuestion")',
-    'accessibilityIdentifier: "camera.menu"',
-    'accessibilityIdentifier("camera.guidanceLayout")',
-    'accessibilityIdentifier("camera.splitGuidancePanel")',
     'accessibilityIdentifier("camera.questionManager")',
-    'accessibilityIdentifier("camera.recipeQuick")',
+    'accessibilityIdentifier("camera.recipe")',
     'accessibilityIdentifier("camera.recipeTray")',
+    'accessibilityIdentifier("camera.recipeDismiss")',
     'accessibilityIdentifier("camera.recipeManage")',
     'photoguide.camera.gridEnabled.v1',
     'cameraUtilityCluster',
@@ -229,6 +227,17 @@ for token in [
     'TabView(',
 ]:
     require(token in camera_view, f"Camera-first question UI is missing: {token}")
+for forbidden in [
+    'CameraGuidanceLayout',
+    'camera.menu',
+    'camera.recipeQuick',
+    'camera.guidanceLayout',
+    'camera.splitGuidancePanel',
+    'photoguide.camera.guidanceLayout.v1',
+]:
+    require(forbidden not in camera_view, f"Removed duplicate/split camera surface leaked back in: {forbidden}")
+require(camera_view.count('accessibilityIdentifier("camera.recipe")') == 1,
+        "Camera must expose exactly one visible Recipe entry")
 require(not (ROOT / "Packages/GuidanceUI/OnboardingView.swift").exists(), "Onboarding page must remain removed")
 require(not (ROOT / "Packages/GuidanceUI/ProductSettingsView.swift").exists(), "Standalone settings page must remain removed")
 require(not (ROOT / "Packages/GuidanceUI/CameraControlSheet.swift").exists(), "Standalone camera control sheet must remain removed")
@@ -270,10 +279,12 @@ require("UserDefaults" in studio, "Recipe assets must persist locally")
 
 ui_tests = text("Tests/PhotoGuideUITests.swift")
 for token in [
-    'camera.recipeQuick',
+    'camera.recipe',
     'camera.recipeTray',
+    'camera.recipeDismiss',
     'camera.recipeManage',
-    'testCameraOffersDirectRecipeQuickPicker',
+    'testUnifiedRecipeEntryReachesManagement',
+    'testRecipeTrayDismissesBackToFullscreenCamera',
 ]:
     require(token in ui_tests, f"UI regression contract is missing: {token}")
 

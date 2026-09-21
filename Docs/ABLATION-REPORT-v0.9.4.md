@@ -22,7 +22,7 @@ Result: **PASS**. Current differences remain in Recipe order and can be switched
 Result: **PASS**. References, questions, and author order are functional product inputs.
 
 ## F. Camera interaction shell
-Result: **PASS**. Camera UI keeps layout, question management, favorites, and controls in-place without adding pages.
+Result: **PASS**. Camera UI keeps one full-screen layout, one Recipe entry, question management, favorites, and controls in-place without adding pages.
 
 ## After DJev integration
 Run empirical ablations on real current-frame/reference pairs: question-by-question agreement with human labels, recheck cadence, authored-order usability, and single-reference vs multi-reference consistency.

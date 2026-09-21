@@ -38,7 +38,7 @@
       "no_action_presenter": true,
       "no_move_instruction": true,
       "camera_first_root": true,
-      "dual_guidance_layout": true
+      "single_fullscreen_guidance_layout": true
     },
     "reference_question_and_order_are_necessary": {
       "runtime_requires_questions": true,
@@ -48,14 +48,16 @@
       "author_can_reorder": true
     },
     "camera_interaction_shell": {
-      "compact_top_utility_cluster": true,
+      "compact_top_camera_control": true,
       "persistent_grid": true,
-      "split_safe_area": true,
+      "fullscreen_preview": true,
+      "no_split_layout": true,
       "large_question_set_safe_pager": true,
       "in_camera_question_manager": true,
       "recipe_favorite_without_new_page": true,
       "legacy_recipe_not_active": true,
-      "camera_recipe_quick_picker": true,
+      "single_recipe_entry": true,
+      "camera_recipe_picker": true,
       "douyin_style_recipe_strip": true,
       "active_recipe_refresh_after_edit": true,
       "direct_flash_selection": true,

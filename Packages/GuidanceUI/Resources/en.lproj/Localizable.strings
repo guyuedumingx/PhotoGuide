@@ -21,7 +21,7 @@
 "Recipe 已就绪" = "Recipe ready";
 "Recipe 广场" = "Recipe Square";
 "Recipe 当前问题均已匹配" = "All current Recipe questions match";
-"Recipe 菜单" = "Recipe menu";
+"关闭 Recipe 选择器" = "Close Recipe picker";
 "Recipe 视觉判断" = "Recipe visual judgment";
 "Recipe 问题已准备好" = "Recipe questions are ready";
 "Recipe 问题已就绪，等待 DJev" = "Recipe questions ready, waiting for DJev";
@@ -100,8 +100,6 @@
 "减少人物占比，机位先别动" = "Reduce the subject’s size without moving the camera";
 "分数范围" = "Score range";
 "切到更广的焦段" = "Switch to a wider lens";
-"切换到 7:3 提示布局" = "Switch to 7:3 guidance layout";
-"切换到悬浮提示布局" = "Switch to overlay guidance";
 "切换相机" = "Switch camera";
 "刚才连续调整有点多，我先停一下；想继续时再恢复指导" = "That was a lot of adjustments. I’ll pause here; resume guidance whenever you want.";
 "创建 Recipe" = "Create Recipe";
@@ -114,7 +112,6 @@
 "压一点高光" = "Pull down the highlights";
 "参考图" = "Reference";
 "参考图 Recipe" = "Reference Recipe";
-"参考图和问题会直接出现在这个相机界面" = "Reference images and questions appear directly in this camera view";
 "取景压低一点" = "Frame slightly lower";
 "取景往右一点" = "Frame slightly right";
 "取景往左一点" = "Frame slightly left";
@@ -146,7 +143,6 @@
 "层次" = "Depth";
 "居中" = "Centered";
 "居中人像" = "Centered portrait";
-"左右滑动切换问题" = "Swipe horizontally to switch issues";
 "已对焦" = "Focused";
 "已暂停主动优化" = "Active optimization paused";
 "已跳过这个问题" = "Question skipped";
@@ -197,7 +193,7 @@
 "显示名称" = "Display name";
 "曝光" = "Exposure";
 "期望答案为 Yes" = "Expected answer is Yes";
-"未选择 Recipe" = "No Recipe selected";
+"未选择" = "Not selected";
 "本机视觉会继续给你构图、比例、光线和画面重心建议" = "On-device vision will keep guiding composition, scale, light, and visual balance";
 "本机视觉正在判断" = "On-device vision is analyzing";
 "本机视觉正在补充位置、比例和光线判断" = "On-device vision is refining position, scale, and lighting";
@@ -307,7 +303,7 @@
 "这套 Recipe 想复刻什么风格" = "What style should this Recipe reproduce?";
 "选择 Recipe" = "Choose Recipe";
 "选择、管理或创建你的拍摄方法" = "Choose, manage, or create your shooting methods";
-"选择一个 Recipe" = "Choose a Recipe";
+"选择 Recipe 开始" = "Choose a Recipe to begin";
 "选择一个 Recipe 开始比较" = "Choose a Recipe to start comparing";
 "选择一个 Recipe，立即回到相机" = "Choose a Recipe and return to the camera immediately";
 "选项" = "Option";
@@ -340,7 +336,7 @@
 
 "开启" = "On";
 "翻转" = "Flip";
-"快速选择 Recipe" = "Quick select Recipe";
+"使用左下角 Recipe 按钮" = "Use the Recipe button at bottom left";
 "在相机里直接切换拍摄方法" = "Switch shooting methods without leaving the camera";
 "管理" = "Manage";
 "去创建或导入一个 Recipe" = "Create or import a Recipe";

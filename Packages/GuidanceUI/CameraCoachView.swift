@@ -5,11 +5,6 @@ import RecipeKit
 import SwiftUI
 import UIKit
 
-private enum CameraGuidanceLayout: String {
-  case overlay
-  case split
-}
-
 public struct GuidanceCameraView: View {
   @Environment(\.scenePhase) private var scenePhase
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -21,7 +16,6 @@ public struct GuidanceCameraView: View {
   @State private var captureFlashOpacity = 0.0
   @State private var scanProgress: CGFloat = 0
   @State private var showRecipeQuickPicker = false
-  @AppStorage("photoguide.camera.guidanceLayout.v1") private var guidanceLayoutRaw = CameraGuidanceLayout.overlay.rawValue
   @Namespace private var lensSelection
 
   private let onMenu: () -> Void
@@ -47,30 +41,22 @@ public struct GuidanceCameraView: View {
     self.onSelectRecipe = onSelectRecipe
   }
 
-  private var guidanceLayout: CameraGuidanceLayout {
-    CameraGuidanceLayout(rawValue: guidanceLayoutRaw) ?? .overlay
-  }
-
   public var body: some View {
     GeometryReader { geometry in
       ZStack {
-        Group {
-          if guidanceLayout == .split {
-            splitLayout(in: geometry)
-          } else {
-            overlayLayout(in: geometry)
-          }
-        }
+        cameraViewport
 
         if showRecipeQuickPicker {
           recipeQuickPickerOverlay(in: geometry)
             .zIndex(30)
-            .transition(.opacity.combined(with: .move(edge: .bottom)))
+            .transition(
+              .asymmetric(
+                insertion: .opacity.combined(with: .move(edge: .bottom)),
+                removal: .opacity))
         }
       }
-      .background(.black)
+      .background(Color.black.ignoresSafeArea())
       .foregroundStyle(.white)
-      .animation(reduceMotion ? nil : .easeOut(duration: 0.20), value: showRecipeQuickPicker)
     }
     .task {
       model.start()
@@ -98,23 +84,7 @@ public struct GuidanceCameraView: View {
     }
   }
 
-  private func overlayLayout(in geometry: GeometryProxy) -> some View {
-    cameraViewport(showGuidance: true)
-  }
-
-  private func splitLayout(in geometry: GeometryProxy) -> some View {
-    let cameraHeight = geometry.size.height * 0.70
-    return VStack(spacing: 0) {
-      cameraViewport(showGuidance: false)
-        .frame(height: cameraHeight)
-        .clipped()
-
-      splitGuidancePanel(safeBottom: geometry.safeAreaInsets.bottom)
-        .frame(height: max(geometry.size.height - cameraHeight, 0))
-    }
-  }
-
-  private func cameraViewport(showGuidance: Bool) -> some View {
+  private var cameraViewport: some View {
     GeometryReader { cameraGeometry in
       ZStack {
         preview
@@ -123,7 +93,7 @@ public struct GuidanceCameraView: View {
         if model.subjectStrategy != .scene && !model.subjectPresent {
           searchScan(in: cameraGeometry).allowsHitTesting(false)
         }
-        cameraChrome(showGuidance: showGuidance, safeArea: cameraGeometry.safeAreaInsets)
+        cameraChrome
 
         Color.white
           .opacity(captureFlashOpacity)
@@ -156,18 +126,21 @@ public struct GuidanceCameraView: View {
   }
 
   private var demoPreview: some View {
-    ZStack {
-      LinearGradient(
-        colors: [Color(red: 0.12, green: 0.16, blue: 0.18), .black],
-        startPoint: .topLeading, endPoint: .bottomTrailing)
-      Image(systemName: "mountain.2.fill")
-        .resizable().scaledToFit()
-        .frame(width: 430)
-        .foregroundStyle(.white.opacity(0.10))
-        .offset(y: -70)
-      Image(systemName: "camera.aperture")
-        .font(.system(size: 54, weight: .ultraLight))
-        .foregroundStyle(.white.opacity(0.18))
+    GeometryReader { geometry in
+      ZStack {
+        LinearGradient(
+          colors: [Color(red: 0.12, green: 0.16, blue: 0.18), .black],
+          startPoint: .topLeading, endPoint: .bottomTrailing)
+        Image(systemName: "mountain.2.fill")
+          .resizable().scaledToFit()
+          .frame(width: geometry.size.width * 0.92)
+          .foregroundStyle(.white.opacity(0.10))
+          .offset(y: -70)
+        Image(systemName: "camera.aperture")
+          .font(.system(size: 54, weight: .ultraLight))
+          .foregroundStyle(.white.opacity(0.18))
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
   }
 
@@ -223,11 +196,11 @@ public struct GuidanceCameraView: View {
     }
   }
 
-  private func cameraChrome(showGuidance: Bool, safeArea: EdgeInsets) -> some View {
+  private var cameraChrome: some View {
     VStack(spacing: 0) {
       topBar
-        .padding(.horizontal, 14)
-        .padding(.top, max(safeArea.top, 10) + 6)
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
 
       if let notice = model.transientNotice {
         transientNotice(notice)
@@ -243,161 +216,71 @@ public struct GuidanceCameraView: View {
           .transition(.scale(scale: 0.97).combined(with: .opacity))
       }
 
-      if showGuidance {
-        liveGuidanceSurface
-          .padding(.horizontal, 14)
-          .padding(.bottom, 7)
-      }
+      liveGuidanceSurface
+        .padding(.horizontal, 14)
+        .padding(.bottom, 7)
 
       lensSelector
         .padding(.bottom, 8)
 
       captureBar
         .padding(.horizontal, 24)
-        .padding(.bottom, max(showGuidance ? safeArea.bottom : 6, 6) + 4)
+        .padding(.bottom, 8)
     }
     .animation(reduceMotion ? nil : PGMotion.state, value: model.instruction)
     .animation(reduceMotion ? nil : PGMotion.micro, value: model.currentIssueQuestionID)
   }
 
   private var topBar: some View {
-    HStack(spacing: 9) {
-      glassCircle(
-        "line.3.horizontal",
-        size: 43,
-        accessibilityLabel: L("Recipe 菜单"),
-        accessibilityIdentifier: "camera.menu",
-        action: onMenu)
-
-      Button(action: toggleRecipeQuickPicker) {
-        HStack(spacing: 7) {
-          Image(systemName: model.recipe.source.resolvedPresentation.icon)
-            .font(.system(size: 11.5, weight: .semibold))
-            .foregroundStyle(PGTheme.accent)
-          Text(model.recipe.source.id == "camera.shell" ? L("选择 Recipe") : model.title)
-            .font(.system(size: 13.5, weight: .semibold, design: .rounded))
-            .lineLimit(1)
-            .minimumScaleFactor(0.78)
-          Image(systemName: "chevron.down")
-            .font(.system(size: 8, weight: .bold))
-            .foregroundStyle(.white.opacity(0.45))
-        }
-        .padding(.horizontal, 12)
-        .frame(maxWidth: .infinity)
-        .frame(height: 40)
-        .background(.ultraThinMaterial, in: Capsule())
-        .background(.black.opacity(0.16), in: Capsule())
-        .overlay(Capsule().stroke(PGTheme.hairline, lineWidth: 0.7))
-      }
-      .buttonStyle(PGPressButtonStyle())
-      .accessibilityIdentifier("camera.recipe")
-
+    HStack {
+      Spacer()
       cameraUtilityCluster
     }
   }
 
   private var cameraUtilityCluster: some View {
-    HStack(spacing: 0) {
-      Button(action: toggleGuidanceLayout) {
-        Image(systemName: guidanceLayout == .overlay ? "rectangle.split.2x1" : "rectangle.inset.filled")
-          .font(.system(size: 14.5, weight: .semibold))
-          .foregroundStyle(guidanceLayout == .split ? PGTheme.accent : .white)
-          .frame(width: 38, height: 38)
-          .background(guidanceLayout == .split ? PGTheme.accent.opacity(0.10) : .clear, in: Circle())
-      }
-      .buttonStyle(PGPressButtonStyle())
-      .accessibilityLabel(guidanceLayout == .overlay ? L("切换到 7:3 提示布局") : L("切换到悬浮提示布局"))
-      .accessibilityIdentifier("camera.guidanceLayout")
-      .accessibilityAddTraits(guidanceLayout == .split ? .isSelected : [])
-
-      Rectangle()
-        .fill(.white.opacity(0.08))
-        .frame(width: 0.7, height: 18)
-        .accessibilityHidden(true)
-
+    Menu {
       Menu {
-        Menu {
-          Button {
-            model.setFlashMode(.off)
-            UISelectionFeedbackGenerator().selectionChanged()
-          } label: {
-            Label(L("关闭"), systemImage: model.flashMode == .off ? "checkmark" : "bolt.slash.fill")
-          }
-          Button {
-            model.setFlashMode(.auto)
-            UISelectionFeedbackGenerator().selectionChanged()
-          } label: {
-            Label(L("自动"), systemImage: model.flashMode == .auto ? "checkmark" : "bolt.badge.a.fill")
-          }
-          Button {
-            model.setFlashMode(.on)
-            UISelectionFeedbackGenerator().selectionChanged()
-          } label: {
-            Label(L("开启"), systemImage: model.flashMode == .on ? "checkmark" : "bolt.fill")
-          }
-        } label: {
-          Label(L("闪光灯"), systemImage: flashIcon)
-        }
-        .disabled(model.isDemoMode || model.cameraPosition == .front)
-
         Button {
-          if reduceMotion { gridEnabled.toggle() }
-          else { withAnimation(PGMotion.micro) { gridEnabled.toggle() } }
+          model.setFlashMode(.off)
           UISelectionFeedbackGenerator().selectionChanged()
         } label: {
-          Label(gridEnabled ? L("关闭构图网格") : L("打开构图网格"), systemImage: "grid")
+          Label(L("关闭"), systemImage: model.flashMode == .off ? "checkmark" : "bolt.slash.fill")
+        }
+        Button {
+          model.setFlashMode(.auto)
+          UISelectionFeedbackGenerator().selectionChanged()
+        } label: {
+          Label(L("自动"), systemImage: model.flashMode == .auto ? "checkmark" : "bolt.badge.a.fill")
+        }
+        Button {
+          model.setFlashMode(.on)
+          UISelectionFeedbackGenerator().selectionChanged()
+        } label: {
+          Label(L("开启"), systemImage: model.flashMode == .on ? "checkmark" : "bolt.fill")
         }
       } label: {
-        Image(systemName: "slider.horizontal.3")
-          .font(.system(size: 14.5, weight: .semibold))
-          .foregroundStyle(.white)
-          .frame(width: 38, height: 38)
+        Label(L("闪光灯"), systemImage: flashIcon)
       }
-      .accessibilityLabel(L("相机控制"))
-      .accessibilityIdentifier("camera.controls")
-    }
-    .padding(3)
-    .background(.ultraThinMaterial, in: Capsule())
-    .background(.black.opacity(0.14), in: Capsule())
-    .overlay(Capsule().stroke(PGTheme.hairline, lineWidth: 0.7))
-  }
+      .disabled(model.isDemoMode || model.cameraPosition == .front)
 
-  private func splitGuidancePanel(safeBottom: CGFloat) -> some View {
-    ZStack {
-      PGTheme.canvas
-      VStack(spacing: 8) {
-        HStack(spacing: 8) {
-          HStack(spacing: 6) {
-            Circle()
-              .fill(model.isQuestionMode ? PGTheme.accent : .white.opacity(0.30))
-              .frame(width: 6, height: 6)
-            Text(model.recipe.source.id == "camera.shell" ? L("未选择 Recipe") : model.title)
-              .font(.system(size: 11.5, weight: .semibold, design: .rounded))
-              .foregroundStyle(PGTheme.secondaryText)
-              .lineLimit(1)
-          }
-          Spacer()
-          if model.issueQuestionSnapshots.count > 1 {
-            Text(L("左右滑动切换问题"))
-              .font(.system(size: 10.5, weight: .medium))
-              .foregroundStyle(PGTheme.tertiaryText)
-          }
-        }
-        .padding(.horizontal, 18)
-        .padding(.top, 12)
-
-        liveGuidanceSurface
-          .padding(.horizontal, 14)
-
-        Spacer(minLength: 6)
+      Button {
+        if reduceMotion { gridEnabled.toggle() }
+        else { withAnimation(PGMotion.micro) { gridEnabled.toggle() } }
+        UISelectionFeedbackGenerator().selectionChanged()
+      } label: {
+        Label(gridEnabled ? L("关闭构图网格") : L("打开构图网格"), systemImage: "grid")
       }
-      .padding(.bottom, max(safeBottom, 8))
+    } label: {
+      Image(systemName: "slider.horizontal.3")
+        .font(.system(size: 15, weight: .semibold))
+        .foregroundStyle(.white)
+        .frame(width: 44, height: 44)
+        .background(.black.opacity(0.44), in: Circle())
+        .overlay(Circle().stroke(.white.opacity(0.12), lineWidth: 0.7))
     }
-    .overlay(alignment: .top) {
-      Rectangle().fill(.white.opacity(0.07)).frame(height: 0.7)
-    }
-    .accessibilityElement(children: .contain)
-    .accessibilityIdentifier("camera.splitGuidancePanel")
+    .accessibilityLabel(L("相机控制"))
+    .accessibilityIdentifier("camera.controls")
   }
 
   @ViewBuilder
@@ -412,32 +295,26 @@ public struct GuidanceCameraView: View {
   }
 
   private var emptyRecipeCard: some View {
-    Button(action: toggleRecipeQuickPicker) {
-      HStack(spacing: 12) {
-        Image(systemName: "square.grid.2x2")
-          .font(.system(size: 17, weight: .semibold))
-          .foregroundStyle(PGTheme.accent)
-          .frame(width: 42, height: 42)
-          .background(PGTheme.accent.opacity(0.11), in: Circle())
-        VStack(alignment: .leading, spacing: 3) {
-          Text(L("选择一个 Recipe"))
-            .font(.system(size: 17, weight: .bold, design: .rounded))
-          Text(L("参考图和问题会直接出现在这个相机界面"))
-            .font(.system(size: 12.5))
-            .foregroundStyle(PGTheme.secondaryText)
-        }
-        Spacer()
-        Image(systemName: "chevron.right")
-          .font(.system(size: 12, weight: .bold))
-          .foregroundStyle(PGTheme.tertiaryText)
+    HStack(spacing: 11) {
+      Image(systemName: "viewfinder")
+        .font(.system(size: 15, weight: .semibold))
+        .foregroundStyle(PGTheme.accent)
+        .frame(width: 38, height: 38)
+        .background(PGTheme.accent.opacity(0.12), in: Circle())
+      VStack(alignment: .leading, spacing: 2) {
+        Text(L("选择 Recipe 开始"))
+          .font(.system(size: 16, weight: .bold, design: .rounded))
+        Text(L("使用左下角 Recipe 按钮"))
+          .font(.system(size: 12))
+          .foregroundStyle(PGTheme.secondaryText)
       }
-      .padding(.horizontal, 14)
-      .frame(maxWidth: .infinity, minHeight: 84)
-      .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-      .background(PGTheme.panel.opacity(0.76), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-      .overlay(RoundedRectangle(cornerRadius: 22).stroke(PGTheme.hairline, lineWidth: 0.7))
+      Spacer()
     }
-    .buttonStyle(PGPressButtonStyle())
+    .padding(.horizontal, 14)
+    .frame(maxWidth: .infinity, minHeight: 68)
+    .background(Color.black.opacity(0.48), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white.opacity(0.10), lineWidth: 0.7))
+    .accessibilityElement(children: .combine)
   }
 
   @ViewBuilder
@@ -462,7 +339,7 @@ public struct GuidanceCameraView: View {
           }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .frame(height: guidanceLayout == .split ? 112 : 96)
+        .frame(height: 96)
         .accessibilityIdentifier("camera.questionCarousel")
 
         questionPager(issues)
@@ -530,7 +407,7 @@ public struct GuidanceCameraView: View {
       Image(systemName: "list.bullet")
         .font(.system(size: 11.5, weight: .semibold))
         .foregroundStyle(PGTheme.secondaryText)
-        .frame(width: 28, height: 28)
+        .frame(width: 44, height: 44)
         .background(.white.opacity(0.05), in: Circle())
     }
     .accessibilityLabel(L("管理问题"))
@@ -566,7 +443,7 @@ public struct GuidanceCameraView: View {
             Image(systemName: "arrow.uturn.backward")
               .font(.system(size: 12, weight: .semibold))
               .foregroundStyle(PGTheme.secondaryText)
-              .frame(width: 34, height: 34)
+              .frame(width: 44, height: 44)
               .background(.white.opacity(0.06), in: Circle())
           }
           .buttonStyle(PGPressButtonStyle())
@@ -577,8 +454,7 @@ public struct GuidanceCameraView: View {
     }
     .padding(.horizontal, 14)
     .frame(maxWidth: .infinity, minHeight: 82)
-    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-    .background(PGTheme.panel.opacity(0.72), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+    .background(Color.black.opacity(0.48), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
     .overlay(RoundedRectangle(cornerRadius: 22).stroke(PGTheme.hairline, lineWidth: 0.7))
   }
 
@@ -596,7 +472,7 @@ public struct GuidanceCameraView: View {
           }
         }
         Text(L(item.issue ?? item.title))
-          .font(.system(size: guidanceLayout == .split ? 19 : 18, weight: .bold, design: .rounded))
+          .font(.system(size: 18, weight: .bold, design: .rounded))
           .tracking(-0.2)
           .lineLimit(2)
           .minimumScaleFactor(0.80)
@@ -611,7 +487,7 @@ public struct GuidanceCameraView: View {
         Image(systemName: "forward.end")
           .font(.system(size: 12, weight: .semibold))
           .foregroundStyle(PGTheme.secondaryText)
-          .frame(width: 36, height: 36)
+          .frame(width: 44, height: 44)
           .background(.white.opacity(0.06), in: Circle())
       }
       .buttonStyle(PGPressButtonStyle())
@@ -620,14 +496,9 @@ public struct GuidanceCameraView: View {
     }
     .padding(.horizontal, 14)
     .frame(maxWidth: .infinity, minHeight: 82)
-    .background(
-      guidanceLayout == .split ? AnyShapeStyle(Color.white.opacity(0.045)) : AnyShapeStyle(.ultraThinMaterial),
-      in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-    .background(
-      guidanceLayout == .split ? Color.clear : Color.black.opacity(0.24),
-      in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+    .background(Color.black.opacity(0.48), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
     .overlay(RoundedRectangle(cornerRadius: 22).stroke(PGTheme.hairline, lineWidth: 0.7))
-    .shadow(color: guidanceLayout == .split ? .clear : .black.opacity(0.10), radius: 12, y: 5)
+    .shadow(color: .black.opacity(0.10), radius: 12, y: 5)
     .accessibilityLabel("\(L(item.title)). \(L(item.issue ?? item.title))")
     .accessibilityIdentifier("camera.questionIssue.\(item.id)")
   }
@@ -638,7 +509,6 @@ public struct GuidanceCameraView: View {
       .padding(.horizontal, 13)
       .frame(height: 36)
       .background(.black.opacity(0.38), in: Capsule())
-      .background(.ultraThinMaterial, in: Capsule())
       .overlay(Capsule().stroke(.white.opacity(0.09), lineWidth: 0.7))
   }
 
@@ -668,8 +538,7 @@ public struct GuidanceCameraView: View {
         }
       }
       .padding(4)
-      .background(.black.opacity(0.31), in: Capsule())
-      .background(.ultraThinMaterial, in: Capsule())
+      .background(.black.opacity(0.42), in: Capsule())
       .overlay(Capsule().stroke(PGTheme.hairline, lineWidth: 0.7))
       .transition(.opacity.combined(with: .scale(scale: 0.96)))
     }
@@ -706,10 +575,9 @@ public struct GuidanceCameraView: View {
         VStack(spacing: 4) {
           Image(systemName: "arrow.triangle.2.circlepath.camera")
             .font(.system(size: 17, weight: .semibold))
-            .frame(width: 42, height: 42)
-            .background(.ultraThinMaterial, in: Circle())
-            .background(.black.opacity(0.14), in: Circle())
-            .overlay(Circle().stroke(PGTheme.hairline, lineWidth: 0.7))
+            .frame(width: 44, height: 44)
+            .background(.black.opacity(0.44), in: Circle())
+            .overlay(Circle().stroke(.white.opacity(0.12), lineWidth: 0.7))
           Text(L("翻转"))
             .font(.system(size: 10, weight: .medium))
             .foregroundStyle(.white.opacity(0.72))
@@ -753,8 +621,9 @@ public struct GuidanceCameraView: View {
       .frame(width: 64)
     }
     .buttonStyle(PGPressButtonStyle())
-    .accessibilityLabel(L("快速选择 Recipe"))
-    .accessibilityIdentifier("camera.recipeQuick")
+    .accessibilityLabel(L("选择 Recipe"))
+    .accessibilityValue(model.recipe.source.id == "camera.shell" ? L("未选择") : model.title)
+    .accessibilityIdentifier("camera.recipe")
   }
 
   private var quickRecipes: [RecipeDTO] {
@@ -779,10 +648,14 @@ public struct GuidanceCameraView: View {
 
   private func recipeQuickPickerOverlay(in geometry: GeometryProxy) -> some View {
     ZStack(alignment: .bottom) {
-      Color.black.opacity(0.28)
-        .ignoresSafeArea()
-        .contentShape(Rectangle())
-        .onTapGesture { closeRecipeQuickPicker() }
+      Button(action: closeRecipeQuickPicker) {
+        Color.black.opacity(0.28)
+          .ignoresSafeArea()
+          .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+      .accessibilityLabel(L("关闭 Recipe 选择器"))
+      .accessibilityIdentifier("camera.recipeDismiss")
 
       VStack(spacing: 14) {
         Capsule()
@@ -807,7 +680,7 @@ public struct GuidanceCameraView: View {
               .font(.system(size: 12.5, weight: .semibold))
               .foregroundStyle(PGTheme.accent)
               .padding(.horizontal, 12)
-              .frame(height: 34)
+              .frame(height: 44)
               .background(PGTheme.accent.opacity(0.10), in: Capsule())
           }
           .buttonStyle(PGPressButtonStyle())
@@ -836,7 +709,7 @@ public struct GuidanceCameraView: View {
             } label: {
               Image(systemName: "chevron.right")
                 .font(.system(size: 12, weight: .bold))
-                .frame(width: 34, height: 34)
+                .frame(width: 44, height: 44)
                 .background(.white.opacity(0.06), in: Circle())
             }
             .buttonStyle(PGPressButtonStyle())
@@ -962,15 +835,6 @@ public struct GuidanceCameraView: View {
     }
   }
 
-  private func toggleGuidanceLayout() {
-    let next: CameraGuidanceLayout = guidanceLayout == .overlay ? .split : .overlay
-    if reduceMotion { guidanceLayoutRaw = next.rawValue }
-    else {
-      withAnimation(.easeInOut(duration: 0.24)) { guidanceLayoutRaw = next.rawValue }
-    }
-    UISelectionFeedbackGenerator().selectionChanged()
-  }
-
   private func triggerCapture() {
     guard !model.isCapturing else { return }
     UIImpactFeedbackGenerator(style: .rigid).impactOccurred(intensity: 0.72)
@@ -1027,32 +891,6 @@ public struct GuidanceCameraView: View {
       .padding(30)
       .frame(maxWidth: 340)
     }
-  }
-
-  private func glassCircle(
-    _ symbol: String,
-    size: CGFloat,
-    disabled: Bool = false,
-    selected: Bool = false,
-    accessibilityLabel: String,
-    accessibilityIdentifier: String,
-    action: @escaping () -> Void
-  ) -> some View {
-    Button(action: action) {
-      Image(systemName: symbol)
-        .font(.system(size: 15.5, weight: .semibold))
-        .foregroundStyle(selected ? PGTheme.accent : .white)
-        .frame(width: size, height: size)
-        .background(.ultraThinMaterial, in: Circle())
-        .background(selected ? PGTheme.accent.opacity(0.10) : .black.opacity(0.14), in: Circle())
-        .overlay(Circle().stroke(PGTheme.hairline, lineWidth: 0.7))
-    }
-    .buttonStyle(PGPressButtonStyle())
-    .disabled(disabled)
-    .opacity(disabled ? 0.35 : 1)
-    .accessibilityLabel(accessibilityLabel)
-    .accessibilityIdentifier(accessibilityIdentifier)
-    .accessibilityAddTraits(selected ? .isSelected : [])
   }
 
   private var flashIcon: String {

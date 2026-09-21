@@ -11,15 +11,13 @@ TESTS = (ROOT / 'Tests/PhotoGuideUITests.swift').read_text(encoding='utf-8')
 
 checks = {
     # Camera primary loop
-    'camera_menu': 'accessibilityIdentifier: "camera.menu"' in CAMERA,
-    'camera_recipe_top_quick_select': 'Button(action: toggleRecipeQuickPicker)' in CAMERA and 'accessibilityIdentifier("camera.recipe")' in CAMERA,
-    'camera_recipe_bottom_quick_select': 'accessibilityIdentifier("camera.recipeQuick")' in CAMERA,
-    'camera_recipe_bottom_tray': 'accessibilityIdentifier("camera.recipeTray")' in CAMERA and 'recipeQuickTile' in CAMERA,
+    'camera_single_recipe_entry': CAMERA.count('accessibilityIdentifier("camera.recipe")') == 1 and 'camera.menu' not in CAMERA and 'camera.recipeQuick' not in CAMERA,
+    'camera_recipe_bottom_tray': 'accessibilityIdentifier("camera.recipeTray")' in CAMERA and 'accessibilityIdentifier("camera.recipeDismiss")' in CAMERA and 'recipeQuickTile' in CAMERA,
     'camera_recipe_select_callback': 'onSelectRecipe(recipe)' in CAMERA and 'onSelectRecipe: { recipe in activeRecipeID = recipe.id }' in ROOT_UI,
     'camera_shutter': 'accessibilityIdentifier("camera.shutter")' in CAMERA and 'model.capture()' in CAMERA,
     'camera_switch': 'accessibilityIdentifier("camera.switch")' in CAMERA and 'model.switchCamera()' in CAMERA,
     'camera_lens': 'model.setZoom(factor)' in CAMERA,
-    'camera_layout': 'accessibilityIdentifier("camera.guidanceLayout")' in CAMERA and 'photoguide.camera.guidanceLayout.v1' in CAMERA,
+    'camera_fullscreen_layout': '.ignoresSafeArea()' in CAMERA and 'CameraGuidanceLayout' not in CAMERA and 'camera.splitGuidancePanel' not in CAMERA,
     'camera_flash_direct_modes': all(x in CAMERA for x in ['setFlashMode(.off)', 'setFlashMode(.auto)', 'setFlashMode(.on)']),
     'camera_grid_persistent': 'photoguide.camera.gridEnabled.v1' in CAMERA and 'gridEnabled.toggle()' in CAMERA,
     'camera_permission_recovery': 'Button(L("打开设置"), action: model.openSettings)' in CAMERA,
@@ -48,7 +46,7 @@ checks = {
     'editor_save': 'store.save(model.makeRecipe()' in STUDIO,
     'editor_cancel': 'Button(L("取消")) { dismiss() }' in STUDIO,
     # Regression coverage
-    'ui_test_quick_picker': 'testCameraOffersDirectRecipeQuickPicker' in TESTS and 'camera.recipeTray' in TESTS,
+    'ui_test_unified_recipe_entry': 'testUnifiedRecipeEntryReachesManagement' in TESTS and 'testRecipeTrayDismissesBackToFullscreenCamera' in TESTS and 'camera.recipeTray' in TESTS,
     # Product boundary
     'no_home': 'HomeView' not in ROOT_UI,
     'no_recipe_detail': 'RecipeDetailView' not in ROOT_UI,

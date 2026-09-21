@@ -52,7 +52,7 @@ d={
  'no_action_presenter':'ActionPresenter' not in UI.split('private func applyQuestionGuidance',1)[1].split('private static func makeQuestionJudge',1)[0],
  'no_move_instruction':not any(x in UI.split('private func applyQuestionGuidance',1)[1].split('private static func makeQuestionJudge',1)[0] for x in ['往左','往右','靠近','退后','拿低','抬高']),
  'camera_first_root':'GuidanceCameraView(' in (ROOT/'Packages/GuidanceUI/RootView.swift').read_text(),
- 'dual_guidance_layout':'CameraGuidanceLayout' in CAMERA and 'camera.splitGuidancePanel' in CAMERA,
+ 'single_fullscreen_guidance_layout':'CameraGuidanceLayout' not in CAMERA and 'camera.splitGuidancePanel' not in CAMERA,
 }
 for k,v in d.items(): check(v,f'issue-only UI ablation failed: {k}')
 experiments['ordered_swipe_issue_ui']=d
@@ -67,14 +67,16 @@ for k,v in e.items(): check(v,f'reference-question necessity ablation failed: {k
 experiments['reference_question_and_order_are_necessary']=e
 ROOT_UI=(ROOT/'Packages/GuidanceUI/RootView.swift').read_text()
 f={
- 'compact_top_utility_cluster':'cameraUtilityCluster' in CAMERA and 'camera.controls' in CAMERA and 'camera.guidanceLayout' in CAMERA,
+ 'compact_top_camera_control':'cameraUtilityCluster' in CAMERA and 'camera.controls' in CAMERA,
  'persistent_grid':'photoguide.camera.gridEnabled.v1' in CAMERA,
- 'split_safe_area':'splitGuidancePanel(safeBottom:' in CAMERA and 'max(safeBottom, 8)' in CAMERA,
+ 'fullscreen_preview':'preview' in CAMERA and '.ignoresSafeArea()' in CAMERA,
+ 'no_split_layout':'CameraGuidanceLayout' not in CAMERA and 'photoguide.camera.guidanceLayout.v1' not in CAMERA,
  'large_question_set_safe_pager':'issues.count <= 7' in CAMERA,
  'in_camera_question_manager':'camera.questionManager' in CAMERA and 'setQuestionSkipped' in CAMERA,
  'recipe_favorite_without_new_page':'recipe.favorite.' in ROOT_UI and 'toggleFavorite' in ROOT_UI,
  'legacy_recipe_not_active':'RecipeLoader().catalog().map' not in ROOT_UI.split('private var activeRecipe',1)[1].split('private static let cameraShellRecipe',1)[0],
- 'camera_recipe_quick_picker':'camera.recipeQuick' in CAMERA and 'camera.recipeTray' in CAMERA and 'onSelectRecipe' in CAMERA,
+ 'single_recipe_entry':CAMERA.count('accessibilityIdentifier("camera.recipe")') == 1 and 'camera.recipeQuick' not in CAMERA and 'camera.menu' not in CAMERA,
+ 'camera_recipe_picker':'camera.recipeTray' in CAMERA and 'camera.recipeDismiss' in CAMERA and 'onSelectRecipe' in CAMERA,
  'douyin_style_recipe_strip':'ScrollView(.horizontal)' in CAMERA and 'recipeQuickTile' in CAMERA,
  'active_recipe_refresh_after_edit':'activeRecipeIdentity' in ROOT_UI and 'updatedAt.timeIntervalSince1970' in ROOT_UI,
  'direct_flash_selection':'setFlashMode(.off)' in CAMERA and 'setFlashMode(.auto)' in CAMERA and 'setFlashMode(.on)' in CAMERA,
@@ -96,7 +98,7 @@ lines=[
  '## C. Ordered question management',f"Result: **{'PASS' if all(c.values()) else 'FAIL'}**. Skip/restore and periodic recheck work without priority ranking or planning.",'',
  '## D. Swipeable issue-only camera UI',f"Result: **{'PASS' if all(d.values()) else 'FAIL'}**. Current differences remain in Recipe order and can be switched horizontally.",'',
  '## E. Necessity controls',f"Result: **{'PASS' if all(e.values()) else 'FAIL'}**. References, questions, and author order are functional product inputs.",'',
- '## F. Camera interaction shell',f"Result: **{'PASS' if all(f.values()) else 'FAIL'}**. Camera UI keeps layout, question management, favorites, and controls in-place without adding pages.",'',
+ '## F. Camera interaction shell',f"Result: **{'PASS' if all(f.values()) else 'FAIL'}**. Camera UI keeps one full-screen layout, one Recipe entry, question management, favorites, and controls in-place without adding pages.",'',
  '## After DJev integration','Run empirical ablations on real current-frame/reference pairs: question-by-question agreement with human labels, recheck cadence, authored-order usability, and single-reference vs multi-reference consistency.'
 ]
 if errors: lines += ['','## Failures','']+[f'- {x}' for x in errors]
