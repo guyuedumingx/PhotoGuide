@@ -42,9 +42,4 @@ All SwiftUI motion added in this release respects `accessibilityReduceMotion`. W
 - Localization validator: 210 keys × 3 locales
 - UI regression tests now launch explicitly in Simplified Chinese and English and navigate through stable accessibility identifiers.
 
-## Xcode packaging fixes
-
-- XcodeGen now places the RecipeKit JSON and GuidanceUI/App localization folders in the correct Copy Bundle Resources phases.
-- The app enables the generated iOS launch screen so modern iPhones run at their native full-screen size instead of legacy `320×480` compatibility mode.
-
 The Linux build environment can parse all Swift source and execute pure-Swift package tests, but it cannot perform the final iOS SDK type-check/link, simulator UI test run, or real-device motion/camera validation. Those remain Xcode/device acceptance items.

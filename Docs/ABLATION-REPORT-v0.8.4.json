@@ -1,0 +1,106 @@
+{
+  "version": "0.8.4",
+  "kind": "structural-product-ablation",
+  "empirical_model_quality_claimed": false,
+  "acceptance_passed": true,
+  "errors": [],
+  "experiments": {
+    "remove_post_capture_report": {
+      "capture_review_file_removed": true,
+      "critic_report_file_removed": true,
+      "camera_has_no_review_route": true,
+      "shutter_still_present": true,
+      "live_tip_still_present": true
+    },
+    "decouple_capture_from_persistence": {
+      "capture_lock_exists": true,
+      "shutter_released_before_save": true,
+      "no_success_review_state": true
+    },
+    "recipe_asset_independence": {
+      "reference_image_entry": true,
+      "generator_is_adapter": true,
+      "favorites": true,
+      "json_import": true,
+      "custom_editor": true,
+      "persistence": true,
+      "critic_only_factory": true
+    },
+    "remove_local_control": {
+      "shipping_recipe_count": 11,
+      "all_recipes_preserve_critic_dimensions": true
+    },
+    "remove_domain_rubric": {
+      "recipes_losing_domain_specific_dimensions": 11,
+      "total_recipes": 11
+    }
+  },
+  "recipes": [
+    {
+      "id": "official.architecture",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.centered_portrait",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.closeup_portrait",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.environment_portrait",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.flower_macro",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.food",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.landscape",
+      "dimensions": 6,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.6666666666666666
+    },
+    {
+      "id": "official.pet",
+      "dimensions": 6,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5
+    },
+    {
+      "id": "official.product",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.solo_portrait",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    },
+    {
+      "id": "official.travel_portrait",
+      "dimensions": 7,
+      "critic_only_coverage": 1.0,
+      "generic_rubric_coverage": 0.5714285714285714
+    }
+  ]
+}

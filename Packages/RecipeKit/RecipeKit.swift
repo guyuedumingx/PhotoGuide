@@ -128,6 +128,138 @@ public struct RecipePolicyDTO: Codable, Sendable {
   public let allowGoalSkip: Bool
   public let allowGoalLock: Bool
   public let allowVariantSwitch: Bool
+
+  public init(
+    allowGoalSkip: Bool = false,
+    allowGoalLock: Bool = true,
+    allowVariantSwitch: Bool = false
+  ) {
+    self.allowGoalSkip = allowGoalSkip
+    self.allowGoalLock = allowGoalLock
+    self.allowVariantSwitch = allowVariantSwitch
+  }
+}
+
+
+public enum RecipeDomain: String, Codable, CaseIterable, Sendable {
+  case portrait
+  case travel
+  case food
+  case nature
+  case product
+  case pet
+  case architecture
+  case landscape
+  case general
+}
+
+public enum RecipeSubjectStrategy: String, Codable, Sendable {
+  case human
+  case saliency
+  case scene
+}
+
+public enum RecipeAnchorStrategy: String, Codable, Sendable {
+  case none
+  case automatic
+  case optional
+  case required
+}
+
+/// Declarative perception contract owned by the Recipe rather than the UI.
+/// New Recipe families can therefore choose how a primary subject is acquired
+/// without adding subject-specific branches to the control kernel.
+public struct RecipePerceptionDTO: Codable, Sendable {
+  public let subjectStrategy: RecipeSubjectStrategy
+  public let semanticHint: String?
+  public let faceAssist: Bool?
+  public let poseAssist: Bool?
+  public let anchorStrategy: RecipeAnchorStrategy?
+  public let allowsManualSubjectSelection: Bool?
+
+  public init(
+    subjectStrategy: RecipeSubjectStrategy,
+    semanticHint: String? = nil,
+    faceAssist: Bool? = nil,
+    poseAssist: Bool? = nil,
+    anchorStrategy: RecipeAnchorStrategy? = nil,
+    allowsManualSubjectSelection: Bool? = nil
+  ) {
+    self.subjectStrategy = subjectStrategy
+    self.semanticHint = semanticHint
+    self.faceAssist = faceAssist
+    self.poseAssist = poseAssist
+    self.anchorStrategy = anchorStrategy
+    self.allowsManualSubjectSelection = allowsManualSubjectSelection
+  }
+}
+
+
+public struct RecipeCriticDimensionDTO: Codable, Sendable {
+  public let id: String
+  public let name: String
+  public let rubric: String
+  public let weight: Double
+  public let targetScore: Double
+  public let actionability: Double
+  public let requiredForReady: Bool?
+  public let minimumConfidence: Double?
+
+  public init(
+    id: String,
+    name: String,
+    rubric: String,
+    weight: Double,
+    targetScore: Double = 0.78,
+    actionability: Double = 0.8,
+    requiredForReady: Bool? = false,
+    minimumConfidence: Double? = 0.45
+  ) {
+    self.id = id
+    self.name = name
+    self.rubric = rubric
+    self.weight = weight
+    self.targetScore = targetScore
+    self.actionability = actionability
+    self.requiredForReady = requiredForReady
+    self.minimumConfidence = minimumConfidence
+  }
+}
+
+public struct RecipeCriticDTO: Codable, Sendable {
+  public let intent: String
+  public let adviceStyle: String?
+  public let preferredSampleCount: Int?
+  public let minimumSampleSpacing: Double?
+  public let dimensions: [RecipeCriticDimensionDTO]
+
+  public init(
+    intent: String,
+    adviceStyle: String? = nil,
+    preferredSampleCount: Int? = 3,
+    minimumSampleSpacing: Double? = 0.22,
+    dimensions: [RecipeCriticDimensionDTO]
+  ) {
+    self.intent = intent
+    self.adviceStyle = adviceStyle
+    self.preferredSampleCount = preferredSampleCount
+    self.minimumSampleSpacing = minimumSampleSpacing
+    self.dimensions = dimensions
+  }
+}
+
+public struct RecipePresentationDTO: Codable, Sendable {
+  public let domain: RecipeDomain
+  public let icon: String
+  public let tags: [String]
+  public let featuredRank: Int?
+
+  public init(domain: RecipeDomain, icon: String, tags: [String], featuredRank: Int? = nil) {
+    self.domain = domain
+    self.icon = icon
+    self.tags = tags
+    self.featuredRank = featuredRank
+  }
 }
 
 public struct RecipeDTO: Codable, Sendable {
@@ -141,6 +273,186 @@ public struct RecipeDTO: Codable, Sendable {
   public let goals: [RecipeGoalDTO]
   public let actions: [RecipeActionDTO]
   public let authorPolicy: RecipePolicyDTO
+  public let perception: RecipePerceptionDTO?
+  public let presentation: RecipePresentationDTO?
+  public let references: [RecipeReferenceDTO]?
+  public let questions: [RecipeQuestionDTO]?
+  public let critic: RecipeCriticDTO?
+
+  public init(
+    kind: String = "Recipe",
+    id: String,
+    version: String = "1",
+    title: String,
+    subtitle: String,
+    nodes: [RecipeNodeDTO] = [],
+    relations: [RecipeRelationDTO] = [],
+    goals: [RecipeGoalDTO] = [],
+    actions: [RecipeActionDTO] = [],
+    authorPolicy: RecipePolicyDTO = .init(),
+    perception: RecipePerceptionDTO? = .init(
+      subjectStrategy: .scene,
+      anchorStrategy: RecipeAnchorStrategy.none,
+      allowsManualSubjectSelection: false),
+    presentation: RecipePresentationDTO? = .init(
+      domain: .general, icon: "viewfinder", tags: []),
+    references: [RecipeReferenceDTO]? = nil,
+    questions: [RecipeQuestionDTO]? = nil,
+    critic: RecipeCriticDTO? = nil
+  ) {
+    self.kind = kind
+    self.id = id
+    self.version = version
+    self.title = title
+    self.subtitle = subtitle
+    self.nodes = nodes
+    self.relations = relations
+    self.goals = goals
+    self.actions = actions
+    self.authorPolicy = authorPolicy
+    self.perception = perception
+    self.presentation = presentation
+    self.references = references
+    self.questions = questions
+    self.critic = critic
+  }
+}
+
+
+public extension RecipeDTO {
+  var primarySubjectNode: RecipeNodeDTO? {
+    nodes.first { $0.roles.contains("PRIMARY_SUBJECT") }
+  }
+
+  var resolvedPerception: RecipePerceptionDTO {
+    if let perception { return perception }
+    let semantic = primarySubjectNode?.semanticClass?.lowercased()
+    let isHuman = semantic == "person" || semantic == "human"
+    return RecipePerceptionDTO(
+      subjectStrategy: isHuman ? .human : (primarySubjectNode == nil ? .scene : .saliency),
+      semanticHint: primarySubjectNode?.semanticClass,
+      faceAssist: isHuman,
+      poseAssist: isHuman,
+      anchorStrategy: relations.isEmpty ? RecipeAnchorStrategy.none : .automatic,
+      allowsManualSubjectSelection: !isHuman)
+  }
+
+  var resolvedCritic: CriticProfile {
+    if let critic {
+      return CriticProfile(
+        intent: critic.intent,
+        dimensions: critic.dimensions.map { item in
+          CriticDimensionSpec(
+            id: item.id, name: item.name, rubric: item.rubric, weight: item.weight,
+            targetScore: item.targetScore, actionability: item.actionability,
+            requiredForReady: item.requiredForReady ?? false,
+            minimumConfidence: item.minimumConfidence ?? 0.45)
+        },
+        adviceStyle: critic.adviceStyle
+          ?? "Give one concrete, high-impact photography adjustment at a time.",
+        preferredSampleCount: critic.preferredSampleCount ?? 3,
+        minimumSampleSpacing: critic.minimumSampleSpacing ?? 0.22)
+    }
+
+    // Backward-compatible fallback for third-party Recipes. Shipping Recipes
+    // declare an explicit critic profile in JSON so the multimodal model, not
+    // local subject heuristics, defines the product's photographic judgment.
+    return CriticProfile(
+      intent: "Evaluate the current photograph for the Recipe intent: \(title). \(subtitle)",
+      dimensions: [
+        .init(
+          id: "composition", name: "Composition",
+          rubric: "Judge framing, visual balance, spacing, hierarchy and edge tension.",
+          weight: 1, targetScore: 0.80, actionability: 1),
+        .init(
+          id: "lighting", name: "Lighting",
+          rubric: "Judge exposure, direction, contrast, highlight and shadow handling for the intended image.",
+          weight: 0.85, targetScore: 0.78, actionability: 0.8),
+        .init(
+          id: "subject", name: "Subject presentation",
+          rubric: "Judge how clearly and intentionally the important visual subject or scene is presented.",
+          weight: 0.9, targetScore: 0.78, actionability: 0.9),
+        .init(
+          id: "color", name: "Color",
+          rubric: "Judge color harmony, white balance and whether color supports the intended mood.",
+          weight: 0.55, targetScore: 0.72, actionability: 0.45),
+        .init(
+          id: "overall", name: "Overall image quality",
+          rubric: "Judge whether the image already feels deliberate, coherent and professionally photographable.",
+          weight: 0.8, targetScore: 0.78, actionability: 0.35),
+      ])
+  }
+
+  var resolvedPresentation: RecipePresentationDTO {
+    if let presentation { return presentation }
+    let isHuman = resolvedPerception.subjectStrategy == .human
+    return RecipePresentationDTO(
+      domain: isHuman ? .portrait : .general,
+      icon: isHuman ? "person.crop.rectangle" : "viewfinder",
+      tags: [])
+  }
+}
+
+public enum RecipeFactory {
+  /// A model-first Recipe contains only the photographic intent and critic rubric.
+  /// Local goals/actions are optional assistive layers and are intentionally omitted here.
+  public static func criticOnly(
+    id: String,
+    title: String,
+    subtitle: String,
+    intent: String,
+    domain: RecipeDomain = .general,
+    icon: String = "viewfinder",
+    tags: [String] = [],
+    dimensions: [RecipeCriticDimensionDTO]? = nil
+  ) -> RecipeDTO {
+    let cleanID = id.trimmingCharacters(in: .whitespacesAndNewlines)
+    let resolvedDimensions = dimensions?.isEmpty == false ? dimensions! : defaultDimensions
+    return RecipeDTO(
+      id: cleanID.isEmpty ? "user.\(UUID().uuidString.lowercased())" : cleanID,
+      title: title,
+      subtitle: subtitle,
+      perception: .init(
+        subjectStrategy: .scene,
+        anchorStrategy: RecipeAnchorStrategy.none,
+        allowsManualSubjectSelection: false),
+      presentation: .init(domain: domain, icon: icon, tags: tags),
+      critic: .init(
+        intent: intent,
+        adviceStyle: "Give one short, concrete, high-impact adjustment that can be acted on while the camera remains open.",
+        preferredSampleCount: 3,
+        minimumSampleSpacing: 0.22,
+        dimensions: resolvedDimensions))
+  }
+
+  public static var defaultDimensions: [RecipeCriticDimensionDTO] {
+    [
+      .init(
+        id: "composition", name: "Composition",
+        rubric: "Judge framing, balance, hierarchy, spacing, edge tension and use of negative space.",
+        weight: 1.0, targetScore: 0.80, actionability: 1.0, requiredForReady: true),
+      .init(
+        id: "lighting", name: "Lighting",
+        rubric: "Judge exposure, highlight control, shadow detail, direction and quality of light for the intended image.",
+        weight: 0.92, targetScore: 0.78, actionability: 0.9, requiredForReady: true),
+      .init(
+        id: "subject", name: "Subject",
+        rubric: "Judge whether the important visual subject or scene reads clearly and intentionally.",
+        weight: 0.9, targetScore: 0.78, actionability: 0.9),
+      .init(
+        id: "timing", name: "Timing",
+        rubric: "Judge transient expression, gesture, motion phase, stability and whether this is the right instant to capture.",
+        weight: 0.82, targetScore: 0.76, actionability: 0.85),
+      .init(
+        id: "color", name: "Color",
+        rubric: "Judge white balance, color harmony and whether color supports the intended mood.",
+        weight: 0.58, targetScore: 0.72, actionability: 0.45),
+      .init(
+        id: "overall", name: "Overall",
+        rubric: "Judge whether the live frame feels deliberate, coherent and photographically strong for the Recipe intent.",
+        weight: 0.8, targetScore: 0.78, actionability: 0.5),
+    ]
+  }
 }
 
 public struct CompiledRecipe: Sendable {
@@ -155,18 +467,46 @@ public struct CompiledRecipe: Sendable {
 
 private final class RecipeBundleMarker {}
 
+public enum RecipePreset: String, CaseIterable, Codable, Sendable {
+  case environmentPortrait = "environment_portrait"
+  case soloPortrait = "solo_portrait"
+  case centeredPortrait = "centered_portrait"
+  case closeupPortrait = "closeup_portrait"
+  case travelPortrait = "travel_portrait"
+  case food = "food"
+  case flowerMacro = "flower_macro"
+  case landscape = "landscape"
+  case product = "product"
+  case pet = "pet"
+  case architecture = "architecture"
+
+  public var requiresSceneAnchor: Bool {
+    switch self {
+    case .environmentPortrait, .travelPortrait: true
+    default: false
+    }
+  }
+}
+
 public struct RecipeLoader: Sendable {
   public init() {}
 
   public func loadEnvironmentalPortrait() -> CompiledRecipe {
+    load(.environmentPortrait)
+  }
+
+  public func catalog() -> [CompiledRecipe] {
+    RecipePreset.allCases.map(load)
+  }
+
+  public func load(_ preset: RecipePreset) -> CompiledRecipe {
     #if SWIFT_PACKAGE
       let resourceBundle = Bundle.module
     #else
       let resourceBundle = Bundle(for: RecipeBundleMarker.self)
     #endif
     guard
-      let url = resourceBundle.url(
-        forResource: "environment_portrait.recipe", withExtension: "json"),
+      let url = resourceBundle.url(forResource: "\(preset.rawValue).recipe", withExtension: "json"),
       let data = try? Data(contentsOf: url),
       let dto = try? JSONDecoder().decode(RecipeDTO.self, from: data)
     else {
@@ -294,6 +634,28 @@ public struct RecipeLoader: Sendable {
 
   private func preflightIssues(_ dto: RecipeDTO) -> [ValidationIssue] {
     var issues = [ValidationIssue]()
+    let perception = dto.resolvedPerception
+    let primary = dto.primarySubjectNode
+    if perception.subjectStrategy != .scene && primary == nil {
+      issues.append(.init(
+        rule: .invalidPerceptionProfile, severity: .error,
+        message: "\(dto.id): non-scene perception requires PRIMARY_SUBJECT"))
+    }
+    if perception.subjectStrategy == .human {
+      let semantic = primary?.semanticClass?.lowercased()
+      if semantic != "person" && semantic != "human" {
+        issues.append(.init(
+          rule: .invalidPerceptionProfile, severity: .error,
+          message: "\(dto.id): human strategy requires person semanticClass"))
+      }
+    }
+    if perception.subjectStrategy == .scene,
+      dto.goals.contains(where: { $0.binding.scope.uppercased() == "NODE" && $0.class.uppercased() == "HARD" })
+    {
+      issues.append(.init(
+        rule: .perceptionCoverageGap, severity: .error,
+        message: "\(dto.id): scene-only strategy cannot satisfy HARD node goals"))
+    }
     for goal in dto.goals {
       if !goal.importance.isFinite || !(0...1).contains(goal.importance) {
         issues.append(.init(rule: .invalidGoalImportance, severity: .error, message: goal.id))
@@ -396,6 +758,8 @@ public struct RecipeLoader: Sendable {
     case "WAIT": .wait
     case "CAPTURE": .capture
     case "SELECT_ANCHOR": .selectAnchor
+    case "SELECT_SUBJECT": .selectSubject
+    case "ADJUST_EXPOSURE": .adjustExposure
     default: .move
     }
   }
@@ -449,7 +813,7 @@ public struct RecipeLoader: Sendable {
   private static func emergencyRecipe() -> CompiledRecipe {
     let standard = GuidanceRegistry.standardPhotography
     let primary = NodeDefinition(
-      id: NodeID("primary"), type: .entity, semanticClass: "person",
+      id: NodeID("primary"), type: .entity, semanticClass: nil,
       roles: ["PRIMARY_SUBJECT"], presence: .required)
     let registry = GuidanceRegistry(
       nodes: [primary],
@@ -457,7 +821,7 @@ public struct RecipeLoader: Sendable {
       evaluators: Array(standard.evaluators.values)
     )
     let goal = GoalDefinition(
-      id: GoalID("person_exists"),
+      id: GoalID("subject_exists"),
       dimension: DimensionID("std.node.exists"),
       binding: .node(NodeID("primary")),
       target: .boolean(true),
@@ -472,7 +836,7 @@ public struct RecipeLoader: Sendable {
       presentationKey: "subject.enter_frame"
     )
     let node = RecipeNodeDTO(
-      id: "primary", type: "ENTITY", semanticClass: "person", roles: ["PRIMARY_SUBJECT"],
+      id: "primary", type: "ENTITY", semanticClass: nil, roles: ["PRIMARY_SUBJECT"],
       presence: "REQUIRED")
     let target = RecipeTargetDTO(type: "BOOLEAN", value: true)
     let dto = RecipeDTO(
@@ -480,12 +844,17 @@ public struct RecipeLoader: Sendable {
       nodes: [node], relations: [],
       goals: [
         .init(
-          id: "person_exists", dimension: "std.node.exists",
+          id: "subject_exists", dimension: "std.node.exists",
           binding: .init(scope: "NODE", id: "primary"), target: target, class: "HARD",
           importance: 1, dependencies: [])
       ],
       actions: [],
-      authorPolicy: .init(allowGoalSkip: false, allowGoalLock: true, allowVariantSwitch: false)
+      authorPolicy: .init(allowGoalSkip: false, allowGoalLock: true, allowVariantSwitch: false),
+      perception: .init(
+        subjectStrategy: .saliency, semanticHint: nil, faceAssist: false, poseAssist: false,
+        anchorStrategy: RecipeAnchorStrategy.none, allowsManualSubjectSelection: true),
+      presentation: .init(domain: .general, icon: "viewfinder", tags: []),
+      critic: nil
     )
     return CompiledRecipe(
       source: dto, registry: registry, goals: [goal], actions: [action], validationIssues: [])

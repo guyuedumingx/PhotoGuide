@@ -87,6 +87,40 @@ public enum ActionPresenter {
         .init(title: L("保持一秒"), detail: L("正在补充人物和背景关系判断"), symbol: "eye.circle")
       case "user.reselect_anchor":
         .init(title: L("重新点一下背景主体"), detail: L("点你真正想保留的山、建筑、树或地标"), symbol: "scope")
+      case "user.select_subject":
+        .init(title: L("点一下你要拍的主体"), detail: L("花、食物、物品、宠物都可以，点一下就会锁定"), symbol: "hand.tap")
+      case "camera.keep_subject_visible":
+        .init(title: L("把主体留在画面里"), detail: L("稍微重新取景，让主要对象保持清楚"), symbol: "viewfinder")
+      case "photographer.backward_subject":
+        .init(title: L("往后一点"), detail: L("主体现在偏大，退一小步就够"), symbol: "arrow.down.forward", isSafetySensitive: true)
+      case "camera.zoom_out_subject":
+        .init(title: L("切到更广的焦段"), detail: L("减少主体占比，机位先别动"), symbol: "minus.magnifyingglass")
+      case "photographer.forward_subject_generic":
+        .init(title: L("靠近一点"), detail: L("让主体在画面里更有存在感"), symbol: "arrow.up.backward")
+      case "camera.zoom_in_subject":
+        .init(title: L("拉近一点"), detail: L("不动机位，先让主体更突出"), symbol: "plus.magnifyingglass")
+      case "subject_generic.move_right":
+        .init(title: L("主体往右一点"), detail: L("让画面重心更自然"), symbol: "arrow.right", previewCue: .right, compositionGuide: .rightThird)
+      case "subject_generic.move_left":
+        .init(title: L("主体往左一点"), detail: L("让画面重心更自然"), symbol: "arrow.left", previewCue: .left, compositionGuide: .leftThird)
+      case "camera.frame_right":
+        .init(title: L("取景往右一点"), detail: L("只移动一点画面中心"), symbol: "arrow.right", previewCue: .right)
+      case "camera.frame_left":
+        .init(title: L("取景往左一点"), detail: L("只移动一点画面中心"), symbol: "arrow.left", previewCue: .left)
+      case "camera.frame_up":
+        .init(title: L("取景抬高一点"), detail: L("给下方内容少一点空间"), symbol: "arrow.up", previewCue: .up)
+      case "camera.frame_down":
+        .init(title: L("取景压低一点"), detail: L("给上方内容少一点空间"), symbol: "arrow.down", previewCue: .down)
+      case "camera.exposure_up":
+        .init(title: L("画面亮一点"), detail: L("轻微提高曝光，不改变构图"), symbol: "sun.max")
+      case "camera.exposure_down":
+        .init(title: L("画面暗一点"), detail: L("轻微降低曝光，保留更多层次"), symbol: "sun.min")
+      case "camera.protect_highlights":
+        .init(title: L("压一点高光"), detail: L("降低一点曝光，避免亮部失去细节"), symbol: "sun.haze")
+      case "system.hold_evidence_generic":
+        .init(title: L("保持一下"), detail: L("先别动，我需要一帧更稳定的主体画面"), symbol: "viewfinder.circle")
+      case "system.hold_evidence_scene":
+        .init(title: L("保持一下"), detail: L("先别动，我正在确认光线和画面重心"), symbol: "viewfinder.circle")
       default:
         .init(title: L("轻微调整一下"), detail: L("保持其它部分不变"), symbol: "scope")
       }

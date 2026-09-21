@@ -1,0 +1,1010 @@
+{
+  "version": "0.8.0",
+  "recipe_count": 11,
+  "domains": [
+    "architecture",
+    "food",
+    "landscape",
+    "nature",
+    "pet",
+    "portrait",
+    "product",
+    "travel"
+  ],
+  "acceptance_passed": true,
+  "errors": [],
+  "recipes": [
+    {
+      "id": "official.architecture",
+      "file": "architecture.recipe.json",
+      "domain": "architecture",
+      "quality_dimensions": [
+        "composition",
+        "geometry",
+        "lines",
+        "lighting",
+        "clutter",
+        "color",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "geometry",
+            "lines",
+            "lighting",
+            "clutter",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "geometry",
+            "lines",
+            "lighting",
+            "clutter",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "geometry",
+            "lines",
+            "lighting",
+            "clutter",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.centered_portrait",
+      "file": "centered_portrait.recipe.json",
+      "domain": "portrait",
+      "quality_dimensions": [
+        "composition",
+        "expression_pose",
+        "lighting",
+        "separation",
+        "color",
+        "sharpness_timing",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.closeup_portrait",
+      "file": "closeup_portrait.recipe.json",
+      "domain": "portrait",
+      "quality_dimensions": [
+        "composition",
+        "expression_pose",
+        "lighting",
+        "separation",
+        "color",
+        "sharpness_timing",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.environment_portrait",
+      "file": "environment_portrait.recipe.json",
+      "domain": "portrait",
+      "quality_dimensions": [
+        "composition",
+        "expression_pose",
+        "lighting",
+        "separation",
+        "color",
+        "sharpness_timing",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.flower_macro",
+      "file": "flower_macro.recipe.json",
+      "domain": "nature",
+      "quality_dimensions": [
+        "composition",
+        "subject_form",
+        "background",
+        "lighting",
+        "color",
+        "detail",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "subject_form",
+            "background",
+            "lighting",
+            "color",
+            "detail",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "subject_form",
+            "background",
+            "lighting",
+            "color",
+            "detail",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "subject_form",
+            "background",
+            "lighting",
+            "color",
+            "detail",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.food",
+      "file": "food.recipe.json",
+      "domain": "food",
+      "quality_dimensions": [
+        "composition",
+        "food_presentation",
+        "lighting",
+        "background",
+        "color",
+        "detail",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "food_presentation",
+            "lighting",
+            "background",
+            "color",
+            "detail",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "food_presentation",
+            "lighting",
+            "background",
+            "color",
+            "detail",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "food_presentation",
+            "lighting",
+            "background",
+            "color",
+            "detail",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.landscape",
+      "file": "landscape.recipe.json",
+      "domain": "landscape",
+      "quality_dimensions": [
+        "composition",
+        "depth",
+        "light",
+        "color",
+        "clarity",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "depth",
+            "light",
+            "color",
+            "clarity",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "depth",
+            "light",
+            "color",
+            "clarity",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "depth",
+            "light",
+            "color",
+            "clarity",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "light",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.6666666666666666,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.pet",
+      "file": "pet.recipe.json",
+      "domain": "pet",
+      "quality_dimensions": [
+        "composition",
+        "expression_timing",
+        "sharpness_motion",
+        "lighting",
+        "background",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "expression_timing",
+            "sharpness_motion",
+            "lighting",
+            "background",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "expression_timing",
+            "sharpness_motion",
+            "lighting",
+            "background",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "expression_timing",
+            "sharpness_motion",
+            "lighting",
+            "background",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "overall"
+          ],
+          "dimension_coverage": 0.5,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.product",
+      "file": "product.recipe.json",
+      "domain": "product",
+      "quality_dimensions": [
+        "composition",
+        "product_clarity",
+        "lighting",
+        "background",
+        "geometry",
+        "color",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "product_clarity",
+            "lighting",
+            "background",
+            "geometry",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "product_clarity",
+            "lighting",
+            "background",
+            "geometry",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "product_clarity",
+            "lighting",
+            "background",
+            "geometry",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.solo_portrait",
+      "file": "solo_portrait.recipe.json",
+      "domain": "portrait",
+      "quality_dimensions": [
+        "composition",
+        "expression_pose",
+        "lighting",
+        "separation",
+        "color",
+        "sharpness_timing",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    },
+    {
+      "id": "official.travel_portrait",
+      "file": "travel_portrait.recipe.json",
+      "domain": "travel",
+      "quality_dimensions": [
+        "composition",
+        "expression_pose",
+        "lighting",
+        "separation",
+        "color",
+        "sharpness_timing",
+        "overall"
+      ],
+      "preferred_sample_count": 3,
+      "profiles": {
+        "full": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": true,
+          "full_product_capability": true
+        },
+        "critic-only": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "single-frame-critic": {
+          "active_dimensions": [
+            "composition",
+            "expression_pose",
+            "lighting",
+            "separation",
+            "color",
+            "sharpness_timing",
+            "overall"
+          ],
+          "dimension_coverage": 1.0,
+          "professional_advice": true,
+          "temporal_context": false,
+          "domain_rubric": true,
+          "local_assist": false,
+          "full_product_capability": true
+        },
+        "generic-rubric": {
+          "active_dimensions": [
+            "composition",
+            "lighting",
+            "color",
+            "overall"
+          ],
+          "dimension_coverage": 0.5714285714285714,
+          "professional_advice": true,
+          "temporal_context": true,
+          "domain_rubric": false,
+          "local_assist": false,
+          "full_product_capability": false
+        },
+        "local-only": {
+          "active_dimensions": [],
+          "dimension_coverage": 0.0,
+          "professional_advice": false,
+          "temporal_context": false,
+          "domain_rubric": false,
+          "local_assist": true,
+          "full_product_capability": false
+        }
+      }
+    }
+  ]
+}

@@ -2,15 +2,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-if ! command -v xcodegen >/dev/null 2>&1; then
-  if command -v brew >/dev/null 2>&1; then
-    echo "xcodegen not found; installing with Homebrew..."
-    brew install xcodegen
-  else
-    echo "xcodegen is required. Install it first: https://github.com/yonaskolb/XcodeGen"
-    exit 1
-  fi
+if command -v xcodegen >/dev/null 2>&1; then
+  echo "Generating PhotoGuide.xcodeproj with XcodeGen..."
+  xcodegen generate
+else
+  echo "XcodeGen not found; using the bundled deterministic project generator..."
+  python3 scripts/generate-xcodeproj.py
 fi
 
-xcodegen generate
-open PhotoGuide.xcodeproj
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  open PhotoGuide.xcodeproj
+else
+  echo "Generated: $PWD/PhotoGuide.xcodeproj"
+fi

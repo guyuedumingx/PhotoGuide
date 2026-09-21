@@ -1,0 +1,548 @@
+{
+  "kind": "Recipe",
+  "id": "official.solo_portrait",
+  "version": "0.8.0",
+  "title": "单人人像",
+  "subtitle": "让人物更突出，脸部和姿态更自然",
+  "nodes": [
+    {
+      "id": "primary",
+      "type": "ENTITY",
+      "semanticClass": "person",
+      "roles": [
+        "PRIMARY_SUBJECT"
+      ],
+      "presence": "REQUIRED"
+    }
+  ],
+  "relations": [],
+  "goals": [
+    {
+      "id": "person_exists",
+      "dimension": "std.node.exists",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "BOOLEAN",
+        "value": true
+      },
+      "class": "HARD",
+      "importance": 1.0,
+      "dependencies": []
+    },
+    {
+      "id": "person_visibility",
+      "dimension": "std.node.visibility",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "BOOLEAN",
+        "value": true
+      },
+      "class": "HARD",
+      "importance": 1.0,
+      "dependencies": [
+        "person_exists"
+      ]
+    },
+    {
+      "id": "person_scale",
+      "dimension": "std.node.visual_scale",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.24,
+          0.4
+        ],
+        "acceptable": [
+          0.18,
+          0.48
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.94,
+      "dependencies": [
+        "person_visibility"
+      ]
+    },
+    {
+      "id": "person_x",
+      "dimension": "std.node.position_x",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.43,
+          0.57
+        ],
+        "acceptable": [
+          0.35,
+          0.65
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.86,
+      "dependencies": [
+        "person_visibility"
+      ]
+    },
+    {
+      "id": "person_y",
+      "dimension": "std.node.position_y",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.38,
+          0.56
+        ],
+        "acceptable": [
+          0.3,
+          0.66
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.72,
+      "dependencies": [
+        "person_visibility"
+      ]
+    },
+    {
+      "id": "body_orientation",
+      "dimension": "std.pose.body_orientation",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "ORDINAL",
+        "ideal": 0
+      },
+      "class": "SOFT",
+      "importance": 0.62,
+      "dependencies": [
+        "person_visibility"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "subject.enter_frame",
+      "actor": "SUBJECT",
+      "operation": "MOVE",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "IMAGE_SPACE",
+      "condition": {
+        "type": "BOOLEAN_EQUALS",
+        "goal": "person_exists",
+        "bool": false
+      },
+      "effects": [
+        {
+          "goal": "person_exists",
+          "gain": 1.0
+        }
+      ],
+      "burden": 0.08,
+      "family": "subject.enter",
+      "safety": "SAFE",
+      "presentationKey": "subject.enter_frame"
+    },
+    {
+      "id": "camera.reframe_visibility",
+      "actor": "PHOTOGRAPHER",
+      "operation": "REFRAME",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "BOOLEAN_EQUALS",
+        "goal": "person_visibility",
+        "bool": false
+      },
+      "effects": [
+        {
+          "goal": "person_visibility",
+          "gain": 0.95
+        },
+        {
+          "goal": "person_x",
+          "gain": 0,
+          "damage": 0.15
+        },
+        {
+          "goal": "person_y",
+          "gain": 0,
+          "damage": 0.15
+        }
+      ],
+      "burden": 0.08,
+      "family": "camera.reframe",
+      "safety": "SAFE",
+      "presentationKey": "camera.keep_subject_inside"
+    },
+    {
+      "id": "camera.distance.backward.scale",
+      "actor": "PHOTOGRAPHER",
+      "operation": "MOVE",
+      "direction": "BACKWARD",
+      "magnitude": "SMALL",
+      "coordinateFrame": "PHOTOGRAPHER_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "person_scale",
+        "number": 0.48
+      },
+      "effects": [
+        {
+          "goal": "person_scale",
+          "gain": 0.86
+        },
+        {
+          "goal": "person_x",
+          "gain": 0,
+          "damage": 0.08
+        }
+      ],
+      "burden": 0.48,
+      "risk": 0.08,
+      "family": "camera.distance.backward",
+      "safety": "CONTEXT_DEPENDENT",
+      "presentationKey": "photographer.backward"
+    },
+    {
+      "id": "camera.zoom.out.scale",
+      "actor": "CAMERA",
+      "operation": "ZOOM",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "person_scale",
+        "number": 0.48
+      },
+      "effects": [
+        {
+          "goal": "person_scale",
+          "gain": 0.72
+        }
+      ],
+      "burden": 0.08,
+      "uncertainty": 0.05,
+      "family": "camera.zoom.out",
+      "requiredCapability": "zoom.out",
+      "safety": "SAFE",
+      "presentationKey": "camera.zoom_out"
+    },
+    {
+      "id": "camera.distance.forward.scale",
+      "actor": "PHOTOGRAPHER",
+      "operation": "MOVE",
+      "direction": "FORWARD",
+      "magnitude": "SMALL",
+      "coordinateFrame": "PHOTOGRAPHER_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "person_scale",
+        "number": 0.18
+      },
+      "effects": [
+        {
+          "goal": "person_scale",
+          "gain": 0.88
+        }
+      ],
+      "burden": 0.28,
+      "family": "camera.distance.forward",
+      "safety": "SAFE",
+      "presentationKey": "photographer.forward"
+    },
+    {
+      "id": "camera.zoom.in.scale",
+      "actor": "CAMERA",
+      "operation": "ZOOM",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "person_scale",
+        "number": 0.18
+      },
+      "effects": [
+        {
+          "goal": "person_scale",
+          "gain": 0.76
+        }
+      ],
+      "burden": 0.07,
+      "uncertainty": 0.03,
+      "family": "camera.zoom.in",
+      "requiredCapability": "zoom.2x",
+      "safety": "SAFE",
+      "presentationKey": "camera.zoom_2x"
+    },
+    {
+      "id": "subject.right",
+      "actor": "SUBJECT",
+      "operation": "MOVE",
+      "direction": "RIGHT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "IMAGE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "person_x",
+        "number": 0.35
+      },
+      "effects": [
+        {
+          "goal": "person_x",
+          "gain": 0.92
+        }
+      ],
+      "burden": 0.12,
+      "family": "subject.horizontal.right",
+      "safety": "SAFE",
+      "presentationKey": "subject.move_right"
+    },
+    {
+      "id": "subject.left",
+      "actor": "SUBJECT",
+      "operation": "MOVE",
+      "direction": "LEFT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "IMAGE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "person_x",
+        "number": 0.65
+      },
+      "effects": [
+        {
+          "goal": "person_x",
+          "gain": 0.92
+        }
+      ],
+      "burden": 0.12,
+      "family": "subject.horizontal.left",
+      "safety": "SAFE",
+      "presentationKey": "subject.move_left"
+    },
+    {
+      "id": "camera.aim.up",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "UP",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "person_y",
+        "number": 0.3
+      },
+      "effects": [
+        {
+          "goal": "person_y",
+          "gain": 0.82
+        }
+      ],
+      "burden": 0.07,
+      "family": "camera.vertical.up",
+      "safety": "SAFE",
+      "presentationKey": "camera.aim_up"
+    },
+    {
+      "id": "camera.aim.down",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "DOWN",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "person_y",
+        "number": 0.66
+      },
+      "effects": [
+        {
+          "goal": "person_y",
+          "gain": 0.82
+        }
+      ],
+      "burden": 0.07,
+      "family": "camera.vertical.down",
+      "safety": "SAFE",
+      "presentationKey": "camera.aim_down"
+    },
+    {
+      "id": "subject.turn_toward_camera",
+      "actor": "SUBJECT",
+      "operation": "ROTATE",
+      "direction": "TOWARD_CAMERA",
+      "magnitude": "SMALL",
+      "coordinateFrame": "SUBJECT_SPACE",
+      "condition": {
+        "type": "ORDINAL_ABOVE",
+        "goal": "body_orientation",
+        "ordinal": 0
+      },
+      "effects": [
+        {
+          "goal": "body_orientation",
+          "gain": 0.84
+        },
+        {
+          "goal": "person_scale",
+          "gain": 0,
+          "damage": 0.06
+        }
+      ],
+      "burden": 0.1,
+      "family": "subject.orientation",
+      "safety": "SAFE",
+      "presentationKey": "subject.turn_toward_camera"
+    },
+    {
+      "id": "system.hold_for_evidence",
+      "actor": "SYSTEM",
+      "operation": "HOLD",
+      "direction": "NONE",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effects": [],
+      "informationEffects": [
+        {
+          "goal": "person_exists",
+          "confidenceGain": 0.34,
+          "resolutionProbability": 0.72
+        },
+        {
+          "goal": "person_visibility",
+          "confidenceGain": 0.3,
+          "resolutionProbability": 0.66
+        },
+        {
+          "goal": "body_orientation",
+          "confidenceGain": 0.28,
+          "resolutionProbability": 0.62
+        }
+      ],
+      "burden": 0.015,
+      "risk": 0.0,
+      "uncertainty": 0.04,
+      "family": "evidence.hold",
+      "safety": "SAFE",
+      "presentationKey": "system.hold_evidence"
+    }
+  ],
+  "authorPolicy": {
+    "allowGoalSkip": true,
+    "allowGoalLock": true,
+    "allowVariantSwitch": true
+  },
+  "perception": {
+    "subjectStrategy": "human",
+    "semanticHint": "person",
+    "faceAssist": true,
+    "poseAssist": true,
+    "anchorStrategy": "none",
+    "allowsManualSubjectSelection": false
+  },
+  "presentation": {
+    "domain": "portrait",
+    "icon": "person.fill",
+    "tags": [
+      "姿态",
+      "留白",
+      "人物突出"
+    ],
+    "featuredRank": 2
+  },
+  "critic": {
+    "intent": "Create a polished portrait while preserving the intent of the selected Recipe.",
+    "adviceStyle": "Give exactly one concrete, high-impact adjustment at a time. Be concise, professional, and specific to the visible image. Do not invent objects outside the frame.",
+    "preferredSampleCount": 3,
+    "minimumSampleSpacing": 0.22,
+    "dimensions": [
+      {
+        "id": "composition",
+        "name": "Composition",
+        "rubric": "Judge framing, headroom, edge tension, visual balance and subject placement.",
+        "weight": 1.0,
+        "targetScore": 0.82,
+        "actionability": 1.0,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "expression_pose",
+        "name": "Expression & pose",
+        "rubric": "Judge expression, body language, gesture and whether the subject feels natural and intentional.",
+        "weight": 0.95,
+        "targetScore": 0.78,
+        "actionability": 0.95
+      },
+      {
+        "id": "lighting",
+        "name": "Lighting",
+        "rubric": "Judge facial/subject light, exposure, contrast, highlight control and flattering direction.",
+        "weight": 0.9,
+        "targetScore": 0.78,
+        "actionability": 0.75
+      },
+      {
+        "id": "separation",
+        "name": "Subject separation",
+        "rubric": "Judge background distraction, depth, silhouette clarity and subject-background separation.",
+        "weight": 0.75,
+        "targetScore": 0.75,
+        "actionability": 0.8
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "rubric": "Judge skin/subject color, white balance and palette harmony.",
+        "weight": 0.5,
+        "targetScore": 0.72,
+        "actionability": 0.4
+      },
+      {
+        "id": "sharpness_timing",
+        "name": "Sharpness & timing",
+        "rubric": "Judge focus, motion, blink/timing and whether the decisive moment is usable.",
+        "weight": 0.85,
+        "targetScore": 0.8,
+        "actionability": 0.55,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "rubric": "Judge whether the portrait feels deliberate, coherent and ready to capture.",
+        "weight": 0.85,
+        "targetScore": 0.8,
+        "actionability": 0.35
+      }
+    ]
+  }
+}

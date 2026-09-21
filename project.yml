@@ -51,6 +51,8 @@ targets:
     deploymentTarget: "18.0"
     sources:
       - Packages/RecipeKit/RecipeKit.swift
+      - Packages/RecipeKit/RecipeAblation.swift
+      - Packages/RecipeKit/RecipeQuestion.swift
       - path: Packages/RecipeKit/Resources
         buildPhase: resources
     dependencies:
@@ -90,6 +92,8 @@ targets:
           - Resources
       - path: PhotoGuideApp/Resources
         buildPhase: resources
+      - path: PhotoGuideApp/Assets.xcassets
+        buildPhase: resources
     dependencies:
       - target: GuidanceUI
         embed: true
@@ -101,20 +105,27 @@ targets:
         embed: true
       - package: GuidanceCore
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.app
+      PRODUCT_BUNDLE_IDENTIFIER: com.guyuedumingx.PhotoGuide
       PRODUCT_NAME: PhotoGuide
-      MARKETING_VERSION: 0.4.4
-      CURRENT_PROJECT_VERSION: 14
+      MARKETING_VERSION: 0.9.4
+      CURRENT_PROJECT_VERSION: 27
       CODE_SIGN_STYLE: Automatic
       GENERATE_INFOPLIST_FILE: YES
       INFOPLIST_KEY_CFBundleDisplayName: PhotoGuide
       INFOPLIST_KEY_CFBundleDevelopmentRegion: en
-      INFOPLIST_KEY_UILaunchScreen_Generation: YES
+      MULTIMODAL_CRITIC_ENDPOINT: ""
+      INFOPLIST_KEY_MultimodalCriticEndpoint: "$(MULTIMODAL_CRITIC_ENDPOINT)"
+      DJEV_ENDPOINT: ""
+      INFOPLIST_KEY_DJEVEndpoint: "$(DJEV_ENDPOINT)"
       INFOPLIST_KEY_NSCameraUsageDescription: PhotoGuide uses the camera for live framing analysis and real-time shooting guidance.
       INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: PhotoGuide needs permission to save captured photos to your Photo Library.
       INFOPLIST_KEY_UIRequiresFullScreen: YES
       INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
       INFOPLIST_KEY_UIStatusBarStyle: UIStatusBarStyleLightContent
+      INFOPLIST_KEY_UILaunchScreen_Generation: YES
+      INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.photography
+      ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
 
   RecipeKitTests:
     type: bundle.unit-test
@@ -138,6 +149,7 @@ targets:
       - Tests/PerceptionRuntimeTests.swift
     dependencies:
       - target: PerceptionRuntime
+      - package: GuidanceCore
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.photoguide.PerceptionRuntimeTests
       GENERATE_INFOPLIST_FILE: YES

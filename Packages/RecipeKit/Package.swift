@@ -12,7 +12,7 @@ let package = Package(
       dependencies: ["GuidanceCore"],
       path: ".",
       exclude: ["Package.swift", "Tests"],
-      sources: ["RecipeKit.swift"],
+      sources: ["RecipeKit.swift", "RecipeQuestion.swift", "RecipeAblation.swift"],
       resources: [.process("Resources")]
     ),
     .testTarget(

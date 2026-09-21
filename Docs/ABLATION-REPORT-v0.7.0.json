@@ -1,0 +1,832 @@
+{
+  "recipe_count": 11,
+  "domains": [
+    "architecture",
+    "food",
+    "landscape",
+    "nature",
+    "pet",
+    "portrait",
+    "product",
+    "travel"
+  ],
+  "strategies": [
+    "human",
+    "saliency",
+    "scene"
+  ],
+  "acceptance_passed": true,
+  "errors": [],
+  "recipes": [
+    {
+      "id": "official.architecture",
+      "file": "architecture.recipe.json",
+      "domain": "architecture",
+      "strategy": "scene",
+      "critical_goal_count": 3,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": false,
+      "profiles": {
+        "full": {
+          "observable": [
+            "frame_luminance",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "frame_luminance",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [],
+          "blocked": [
+            "frame_luminance",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "frame-only": {
+          "observable": [
+            "frame_luminance",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "frame_luminance",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.centered_portrait",
+      "file": "centered_portrait.recipe.json",
+      "domain": "portrait",
+      "strategy": "human",
+      "critical_goal_count": 5,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": true,
+      "profiles": {
+        "full": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "frame-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.closeup_portrait",
+      "file": "closeup_portrait.recipe.json",
+      "domain": "portrait",
+      "strategy": "human",
+      "critical_goal_count": 4,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": true,
+      "profiles": {
+        "full": {
+          "observable": [
+            "person_exists",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "person_exists",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "person_exists",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "frame-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.environment_portrait",
+      "file": "environment_portrait.recipe.json",
+      "domain": "portrait",
+      "strategy": "human",
+      "critical_goal_count": 6,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": true,
+      "profiles": {
+        "full": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "frame-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.flower_macro",
+      "file": "flower_macro.recipe.json",
+      "domain": "nature",
+      "strategy": "saliency",
+      "critical_goal_count": 6,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": false,
+      "profiles": {
+        "full": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "blocked": [
+            "frame_luminance"
+          ],
+          "coverage": 0.8333333333333334,
+          "readiness_decidable": false
+        },
+        "frame-only": {
+          "observable": [
+            "frame_luminance"
+          ],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "coverage": 0.16666666666666666,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.food",
+      "file": "food.recipe.json",
+      "domain": "food",
+      "strategy": "saliency",
+      "critical_goal_count": 6,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": false,
+      "profiles": {
+        "full": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "blocked": [
+            "frame_luminance"
+          ],
+          "coverage": 0.8333333333333334,
+          "readiness_decidable": false
+        },
+        "frame-only": {
+          "observable": [
+            "frame_luminance"
+          ],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "coverage": 0.16666666666666666,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.landscape",
+      "file": "landscape.recipe.json",
+      "domain": "landscape",
+      "strategy": "scene",
+      "critical_goal_count": 4,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": false,
+      "profiles": {
+        "full": {
+          "observable": [
+            "frame_luminance",
+            "highlight_fraction",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "frame_luminance",
+            "highlight_fraction",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [],
+          "blocked": [
+            "frame_luminance",
+            "highlight_fraction",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "frame-only": {
+          "observable": [
+            "frame_luminance",
+            "highlight_fraction",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "frame_luminance",
+            "highlight_fraction",
+            "visual_center_x",
+            "visual_center_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.pet",
+      "file": "pet.recipe.json",
+      "domain": "pet",
+      "strategy": "saliency",
+      "critical_goal_count": 6,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": false,
+      "profiles": {
+        "full": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "blocked": [
+            "frame_luminance"
+          ],
+          "coverage": 0.8333333333333334,
+          "readiness_decidable": false
+        },
+        "frame-only": {
+          "observable": [
+            "frame_luminance"
+          ],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "coverage": 0.16666666666666666,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.product",
+      "file": "product.recipe.json",
+      "domain": "product",
+      "strategy": "saliency",
+      "critical_goal_count": 6,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": false,
+      "profiles": {
+        "full": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "blocked": [
+            "frame_luminance"
+          ],
+          "coverage": 0.8333333333333334,
+          "readiness_decidable": false
+        },
+        "frame-only": {
+          "observable": [
+            "frame_luminance"
+          ],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y"
+          ],
+          "coverage": 0.16666666666666666,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "subject_exists",
+            "subject_visibility",
+            "subject_scale",
+            "subject_x",
+            "subject_y",
+            "frame_luminance"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.solo_portrait",
+      "file": "solo_portrait.recipe.json",
+      "domain": "portrait",
+      "strategy": "human",
+      "critical_goal_count": 5,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": true,
+      "profiles": {
+        "full": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "frame-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    },
+    {
+      "id": "official.travel_portrait",
+      "file": "travel_portrait.recipe.json",
+      "domain": "travel",
+      "strategy": "human",
+      "critical_goal_count": 6,
+      "critical_semantic_goals": [],
+      "critical_without_control": [],
+      "uses_portrait_pose": true,
+      "profiles": {
+        "full": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "local-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "geometry-only": {
+          "observable": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "blocked": [],
+          "coverage": 1.0,
+          "readiness_decidable": true
+        },
+        "frame-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        },
+        "semantic-only": {
+          "observable": [],
+          "blocked": [
+            "person_exists",
+            "person_visibility",
+            "person_scale",
+            "person_x",
+            "person_y",
+            "relative_scale"
+          ],
+          "coverage": 0.0,
+          "readiness_decidable": false
+        }
+      }
+    }
+  ]
+}

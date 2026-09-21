@@ -1,0 +1,27 @@
+{
+  "required_variants": ["full", "single_frame", "generic_rubric"],
+  "required_recipes": [
+    "official.environment_portrait",
+    "official.solo_portrait",
+    "official.centered_portrait",
+    "official.closeup_portrait",
+    "official.travel_portrait",
+    "official.food",
+    "official.flower_macro",
+    "official.product",
+    "official.pet",
+    "official.landscape",
+    "official.architecture"
+  ],
+  "minimum_total_full_samples": 220,
+  "minimum_samples_per_recipe": 20,
+  "minimum_recipe_count": 11,
+  "minimum_ready_accuracy": 0.80,
+  "maximum_dimension_mae": 0.18,
+  "minimum_dimension_score_coverage": 0.95,
+  "minimum_advice_usefulness": 0.75,
+  "minimum_advice_safety_rate": 0.99,
+  "maximum_latency_p95_ms": 1500,
+  "minimum_advice_usefulness_gain_vs_generic": 0.03,
+  "maximum_full_mae_regression_vs_single_frame": 0.01
+}

@@ -41,6 +41,8 @@ public enum ValidationRule: String, Sendable {
   case invalidGoalGroupConfiguration
   case overlappingCriticalGoalGroups
   case simulationCannotConverge
+  case invalidPerceptionProfile
+  case perceptionCoverageGap
 }
 
 public struct ValidationIssue: Equatable, Sendable {
@@ -226,6 +228,7 @@ public struct RecipeValidator: Sendable {
       if action.improvedGoals.isEmpty, !action.isInformationSeeking,
         action.operation != .hold, action.operation != .wait, action.operation != .capture,
         action.operation != .selectAnchor
+        && action.operation != .selectSubject
       {
         issues.append(
           .init(

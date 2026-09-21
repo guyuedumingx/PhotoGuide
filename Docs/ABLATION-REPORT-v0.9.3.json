@@ -1,0 +1,61 @@
+{
+  "version": "0.9.3",
+  "kind": "camera-first-polished-ordered-question-core-structural-ablation",
+  "empirical_djev_accuracy_claimed": false,
+  "acceptance_passed": true,
+  "experiments": {
+    "bounded_model_output": {
+      "choice_only": true,
+      "score_only": true,
+      "boolean_only": true,
+      "no_action_in_judge_answer": true,
+      "visual_judge_protocol": true,
+      "invalid_answer_not_match": true
+    },
+    "recipe_contract": {
+      "portable_reference": true,
+      "question_dto": true,
+      "no_question_priority": true,
+      "question_factory": true,
+      "reference_generator": true,
+      "no_hint_field_in_question_dto": true
+    },
+    "ordered_question_management": {
+      "question_runtime": true,
+      "skip": true,
+      "restore": true,
+      "periodic_recheck": true,
+      "author_order_scheduler": true,
+      "ordered_issues": true,
+      "no_issue_ranking": true,
+      "ui_skip": true,
+      "management_surface": true
+    },
+    "ordered_swipe_issue_ui": {
+      "uses_selected_recipe_issue": true,
+      "swipe_surface": true,
+      "shows_recipe_order_count": true,
+      "no_action_presenter": true,
+      "no_move_instruction": true,
+      "camera_first_root": true,
+      "dual_guidance_layout": true
+    },
+    "reference_question_and_order_are_necessary": {
+      "runtime_requires_questions": true,
+      "runtime_requires_references": true,
+      "store_requires_questions": true,
+      "store_requires_reference": true,
+      "author_can_reorder": true
+    },
+    "camera_interaction_shell": {
+      "compact_top_utility_cluster": true,
+      "persistent_grid": true,
+      "split_safe_area": true,
+      "large_question_set_safe_pager": true,
+      "in_camera_question_manager": true,
+      "recipe_favorite_without_new_page": true,
+      "legacy_recipe_not_active": true
+    }
+  },
+  "errors": []
+}

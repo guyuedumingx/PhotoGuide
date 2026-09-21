@@ -1,0 +1,629 @@
+{
+  "kind": "Recipe",
+  "id": "official.food",
+  "version": "0.8.0",
+  "title": "美食",
+  "subtitle": "让食物更有食欲，也保留桌面氛围",
+  "nodes": [
+    {
+      "id": "primary",
+      "type": "ENTITY",
+      "semanticClass": "food",
+      "roles": [
+        "PRIMARY_SUBJECT"
+      ],
+      "presence": "REQUIRED"
+    }
+  ],
+  "relations": [],
+  "goals": [
+    {
+      "id": "subject_exists",
+      "dimension": "std.node.exists",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "BOOLEAN",
+        "value": true
+      },
+      "class": "HARD",
+      "importance": 1.0,
+      "dependencies": []
+    },
+    {
+      "id": "subject_visibility",
+      "dimension": "std.node.visibility",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "BOOLEAN",
+        "value": true
+      },
+      "class": "HARD",
+      "importance": 0.98,
+      "dependencies": [
+        "subject_exists"
+      ]
+    },
+    {
+      "id": "subject_scale",
+      "dimension": "std.node.visual_scale",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.18,
+          0.38
+        ],
+        "acceptable": [
+          0.1,
+          0.52
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.9,
+      "dependencies": [
+        "subject_visibility"
+      ]
+    },
+    {
+      "id": "subject_x",
+      "dimension": "std.node.position_x",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.43,
+          0.57
+        ],
+        "acceptable": [
+          0.3,
+          0.7
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.78,
+      "dependencies": [
+        "subject_visibility"
+      ]
+    },
+    {
+      "id": "subject_y",
+      "dimension": "std.node.position_y",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.42,
+          0.62
+        ],
+        "acceptable": [
+          0.28,
+          0.76
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.68,
+      "dependencies": [
+        "subject_visibility"
+      ]
+    },
+    {
+      "id": "frame_luminance",
+      "dimension": "std.frame.luminance",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.34,
+          0.68
+        ],
+        "acceptable": [
+          0.2,
+          0.82
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.62,
+      "dependencies": []
+    },
+    {
+      "id": "highlight_fraction",
+      "dimension": "std.frame.highlight_fraction",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.0,
+          0.06
+        ],
+        "acceptable": [
+          0.0,
+          0.16
+        ]
+      },
+      "class": "SOFT",
+      "importance": 0.48,
+      "dependencies": []
+    },
+    {
+      "id": "subject_presentation",
+      "dimension": "std.semantic.subject_presentation",
+      "binding": {
+        "scope": "NODE",
+        "id": "primary"
+      },
+      "target": {
+        "type": "ORDINAL",
+        "ideal": 0
+      },
+      "class": "SOFT",
+      "importance": 0.58,
+      "dependencies": [
+        "subject_visibility"
+      ]
+    },
+    {
+      "id": "aesthetic_coherence",
+      "dimension": "std.semantic.aesthetic_coherence",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "ORDINAL",
+        "ideal": 0
+      },
+      "class": "SOFT",
+      "importance": 0.38,
+      "dependencies": []
+    }
+  ],
+  "actions": [
+    {
+      "id": "user.select_subject",
+      "actor": "SYSTEM",
+      "operation": "SELECT_SUBJECT",
+      "direction": "NONE",
+      "magnitude": "TINY",
+      "coordinateFrame": "IMAGE_SPACE",
+      "condition": {
+        "type": "BOOLEAN_EQUALS",
+        "goal": "subject_exists",
+        "bool": false
+      },
+      "effects": [
+        {
+          "goal": "subject_exists",
+          "gain": 0.92
+        }
+      ],
+      "informationEffects": [
+        {
+          "goal": "subject_exists",
+          "confidenceGain": 0.52,
+          "resolutionProbability": 0.9
+        }
+      ],
+      "burden": 0.05,
+      "risk": 0.0,
+      "uncertainty": 0.06,
+      "family": "subject.select",
+      "safety": "SAFE",
+      "presentationKey": "user.select_subject"
+    },
+    {
+      "id": "camera.reframe_visibility",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "BOOLEAN_EQUALS",
+        "goal": "subject_visibility",
+        "bool": false
+      },
+      "effects": [
+        {
+          "goal": "subject_visibility",
+          "gain": 0.92
+        },
+        {
+          "goal": "subject_x",
+          "gain": 0,
+          "damage": 0.12
+        },
+        {
+          "goal": "subject_y",
+          "gain": 0,
+          "damage": 0.12
+        }
+      ],
+      "burden": 0.08,
+      "family": "camera.reframe",
+      "safety": "SAFE",
+      "presentationKey": "camera.keep_subject_visible"
+    },
+    {
+      "id": "camera.distance.backward.scale",
+      "actor": "PHOTOGRAPHER",
+      "operation": "MOVE",
+      "direction": "BACKWARD",
+      "magnitude": "SMALL",
+      "coordinateFrame": "PHOTOGRAPHER_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "subject_scale",
+        "number": 0.52
+      },
+      "effects": [
+        {
+          "goal": "subject_scale",
+          "gain": 0.84
+        }
+      ],
+      "burden": 0.44,
+      "risk": 0.08,
+      "family": "camera.distance.backward",
+      "safety": "CONTEXT_DEPENDENT",
+      "presentationKey": "photographer.backward_subject"
+    },
+    {
+      "id": "camera.zoom.out.scale",
+      "actor": "CAMERA",
+      "operation": "ZOOM",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "subject_scale",
+        "number": 0.52
+      },
+      "effects": [
+        {
+          "goal": "subject_scale",
+          "gain": 0.72
+        }
+      ],
+      "burden": 0.07,
+      "uncertainty": 0.05,
+      "family": "camera.zoom.out",
+      "requiredCapability": "zoom.out",
+      "safety": "SAFE",
+      "presentationKey": "camera.zoom_out_subject"
+    },
+    {
+      "id": "camera.distance.forward.scale",
+      "actor": "PHOTOGRAPHER",
+      "operation": "MOVE",
+      "direction": "FORWARD",
+      "magnitude": "SMALL",
+      "coordinateFrame": "PHOTOGRAPHER_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "subject_scale",
+        "number": 0.1
+      },
+      "effects": [
+        {
+          "goal": "subject_scale",
+          "gain": 0.86
+        }
+      ],
+      "burden": 0.28,
+      "family": "camera.distance.forward",
+      "safety": "SAFE",
+      "presentationKey": "photographer.forward_subject_generic"
+    },
+    {
+      "id": "camera.zoom.in.scale",
+      "actor": "CAMERA",
+      "operation": "ZOOM",
+      "direction": "NONE",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "subject_scale",
+        "number": 0.1
+      },
+      "effects": [
+        {
+          "goal": "subject_scale",
+          "gain": 0.74
+        }
+      ],
+      "burden": 0.06,
+      "uncertainty": 0.04,
+      "family": "camera.zoom.in",
+      "requiredCapability": "zoom.2x",
+      "safety": "SAFE",
+      "presentationKey": "camera.zoom_in_subject"
+    },
+    {
+      "id": "subject.right",
+      "actor": "SCENE_OBJECT",
+      "operation": "MOVE",
+      "direction": "RIGHT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "IMAGE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "subject_x",
+        "number": 0.3
+      },
+      "effects": [
+        {
+          "goal": "subject_x",
+          "gain": 0.88
+        }
+      ],
+      "burden": 0.1,
+      "family": "subject.horizontal.right",
+      "safety": "SAFE",
+      "presentationKey": "subject_generic.move_right"
+    },
+    {
+      "id": "subject.left",
+      "actor": "SCENE_OBJECT",
+      "operation": "MOVE",
+      "direction": "LEFT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "IMAGE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "subject_x",
+        "number": 0.7
+      },
+      "effects": [
+        {
+          "goal": "subject_x",
+          "gain": 0.88
+        }
+      ],
+      "burden": 0.1,
+      "family": "subject.horizontal.left",
+      "safety": "SAFE",
+      "presentationKey": "subject_generic.move_left"
+    },
+    {
+      "id": "camera.aim.up",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "UP",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "subject_y",
+        "number": 0.28
+      },
+      "effects": [
+        {
+          "goal": "subject_y",
+          "gain": 0.8
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.vertical.up",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_up"
+    },
+    {
+      "id": "camera.aim.down",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "DOWN",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "subject_y",
+        "number": 0.76
+      },
+      "effects": [
+        {
+          "goal": "subject_y",
+          "gain": 0.8
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.vertical.down",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_down"
+    },
+    {
+      "id": "camera.exposure.up",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "UP",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "frame_luminance",
+        "number": 0.2
+      },
+      "effects": [
+        {
+          "goal": "frame_luminance",
+          "gain": 0.82
+        }
+      ],
+      "burden": 0.04,
+      "uncertainty": 0.06,
+      "family": "camera.exposure.up",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.exposure_up"
+    },
+    {
+      "id": "camera.exposure.down",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "DOWN",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "frame_luminance",
+        "number": 0.82
+      },
+      "effects": [
+        {
+          "goal": "frame_luminance",
+          "gain": 0.82
+        },
+        {
+          "goal": "highlight_fraction",
+          "gain": 0.28
+        }
+      ],
+      "burden": 0.04,
+      "uncertainty": 0.06,
+      "family": "camera.exposure.down",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.exposure_down"
+    },
+    {
+      "id": "system.hold_for_evidence",
+      "actor": "SYSTEM",
+      "operation": "HOLD",
+      "direction": "NONE",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effects": [],
+      "informationEffects": [
+        {
+          "goal": "subject_exists",
+          "confidenceGain": 0.3,
+          "resolutionProbability": 0.72
+        },
+        {
+          "goal": "subject_visibility",
+          "confidenceGain": 0.26,
+          "resolutionProbability": 0.68
+        }
+      ],
+      "burden": 0.01,
+      "risk": 0,
+      "uncertainty": 0.03,
+      "family": "evidence.hold",
+      "safety": "SAFE",
+      "presentationKey": "system.hold_evidence_generic"
+    }
+  ],
+  "authorPolicy": {
+    "allowGoalSkip": true,
+    "allowGoalLock": true,
+    "allowVariantSwitch": true
+  },
+  "perception": {
+    "subjectStrategy": "saliency",
+    "semanticHint": "food",
+    "faceAssist": false,
+    "poseAssist": false,
+    "anchorStrategy": "none",
+    "allowsManualSubjectSelection": true
+  },
+  "presentation": {
+    "domain": "food",
+    "icon": "fork.knife",
+    "tags": [
+      "美食",
+      "摆盘",
+      "光线"
+    ],
+    "featuredRank": 6
+  },
+  "critic": {
+    "intent": "Make the food look appetizing, intentional and visually clean.",
+    "adviceStyle": "Give exactly one concrete, high-impact adjustment at a time. Be concise, professional, and specific to the visible image. Do not invent objects outside the frame.",
+    "preferredSampleCount": 3,
+    "minimumSampleSpacing": 0.22,
+    "dimensions": [
+      {
+        "id": "composition",
+        "name": "Composition",
+        "rubric": "Judge crop, plate placement, negative space, tabletop balance and visual hierarchy.",
+        "weight": 1,
+        "targetScore": 0.82,
+        "actionability": 1,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "food_presentation",
+        "name": "Food presentation",
+        "rubric": "Judge plating, texture visibility, appetite appeal and whether the hero food reads instantly.",
+        "weight": 1,
+        "targetScore": 0.8,
+        "actionability": 0.9,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "lighting",
+        "name": "Lighting",
+        "rubric": "Judge direction, softness, specular highlights, shadows and dimensionality of the food.",
+        "weight": 0.9,
+        "targetScore": 0.8,
+        "actionability": 0.75
+      },
+      {
+        "id": "background",
+        "name": "Background",
+        "rubric": "Judge clutter, props and whether the background supports rather than competes with the food.",
+        "weight": 0.8,
+        "targetScore": 0.76,
+        "actionability": 0.8
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "rubric": "Judge color freshness, warmth, white balance and appetite appeal.",
+        "weight": 0.7,
+        "targetScore": 0.76,
+        "actionability": 0.45
+      },
+      {
+        "id": "detail",
+        "name": "Detail",
+        "rubric": "Judge focus, texture and whether important food details are crisp enough.",
+        "weight": 0.75,
+        "targetScore": 0.78,
+        "actionability": 0.45
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "rubric": "Judge whether the image already looks publishable as a food photograph.",
+        "weight": 0.85,
+        "targetScore": 0.8,
+        "actionability": 0.35
+      }
+    ]
+  }
+}

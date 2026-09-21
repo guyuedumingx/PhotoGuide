@@ -5,7 +5,8 @@ import SwiftUI
 @MainActor
 struct CameraPreviewRepresentable: UIViewRepresentable {
   let session: AVCaptureSession
-  let personRect: CGRect?
+  let subjectRect: CGRect?
+  let faceRect: CGRect?
   let anchorRect: CGRect?
   let anchorPoint: CGPoint?
   let guideCue: CameraGuideCue
@@ -23,7 +24,8 @@ struct CameraPreviewRepresentable: UIViewRepresentable {
     uiView.onTap = onTap
     uiView.onZoomGesture = onZoomGesture
     uiView.updateOverlays(
-      person: personRect,
+      subject: subjectRect,
+      face: faceRect,
       anchor: anchorRect,
       selectedImagePoint: anchorPoint,
       cue: guideCue)

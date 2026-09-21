@@ -1,7 +1,7 @@
 {
   "kind": "Recipe",
   "id": "official.environment_portrait",
-  "version": "0.3.4",
+  "version": "0.8.0",
   "title": "环境人像",
   "subtitle": "人物自然，景色有存在感",
   "nodes": [
@@ -157,8 +157,8 @@
         "type": "ORDINAL",
         "ideal": 0
       },
-      "class": "CORE",
-      "importance": 0.72,
+      "class": "SOFT",
+      "importance": 0.62,
       "dependencies": [
         "person_visibility"
       ]
@@ -767,5 +767,91 @@
     "allowGoalSkip": true,
     "allowGoalLock": true,
     "allowVariantSwitch": true
+  },
+  "perception": {
+    "subjectStrategy": "human",
+    "semanticHint": "person",
+    "faceAssist": true,
+    "poseAssist": true,
+    "anchorStrategy": "automatic",
+    "allowsManualSubjectSelection": false
+  },
+  "presentation": {
+    "domain": "portrait",
+    "icon": "person.and.background.dotted",
+    "tags": [
+      "三分构图",
+      "人物比例",
+      "环境关系"
+    ],
+    "featuredRank": 1
+  },
+  "critic": {
+    "intent": "Create a polished portrait while preserving the intent of the selected Recipe.",
+    "adviceStyle": "Give exactly one concrete, high-impact adjustment at a time. Be concise, professional, and specific to the visible image. Do not invent objects outside the frame.",
+    "preferredSampleCount": 3,
+    "minimumSampleSpacing": 0.22,
+    "dimensions": [
+      {
+        "id": "composition",
+        "name": "Composition",
+        "rubric": "Judge framing, headroom, edge tension, visual balance and subject placement.",
+        "weight": 1.0,
+        "targetScore": 0.82,
+        "actionability": 1.0,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "expression_pose",
+        "name": "Expression & pose",
+        "rubric": "Judge expression, body language, gesture and whether the subject feels natural and intentional.",
+        "weight": 0.95,
+        "targetScore": 0.78,
+        "actionability": 0.95
+      },
+      {
+        "id": "lighting",
+        "name": "Lighting",
+        "rubric": "Judge facial/subject light, exposure, contrast, highlight control and flattering direction.",
+        "weight": 0.9,
+        "targetScore": 0.78,
+        "actionability": 0.75
+      },
+      {
+        "id": "separation",
+        "name": "Subject separation",
+        "rubric": "Judge background distraction, depth, silhouette clarity and subject-background separation.",
+        "weight": 0.75,
+        "targetScore": 0.75,
+        "actionability": 0.8
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "rubric": "Judge skin/subject color, white balance and palette harmony.",
+        "weight": 0.5,
+        "targetScore": 0.72,
+        "actionability": 0.4
+      },
+      {
+        "id": "sharpness_timing",
+        "name": "Sharpness & timing",
+        "rubric": "Judge focus, motion, blink/timing and whether the decisive moment is usable.",
+        "weight": 0.85,
+        "targetScore": 0.8,
+        "actionability": 0.55,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "rubric": "Judge whether the portrait feels deliberate, coherent and ready to capture.",
+        "weight": 0.85,
+        "targetScore": 0.8,
+        "actionability": 0.35
+      }
+    ]
   }
 }

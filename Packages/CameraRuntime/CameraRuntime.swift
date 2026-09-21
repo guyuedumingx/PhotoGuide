@@ -707,7 +707,8 @@ public struct CameraZoomGesture: Equatable, Sendable {
 @MainActor
 public final class CameraPreviewView: UIView {
   public let previewLayer: AVCaptureVideoPreviewLayer
-  private let personLayer = CAShapeLayer()
+  private let subjectLayer = CAShapeLayer()
+  private let faceLayer = CAShapeLayer()
   private let anchorLayer = CAShapeLayer()
   private let markerLayer = CAShapeLayer()
   private let cueLayer = CAShapeLayer()
@@ -718,19 +719,27 @@ public final class CameraPreviewView: UIView {
   private var lastPinchEmissionTime: CFTimeInterval = 0
   private var lastGuideCue: CameraGuideCue = .none
   private var lastSelectedImagePoint: CGPoint?
+  private var lastSubjectVisible = false
+  private var lastFaceVisible = false
+  private var lastAnchorVisible = false
 
   public init(session: AVCaptureSession) {
     previewLayer = AVCaptureVideoPreviewLayer(session: session)
     super.init(frame: .zero)
     previewLayer.videoGravity = .resizeAspectFill
     layer.addSublayer(previewLayer)
-    [personLayer, anchorLayer, markerLayer, cueLayer, focusLayer].forEach { layer.addSublayer($0) }
+    [subjectLayer, faceLayer, anchorLayer, markerLayer, cueLayer, focusLayer].forEach { layer.addSublayer($0) }
     let accent = UIColor(red: 0.66, green: 0.95, blue: 0.86, alpha: 1)
-    personLayer.fillColor = UIColor.clear.cgColor
-    personLayer.strokeColor = accent.withAlphaComponent(0.74).cgColor
-    personLayer.lineWidth = 1.2
-    personLayer.lineCap = .round
-    personLayer.lineJoin = .round
+    subjectLayer.fillColor = UIColor.clear.cgColor
+    subjectLayer.strokeColor = accent.withAlphaComponent(0.74).cgColor
+    subjectLayer.lineWidth = 1.2
+    subjectLayer.lineCap = .round
+    subjectLayer.lineJoin = .round
+    faceLayer.fillColor = UIColor.clear.cgColor
+    faceLayer.strokeColor = UIColor(red: 0.67, green: 0.78, blue: 0.96, alpha: 0.92).cgColor
+    faceLayer.lineWidth = 1.35
+    faceLayer.lineCap = .round
+    faceLayer.lineJoin = .round
     anchorLayer.fillColor = UIColor.clear.cgColor
     anchorLayer.strokeColor = accent.withAlphaComponent(0.82).cgColor
     anchorLayer.lineWidth = 1.2
@@ -763,12 +772,18 @@ public final class CameraPreviewView: UIView {
   }
 
   public func updateOverlays(
-    person: CGRect?,
+    subject: CGRect?,
+    face: CGRect? = nil,
     anchor: CGRect?,
     selectedImagePoint: CGPoint?,
     cue: CameraGuideCue = .none
   ) {
-    let personLayerRect = person.map { layerRect(forNormalizedImageRect: $0) }
+    let subjectLayerRect = subject.map { layerRect(forNormalizedImageRect: $0) }
+    let faceLayerRect = face.map { layerRect(forNormalizedImageRect: $0) }
+    let anchorLayerRect = anchor.map { layerRect(forNormalizedImageRect: $0) }
+    let subjectAcquired = !lastSubjectVisible && subjectLayerRect != nil
+    let faceAcquired = !lastFaceVisible && faceLayerRect != nil
+    let anchorAcquired = !lastAnchorVisible && anchorLayerRect != nil
     let cueChanged = cue != lastGuideCue
     let markerChanged = !samePoint(selectedImagePoint, lastSelectedImagePoint)
 
@@ -776,9 +791,11 @@ public final class CameraPreviewView: UIView {
     // interpolation so the visual guides stay attached to the live subject instead of lagging.
     CATransaction.begin()
     CATransaction.setDisableActions(true)
-    personLayer.path = personLayerRect.map { cornerGuidePath(in: $0).cgPath }
-    anchorLayer.path = anchor.map {
-      UIBezierPath(roundedRect: layerRect(forNormalizedImageRect: $0), cornerRadius: 14).cgPath
+    subjectLayer.path = subjectLayerRect.map { cornerGuidePath(in: $0).cgPath }
+    faceLayer.path = faceLayerRect.map { faceGuidePath(in: $0).cgPath }
+    faceLayer.opacity = faceLayerRect == nil ? 0 : 1
+    anchorLayer.path = anchorLayerRect.map {
+      UIBezierPath(roundedRect: $0, cornerRadius: 14).cgPath
     }
     if let point = selectedImagePoint {
       let rect = layerRect(
@@ -792,15 +809,21 @@ public final class CameraPreviewView: UIView {
       markerLayer.path = nil
       markerLayer.opacity = 0
     }
-    cueLayer.path = personLayerRect.flatMap { guideCuePath(cue, around: $0)?.cgPath }
+    cueLayer.path = subjectLayerRect.flatMap { guideCuePath(cue, around: $0)?.cgPath }
     cueLayer.opacity = cue == .none ? 0 : 1
     CATransaction.commit()
 
     if markerChanged, selectedImagePoint != nil { animateMarkerSelection() }
     if cueChanged { animateCueChange(to: cue) }
+    if subjectAcquired { animateAcquisition(subjectLayer, key: "subjectAcquired") }
+    if faceAcquired { animateAcquisition(faceLayer, key: "faceAcquired") }
+    if anchorAcquired { animateAcquisition(anchorLayer, key: "anchorAcquired") }
 
     lastGuideCue = cue
     lastSelectedImagePoint = selectedImagePoint
+    lastSubjectVisible = subjectLayerRect != nil
+    lastFaceVisible = faceLayerRect != nil
+    lastAnchorVisible = anchorLayerRect != nil
   }
 
   private func samePoint(_ lhs: CGPoint?, _ rhs: CGPoint?) -> Bool {
@@ -809,6 +832,21 @@ public final class CameraPreviewView: UIView {
     case (let a?, let b?): abs(a.x - b.x) < 0.0005 && abs(a.y - b.y) < 0.0005
     default: false
     }
+  }
+
+  private func animateAcquisition(_ target: CAShapeLayer, key: String) {
+    target.removeAnimation(forKey: key)
+    let opacity = CABasicAnimation(keyPath: "opacity")
+    opacity.fromValue = 0.15
+    opacity.toValue = 1.0
+    let scale = CABasicAnimation(keyPath: "transform.scale")
+    scale.fromValue = 1.04
+    scale.toValue = 1.0
+    let group = CAAnimationGroup()
+    group.animations = [opacity, scale]
+    group.duration = 0.34
+    group.timingFunction = CAMediaTimingFunction(name: .easeOut)
+    target.add(group, forKey: key)
   }
 
   private func animateMarkerSelection() {
@@ -890,6 +928,18 @@ public final class CameraPreviewView: UIView {
           x: end.x + cos(angle + offset) * head,
           y: end.y + sin(angle + offset) * head))
     }
+    return path
+  }
+
+  private func faceGuidePath(in rect: CGRect) -> UIBezierPath {
+    let inset = rect.insetBy(dx: -5, dy: -5)
+    let radius = max(10, min(inset.width, inset.height) * 0.24)
+    let path = UIBezierPath(roundedRect: inset, cornerRadius: radius)
+    let cross: CGFloat = 4.5
+    path.move(to: CGPoint(x: inset.midX - cross, y: inset.midY))
+    path.addLine(to: CGPoint(x: inset.midX + cross, y: inset.midY))
+    path.move(to: CGPoint(x: inset.midX, y: inset.midY - cross))
+    path.addLine(to: CGPoint(x: inset.midX, y: inset.midY + cross))
     return path
   }
 

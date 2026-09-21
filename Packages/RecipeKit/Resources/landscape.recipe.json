@@ -1,0 +1,409 @@
+{
+  "kind": "Recipe",
+  "id": "official.landscape",
+  "version": "0.8.0",
+  "title": "风景",
+  "subtitle": "控制视觉重心、亮度与层次，适合山海城市景色",
+  "nodes": [],
+  "relations": [],
+  "goals": [
+    {
+      "id": "frame_luminance",
+      "dimension": "std.frame.luminance",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.3,
+          0.66
+        ],
+        "acceptable": [
+          0.16,
+          0.82
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.86,
+      "dependencies": []
+    },
+    {
+      "id": "highlight_fraction",
+      "dimension": "std.frame.highlight_fraction",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.0,
+          0.05
+        ],
+        "acceptable": [
+          0.0,
+          0.14
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.72,
+      "dependencies": []
+    },
+    {
+      "id": "visual_center_x",
+      "dimension": "std.frame.saliency_x",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.28,
+          0.72
+        ],
+        "acceptable": [
+          0.16,
+          0.84
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.62,
+      "dependencies": []
+    },
+    {
+      "id": "visual_center_y",
+      "dimension": "std.frame.saliency_y",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.3,
+          0.66
+        ],
+        "acceptable": [
+          0.18,
+          0.8
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.56,
+      "dependencies": []
+    },
+    {
+      "id": "scene_depth",
+      "dimension": "std.semantic.scene_depth",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "ORDINAL",
+        "ideal": 0
+      },
+      "class": "SOFT",
+      "importance": 0.64,
+      "dependencies": []
+    },
+    {
+      "id": "color_harmony",
+      "dimension": "std.semantic.color_harmony",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "ORDINAL",
+        "ideal": 0
+      },
+      "class": "SOFT",
+      "importance": 0.42,
+      "dependencies": []
+    }
+  ],
+  "actions": [
+    {
+      "id": "camera.exposure.up",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "UP",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "frame_luminance",
+        "number": 0.16
+      },
+      "effects": [
+        {
+          "goal": "frame_luminance",
+          "gain": 0.84
+        }
+      ],
+      "burden": 0.04,
+      "family": "camera.exposure.up",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.exposure_up"
+    },
+    {
+      "id": "camera.exposure.down",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "DOWN",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "frame_luminance",
+        "number": 0.82
+      },
+      "effects": [
+        {
+          "goal": "frame_luminance",
+          "gain": 0.8
+        },
+        {
+          "goal": "highlight_fraction",
+          "gain": 0.36
+        }
+      ],
+      "burden": 0.04,
+      "family": "camera.exposure.down",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.exposure_down"
+    },
+    {
+      "id": "camera.protect_highlights",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "DOWN",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "highlight_fraction",
+        "number": 0.14
+      },
+      "effects": [
+        {
+          "goal": "highlight_fraction",
+          "gain": 0.82
+        },
+        {
+          "goal": "frame_luminance",
+          "gain": 0,
+          "damage": 0.12
+        }
+      ],
+      "burden": 0.04,
+      "family": "camera.exposure.highlights",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.protect_highlights"
+    },
+    {
+      "id": "camera.frame.right",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "RIGHT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "visual_center_x",
+        "number": 0.16
+      },
+      "effects": [
+        {
+          "goal": "visual_center_x",
+          "gain": 0.78
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.horizontal",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_right"
+    },
+    {
+      "id": "camera.frame.left",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "LEFT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "visual_center_x",
+        "number": 0.84
+      },
+      "effects": [
+        {
+          "goal": "visual_center_x",
+          "gain": 0.78
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.horizontal",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_left"
+    },
+    {
+      "id": "camera.frame.up",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "UP",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "visual_center_y",
+        "number": 0.18
+      },
+      "effects": [
+        {
+          "goal": "visual_center_y",
+          "gain": 0.74
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.vertical",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_up"
+    },
+    {
+      "id": "camera.frame.down",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "DOWN",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "visual_center_y",
+        "number": 0.8
+      },
+      "effects": [
+        {
+          "goal": "visual_center_y",
+          "gain": 0.74
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.vertical",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_down"
+    },
+    {
+      "id": "system.hold_for_evidence",
+      "actor": "SYSTEM",
+      "operation": "HOLD",
+      "direction": "NONE",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effects": [],
+      "informationEffects": [
+        {
+          "goal": "visual_center_x",
+          "confidenceGain": 0.26,
+          "resolutionProbability": 0.72
+        },
+        {
+          "goal": "visual_center_y",
+          "confidenceGain": 0.26,
+          "resolutionProbability": 0.72
+        }
+      ],
+      "burden": 0.01,
+      "family": "evidence.hold",
+      "safety": "SAFE",
+      "presentationKey": "system.hold_evidence_scene"
+    }
+  ],
+  "authorPolicy": {
+    "allowGoalSkip": true,
+    "allowGoalLock": true,
+    "allowVariantSwitch": true
+  },
+  "perception": {
+    "subjectStrategy": "scene",
+    "semanticHint": "landscape",
+    "faceAssist": false,
+    "poseAssist": false,
+    "anchorStrategy": "none",
+    "allowsManualSubjectSelection": false
+  },
+  "presentation": {
+    "domain": "landscape",
+    "icon": "mountain.2.fill",
+    "tags": [
+      "风景",
+      "层次",
+      "曝光"
+    ],
+    "featuredRank": 10
+  },
+  "critic": {
+    "intent": "Create a landscape with strong visual structure, depth and atmosphere.",
+    "adviceStyle": "Give exactly one concrete, high-impact adjustment at a time. Be concise, professional, and specific to the visible image. Do not invent objects outside the frame.",
+    "preferredSampleCount": 3,
+    "minimumSampleSpacing": 0.22,
+    "dimensions": [
+      {
+        "id": "composition",
+        "name": "Composition",
+        "rubric": "Judge horizon placement, visual balance, edge tension, foreground use and dominant shapes.",
+        "weight": 1,
+        "targetScore": 0.84,
+        "actionability": 1,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "depth",
+        "name": "Depth & layers",
+        "rubric": "Judge foreground-midground-background separation and spatial depth.",
+        "weight": 0.9,
+        "targetScore": 0.8,
+        "actionability": 0.8
+      },
+      {
+        "id": "light",
+        "name": "Light & atmosphere",
+        "rubric": "Judge direction, dynamic range, sky/ground balance and atmospheric quality.",
+        "weight": 0.9,
+        "targetScore": 0.8,
+        "actionability": 0.6,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "rubric": "Judge palette harmony, white balance and whether color supports the mood.",
+        "weight": 0.65,
+        "targetScore": 0.76,
+        "actionability": 0.35
+      },
+      {
+        "id": "clarity",
+        "name": "Clarity",
+        "rubric": "Judge haze/detail/sharpness and whether technical rendering serves the scene.",
+        "weight": 0.55,
+        "targetScore": 0.74,
+        "actionability": 0.3
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "rubric": "Judge whether the landscape feels deliberate and photographically complete.",
+        "weight": 0.9,
+        "targetScore": 0.82,
+        "actionability": 0.3
+      }
+    ]
+  }
+}

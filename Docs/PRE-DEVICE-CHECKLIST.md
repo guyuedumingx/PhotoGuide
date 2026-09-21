@@ -1,30 +1,51 @@
-# Pre-device checklist
+# PhotoGuide v0.8 — Pre-device and market-release checklist
 
-## A. 已完成的 Linux / Pure Swift 验证
+## Product invariant
 
-- [x] GuidanceCore Swift 6 build
-- [x] GuidanceCore 128 tests / 0 failures
-- [x] RecipeKit Swift 6 build
-- [x] RecipeKit 6 tests / 0 failures
-- [x] Recipe JSON 编译与 Validator 通过
-- [x] 所有 Swift 文件 `swiftc -parse`
-- [x] Swift 6 formatter
-- [x] UI 不用 Mock semantic 结果冒充真实模型
-- [x] DJev 接口保持 optional；semantic 不可用时 Core 仍能运行 local goals
-- [x] 同一 local processed frame 的 observations 通过一个 `ingestBatch` 原子提交
-- [x] Replay 覆盖 capability / safety / checkpoint restore / scene-condition reset / empty processed frame
-- [x] Checkpoint schema v2 覆盖 Registry contract，并保留受控 v1 migration
-- [x] Runtime invariant audit 覆盖 Action / Plan / verification / pause / READY 生命周期
+The primary product path is:
 
-## B. 第一次到 Mac 上
+```text
+sampled camera frames
+→ Recipe critic profile
+→ replaceable multimodal critic
+→ multi-dimensional photography assessments
+→ one professional next-step suggestion
+→ resample
+```
+
+Local Vision is support/fallback. Device QA must therefore test the critic path first, not merely prove that local person/saliency detection runs.
+
+## A. Repository / Linux RC gate
+
+- [x] GuidanceCore semantic critic protocol compiles/tests.
+- [x] RecipeKit has explicit domain critic profiles.
+- [x] Every shipping Recipe has at least five professional quality dimensions.
+- [x] `critic-only` structural ablation preserves 100% Recipe quality-dimension coverage.
+- [x] `local-only` is labeled degraded, not full product capability.
+- [x] generic HTTP multimodal critic adapter exists; DJev is not hard-coded as the architecture.
+- [x] sampled-frame request buffer exists.
+- [x] remote AI is opt-in and Release requires HTTPS.
+- [x] tokens are not embedded in project configuration.
+- [x] English / Simplified Chinese / Traditional Chinese localization contract.
+- [x] deterministic Xcode project generation.
+- [x] privacy manifest and app icon assets.
+
+Run:
+
+```bash
+swift test --package-path Packages/GuidanceCore
+swift test --package-path Packages/RecipeKit
+python scripts/validate-localization.py
+python scripts/run-ablation.py
+python scripts/evaluate-critic-benchmark.py --self-test
+./scripts/prepare-xcode.sh
+python scripts/release-audit.py
+```
+
+## B. macOS / Xcode gate
 
 ```bash
 ./scripts/prepare-xcode.sh
-```
-
-然后执行：
-
-```bash
 xcodebuild \
   -project PhotoGuide.xcodeproj \
   -scheme PhotoGuideApp \
@@ -34,75 +55,94 @@ xcodebuild \
   build
 ```
 
-如果 build 成功，再开 Simulator 做 UI smoke test。此阶段只修 Apple-framework 类型/链接/权限/actor-isolation 问题，不再扩 Core 抽象。
+Then run the UI test target and an Archive with the real signing team. Fix Apple-framework type, actor-isolation, permission, resource or linker failures before changing product behavior.
 
-## C. 第一次真机：功能闭环
+## C. Real-device semantic loop
 
-只验证这些，不扩功能：
+Validate with the production-like critic endpoint enabled and consent granted:
 
-1. 后置相机 1× 预览是否正常。
-2. 人物 bbox 是否跟画面位置一致。
-3. 点背景主体时 marker 与手指位置一致。
-4. 点按是否在正确位置对焦。
-5. 2× 按钮只在设备支持时出现；capability 变化能进入 replay/snapshot。
-6. 多人物交叉时有没有突然换绑。
-7. 同一 local frame 的多 Dimension 不会触发中途 verification timeout。
-8. “完成”后是否等**新的 processed evidence**再给下一步。
-9. “换一个”后当前验证状态立即结束，替代 action 可继续。
-10. “做不到”后同 family 是否消失且不残留 WAIT。
-11. “取消”后是否从当前位置重新观察，不做物理 rollback。
-12. “跳过”当前 Goal 时，与该 Goal 绑定的 transaction 是否立即终止。
-13. “锁住”后任何可能伤害该 Goal 的 transaction/plan 是否停止。
-14. “满意”后是否立即停止 pending work；失败 HARD guard 仍不能被覆盖。
-15. 未 READY 时快门是否仍可按。
-16. 拍照与 add-only 相册保存是否正常。
+1. camera preview remains responsive while critic requests are in flight;
+2. one request at a time; no frame-by-frame upload;
+3. sampled-frame IDs/timestamps are in order;
+4. stale previous-scene responses never overwrite current advice;
+5. each Recipe sends its own critic dimensions/rubrics;
+6. model advice appears without requiring a local person detector;
+7. food/flower/product/pet/landscape/architecture all reach useful semantic guidance;
+8. professional advice does not flicker every result; hysteresis is perceptually stable;
+9. `captureReady` does not oscillate from adjacent sampled windows;
+10. model timeout/5xx degrades to Basic mode without freezing camera/capture;
+11. reconnect restores AI critique without reviving stale advice;
+12. remote-AI off means no frame upload and UI does not claim AI professional review.
 
-## D. 故障与恢复
+## D. Cross-domain device matrix
 
-- [ ] App 在 Action proposed / verifying 时进入后台；回前台必须重新观察，不得恢复旧 READY。
-- [ ] 后台被系统杀掉后 30 分钟内重新进入：locks/constraints/calibration 可恢复，但 safety clearance、capabilities、旧 observations、active transaction 不得恢复。
-- [ ] 修改 Dimension/Evaluator Registry contract 而复用 Recipe ID，旧 schema-v2 checkpoint 必须拒绝。
-- [ ] 用 schema-v1 checkpoint 恢复时，已不存在的 evaluator/dimension reliability 必须被清理。
-- [ ] 连续模拟 DJev timeout；达到阈值后 semantic evaluator 被隔离，本地 Vision 继续工作。
-- [ ] circuit-breaker cooldown 后只做受控 probe；probe 成功才恢复 semantic cadence。
-- [ ] semantic 返回错误 Dimension / Binding / frame / scene revision 时必须被拒绝且可在 replay 中复现。
-- [ ] scene condition 从 low-light/motion 恢复为 clear 后，replay 终态也必须是 clear，而不是残留旧 profile。
-- [ ] Camera/perception pipeline 暂停时不得保留 pending Action/Plan/verification。
-- [ ] thermal serious/critical 时 semantic workload 降低，但 HARD local guard 不得被节流掉。
+Do not validate only portraits. Use independent sessions for at least:
 
-## E. Replay / invariant 调试流程
+- portrait / close-up portrait;
+- food;
+- flower / plant;
+- product / still life;
+- pet / moving subject;
+- landscape;
+- architecture.
 
-真机出现“左右来回、突然换建议、一直等、后台回来状态不对”等问题时，优先导出：
+Cross with clean/cluttered backgrounds, normal/low/backlight, portrait/landscape orientation and multiple lenses where meaningful.
 
-1. `session.replayEvents`
-2. `session.snapshot()`
-3. `session.invariantIssues()`
-4. Session trace
+Record:
 
-先在离线 `GuidanceReplayer` 重放，再修改 Scheduler/GoalEngine。不要直接根据 UI 表象猜 Core 原因。
+- time to first useful critique;
+- P50 / P95 critic latency;
+- advice churn/repetition;
+- capture-ready stability;
+- user-followed advice success;
+- request failures/timeouts;
+- preview FPS, CPU, memory, thermal state and battery impact.
 
-## F. 性能记录
+## E. Empirical photography-quality gate
 
-建议记录：
+Architecture tests cannot prove advice quality. Before market release, freeze a held-out dataset and human photography labels according to `Docs/CRITIC-BENCHMARK-PROTOCOL-v0.8.md`.
 
-- preview FPS
-- local Vision avg / p95 latency
-- semantic request rate / p95 latency / timeout rate
-- CPU / memory / thermal state
-- 10 分钟电量变化
-- action suggestions per minute
-- action verification success/no-effect/opposite rate
-- repeated advice / oscillation rate
-- evaluator conflict-to-UNKNOWN rate
+Required ablations use the same frozen samples:
 
-## G. 真机前不能伪造的结论
+- `full` sampled-frame + Recipe-specific rubric;
+- `single_frame`;
+- `generic_rubric`;
+- one or more alternative model candidates;
+- optional `local_only` degraded baseline.
 
-Linux 环境无法对 AVFoundation / Vision / SwiftUI 完成 Xcode 链接，因此 v0.3.9 当前状态定义为：
+Run:
 
-> **Pure-Swift core validated; ready for first Xcode/device integration pass**
+```bash
+python scripts/evaluate-critic-benchmark.py Benchmarks/critic-benchmark.jsonl \
+  --json-out Docs/CRITIC-BENCHMARK-RESULTS.json \
+  --markdown-out Docs/CRITIC-BENCHMARK-RESULTS.md
+python scripts/release-audit.py --market-release
+```
 
-而不是：
+Do not use the synthetic fixture in `Tests/Fixtures` as product evidence.
 
-> production validated
+## F. Privacy / failure paths
 
-真机阶段的目标首先是验证坐标系、并发/生命周期、传感器性能和真实控制体验，而不是再增加控制抽象。
+- [ ] remote critique consent is explicit and reversible;
+- [ ] privacy policy matches the deployed service's actual retention and subprocessors;
+- [ ] no long-lived service secret exists in the shipped binary;
+- [ ] camera/photo permissions denied and later restored behave correctly;
+- [ ] background/foreground invalidates stale semantic context;
+- [ ] network loss and high latency never block the shutter;
+- [ ] thermal serious/critical lowers remote/local workload without corrupting state;
+- [ ] repeated malformed critic responses are circuit-broken;
+- [ ] unsafe physical-movement advice still receives the movement warning boundary.
+
+## G. Release meaning
+
+Passing the normal repository audit means **release-candidate structure is internally consistent**.
+
+Market-ready means all of the following are also true:
+
+1. production critic endpoint deployed;
+2. held-out empirical critic benchmark passed against pre-declared thresholds;
+3. Xcode build/archive passed;
+4. physical-device matrix passed;
+5. privacy/store/signing requirements completed.
+
+Never substitute local Vision success for multimodal critic quality, and never substitute structural ablation for empirical photography-quality validation.

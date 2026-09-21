@@ -1,0 +1,344 @@
+{
+  "kind": "Recipe",
+  "id": "official.architecture",
+  "version": "0.8.0",
+  "title": "建筑",
+  "subtitle": "强调结构、对称与线条秩序",
+  "nodes": [],
+  "relations": [],
+  "goals": [
+    {
+      "id": "frame_luminance",
+      "dimension": "std.frame.luminance",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.28,
+          0.66
+        ],
+        "acceptable": [
+          0.16,
+          0.82
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.76,
+      "dependencies": []
+    },
+    {
+      "id": "visual_center_x",
+      "dimension": "std.frame.saliency_x",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.44,
+          0.56
+        ],
+        "acceptable": [
+          0.3,
+          0.7
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.84,
+      "dependencies": []
+    },
+    {
+      "id": "visual_center_y",
+      "dimension": "std.frame.saliency_y",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "RANGE",
+        "ideal": [
+          0.36,
+          0.6
+        ],
+        "acceptable": [
+          0.22,
+          0.74
+        ]
+      },
+      "class": "CORE",
+      "importance": 0.66,
+      "dependencies": []
+    },
+    {
+      "id": "aesthetic_coherence",
+      "dimension": "std.semantic.aesthetic_coherence",
+      "binding": {
+        "scope": "FRAME"
+      },
+      "target": {
+        "type": "ORDINAL",
+        "ideal": 0
+      },
+      "class": "SOFT",
+      "importance": 0.62,
+      "dependencies": []
+    }
+  ],
+  "actions": [
+    {
+      "id": "camera.exposure.up",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "UP",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "frame_luminance",
+        "number": 0.16
+      },
+      "effects": [
+        {
+          "goal": "frame_luminance",
+          "gain": 0.82
+        }
+      ],
+      "burden": 0.04,
+      "family": "camera.exposure.up",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.exposure_up"
+    },
+    {
+      "id": "camera.exposure.down",
+      "actor": "CAMERA",
+      "operation": "ADJUST_EXPOSURE",
+      "direction": "DOWN",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "frame_luminance",
+        "number": 0.82
+      },
+      "effects": [
+        {
+          "goal": "frame_luminance",
+          "gain": 0.82
+        }
+      ],
+      "burden": 0.04,
+      "family": "camera.exposure.down",
+      "requiredCapability": "exposure.bias",
+      "safety": "SAFE",
+      "presentationKey": "camera.exposure_down"
+    },
+    {
+      "id": "camera.frame.right",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "RIGHT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "visual_center_x",
+        "number": 0.3
+      },
+      "effects": [
+        {
+          "goal": "visual_center_x",
+          "gain": 0.84
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.horizontal",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_right"
+    },
+    {
+      "id": "camera.frame.left",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "LEFT",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "visual_center_x",
+        "number": 0.7
+      },
+      "effects": [
+        {
+          "goal": "visual_center_x",
+          "gain": 0.84
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.horizontal",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_left"
+    },
+    {
+      "id": "camera.frame.up",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "UP",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_BELOW",
+        "goal": "visual_center_y",
+        "number": 0.22
+      },
+      "effects": [
+        {
+          "goal": "visual_center_y",
+          "gain": 0.78
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.vertical",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_up"
+    },
+    {
+      "id": "camera.frame.down",
+      "actor": "CAMERA",
+      "operation": "REFRAME",
+      "direction": "DOWN",
+      "magnitude": "SMALL",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "CONTINUOUS_ABOVE",
+        "goal": "visual_center_y",
+        "number": 0.74
+      },
+      "effects": [
+        {
+          "goal": "visual_center_y",
+          "gain": 0.78
+        }
+      ],
+      "burden": 0.06,
+      "family": "camera.frame.vertical",
+      "safety": "SAFE",
+      "presentationKey": "camera.frame_down"
+    },
+    {
+      "id": "system.hold_for_evidence",
+      "actor": "SYSTEM",
+      "operation": "HOLD",
+      "direction": "NONE",
+      "magnitude": "TINY",
+      "coordinateFrame": "DEVICE_SPACE",
+      "condition": {
+        "type": "ALWAYS"
+      },
+      "effects": [],
+      "informationEffects": [
+        {
+          "goal": "visual_center_x",
+          "confidenceGain": 0.24,
+          "resolutionProbability": 0.7
+        }
+      ],
+      "burden": 0.01,
+      "family": "evidence.hold",
+      "safety": "SAFE",
+      "presentationKey": "system.hold_evidence_scene"
+    }
+  ],
+  "authorPolicy": {
+    "allowGoalSkip": true,
+    "allowGoalLock": true,
+    "allowVariantSwitch": true
+  },
+  "perception": {
+    "subjectStrategy": "scene",
+    "semanticHint": "architecture",
+    "faceAssist": false,
+    "poseAssist": false,
+    "anchorStrategy": "none",
+    "allowsManualSubjectSelection": false
+  },
+  "presentation": {
+    "domain": "architecture",
+    "icon": "building.2.crop.circle",
+    "tags": [
+      "建筑",
+      "结构",
+      "对称"
+    ],
+    "featuredRank": 11
+  },
+  "critic": {
+    "intent": "Create a clean architectural image with intentional geometry and spatial order.",
+    "adviceStyle": "Give exactly one concrete, high-impact adjustment at a time. Be concise, professional, and specific to the visible image. Do not invent objects outside the frame.",
+    "preferredSampleCount": 3,
+    "minimumSampleSpacing": 0.22,
+    "dimensions": [
+      {
+        "id": "composition",
+        "name": "Composition",
+        "rubric": "Judge framing, negative space, symmetry/asymmetry and edge control.",
+        "weight": 1,
+        "targetScore": 0.84,
+        "actionability": 1,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "geometry",
+        "name": "Geometry & perspective",
+        "rubric": "Judge verticals, converging lines, perspective distortion and alignment.",
+        "weight": 1,
+        "targetScore": 0.84,
+        "actionability": 0.85,
+        "requiredForReady": true,
+        "minimumConfidence": 0.55
+      },
+      {
+        "id": "lines",
+        "name": "Lines & rhythm",
+        "rubric": "Judge leading lines, repetition, pattern and visual order.",
+        "weight": 0.8,
+        "targetScore": 0.8,
+        "actionability": 0.65
+      },
+      {
+        "id": "lighting",
+        "name": "Lighting",
+        "rubric": "Judge facade/interior light, highlight/shadow balance and shape definition.",
+        "weight": 0.8,
+        "targetScore": 0.78,
+        "actionability": 0.55
+      },
+      {
+        "id": "clutter",
+        "name": "Clutter control",
+        "rubric": "Judge distracting people, signs, objects and edge intrusions.",
+        "weight": 0.75,
+        "targetScore": 0.78,
+        "actionability": 0.8
+      },
+      {
+        "id": "color",
+        "name": "Color",
+        "rubric": "Judge palette and white balance.",
+        "weight": 0.5,
+        "targetScore": 0.74,
+        "actionability": 0.3
+      },
+      {
+        "id": "overall",
+        "name": "Overall",
+        "rubric": "Judge whether the architectural image feels precise and polished.",
+        "weight": 0.85,
+        "targetScore": 0.82,
+        "actionability": 0.3
+      }
+    ]
+  }
+}

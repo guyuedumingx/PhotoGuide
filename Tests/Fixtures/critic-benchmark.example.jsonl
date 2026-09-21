@@ -1,0 +1,3 @@
+# Synthetic schema fixture only. It is not empirical product evidence.
+{"sample_id":"fixture-food-01","recipe_id":"official.food","variant":"full","human":{"capture_ready":false,"scores":{"composition":0.55,"lighting":0.70}},"model":{"capture_ready":false,"scores":{"composition":0.60,"lighting":0.66}},"advice_usefulness":0.9,"advice_safe":true,"latency_ms":240}
+{"sample_id":"fixture-food-01","recipe_id":"official.food","variant":"single_frame","human":{"capture_ready":false,"scores":{"composition":0.55,"lighting":0.70}},"model":{"capture_ready":true,"scores":{"composition":0.78,"lighting":0.72}},"advice_usefulness":0.5,"advice_safe":true,"latency_ms":170}

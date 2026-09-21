@@ -18,6 +18,8 @@ public enum ActionOperation: String, Codable, Sendable {
   case wait
   case capture
   case selectAnchor
+  case selectSubject
+  case adjustExposure
 }
 
 public enum ActionDirection: String, Codable, Sendable {
